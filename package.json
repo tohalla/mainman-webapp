@@ -1,0 +1,55 @@
+{
+  "name": "mainman-webapp",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tohalla/mainman-webapp.git"
+  },
+  "author": "Touko Hallasmaa",
+  "bugs": {
+    "url": "https://github.com/tohalla/mainman-webapp/issues"
+  },
+  "homepage": "https://github.com/tohalla/mainman-webapp#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.3.6",
+    "date-fns": "^2.14.0",
+    "emotion": "^10.0.27",
+    "isomorphic-unfetch": "^3.0.0",
+    "next": "^9.4.2",
+    "next-redux-wrapper": "^6.0.1",
+    "normalize.css": "^8.0.1",
+    "ramda": "^0.27.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-intl": "^4.5.11",
+    "react-redux": "^7.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^10.0.4",
+    "@types/ramda": "^0.27.6",
+    "@types/react": "^16.9.35",
+    "@types/react-redux": "^7.1.9",
+    "@types/react-test-renderer": "^16.9.2",
+    "@types/webpack-env": "^1.15.2",
+    "@typescript-eslint/eslint-plugin": "^3.0.0",
+    "@typescript-eslint/parser": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.3"
+  }
+}
