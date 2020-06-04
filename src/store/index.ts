@@ -1,11 +1,10 @@
 import { configureStore, getDefaultMiddleware, Action } from "@reduxjs/toolkit";
 
-import { MakeStore } from "next-redux-wrapper";
 import reducer, { State } from "./reducer";
 
 export const middleware = [...getDefaultMiddleware({})];
 
-export const getStore: MakeStore = () => {
+export const getStore = () => {
   const store = configureStore<State, Action<unknown>, typeof middleware>({
     reducer,
     middleware,
