@@ -1,5 +1,6 @@
 import React from "react";
 import { NextComponentType } from "next";
+import { ThemeProvider } from "emotion-theming";
 import NextApp, { AppContext, AppProps } from "next/app";
 import { CacheProvider } from "@emotion/core";
 import { cache } from "emotion";
@@ -12,6 +13,7 @@ import {
 
 import { getStore, wrapper } from "../src/store";
 import { Context } from "../server";
+import theme from "../src/theme";
 
 interface Props extends AppProps, IntlConfig {
   store: ReturnType<typeof getStore>;
@@ -36,7 +38,13 @@ const App: NextComponentType<
   return (
     <CacheProvider value={cache}>
       <RawIntlProvider value={intl}>
-        <NextApp Component={Component} pageProps={pageProps} router={router} />
+        <ThemeProvider theme={theme}>
+          <NextApp
+            Component={Component}
+            pageProps={pageProps}
+            router={router}
+          />
+        </ThemeProvider>
       </RawIntlProvider>
     </CacheProvider>
   );
