@@ -1,4 +1,4 @@
-import React from "react";
+import { extractCritical } from "emotion-server";
 import NextDocument, {
   Head,
   Main,
@@ -6,7 +6,7 @@ import NextDocument, {
   DocumentContext,
   Html,
 } from "next/document";
-import { extractCritical } from "emotion-server";
+import React from "react";
 
 import { Context, LocaleProps } from "../server";
 

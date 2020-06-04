@@ -1,12 +1,13 @@
-import { IntlConfig } from "react-intl";
-import { basename } from "path";
-import glob from "glob";
-import areIntlLocalesSupported from "intl-locales-supported";
-import next, { NextPageContext } from "next";
-import intlPolyfill from "intl";
 import { readFileSync } from "fs";
 import { createServer } from "http";
+import { basename } from "path";
+
 import accepts from "accepts";
+import glob from "glob";
+import intlPolyfill from "intl";
+import areIntlLocalesSupported from "intl-locales-supported";
+import next, { NextPageContext } from "next";
+import { IntlConfig } from "react-intl";
 
 export interface LocaleProps extends Pick<IntlConfig, "messages" | "locale"> {
   localeDataScript: string;

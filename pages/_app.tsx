@@ -1,18 +1,18 @@
-import React from "react";
-import { NextComponentType } from "next";
-import { ThemeProvider } from "emotion-theming";
-import NextApp, { AppContext, AppProps } from "next/app";
 import { CacheProvider } from "@emotion/core";
 import { cache } from "emotion";
+import { ThemeProvider } from "emotion-theming";
+import { NextComponentType } from "next";
+import NextApp, { AppContext, AppProps } from "next/app";
+import React from "react";
 import {
+  IntlConfig,
+  RawIntlProvider,
   createIntl,
   createIntlCache,
-  RawIntlProvider,
-  IntlConfig,
 } from "react-intl";
 
-import { getStore, wrapper } from "../src/store";
 import { Context } from "../server";
+import { getStore, wrapper } from "../src/store";
 import theme from "../src/theme";
 
 interface Props extends AppProps, IntlConfig {
@@ -57,8 +57,9 @@ App.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  const { req } = ctx;
-  const { locale, messages } = req;
+  const {
+    req: { locale, messages },
+  } = ctx;
 
   return { pageProps, locale, messages };
 };
