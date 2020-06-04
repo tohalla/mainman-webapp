@@ -37,7 +37,7 @@ module.exports = {
       version: "detect",
     },
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "import", "emotion"],
   rules: {
     "react/jsx-curly-newline": "off",
     "react/jsx-wrap-multilines": [
@@ -70,5 +70,23 @@ module.exports = {
     ],
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
     "import/no-unresolved": [2, { caseSensitive: false }],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/order": [
+      "error",
+      {
+        groups: ["builtin", "external", "parent", "sibling", "index"],
+        "newlines-between": "always",
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+      },
+    ],
+    "no-param-reassign": [
+      "error",
+      { props: true, ignorePropertyModificationsFor: ["draft"] },
+    ],
+    "react/jsx-sort-props": "error",
+    "no-use-before-define": ["error", { variables: false }],
   },
 };

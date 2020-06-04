@@ -1,8 +1,10 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import withRedux from "next-redux-wrapper";
 import { NextComponentType } from "next";
 import NextApp, { AppContext, AppProps } from "next/app";
 import { Provider } from "react-redux";
+import { CacheProvider } from "@emotion/core";
+import { cache } from "emotion";
 
 import { getStore } from "../src/store";
 
@@ -16,9 +18,11 @@ const App: NextComponentType<AppContext, Record<string, unknown>, Props> = ({
   router,
 }: Props) => {
   return (
-    <Provider store={store}>
-      <NextApp Component={Component} pageProps={{}} router={router} />
-    </Provider>
+    <CacheProvider value={cache}>
+      <Provider store={store}>
+        <NextApp Component={Component} pageProps={{}} router={router} />
+      </Provider>
+    </CacheProvider>
   );
 };
 
