@@ -1,13 +1,16 @@
 import { configureStore, getDefaultMiddleware, Action } from "@reduxjs/toolkit";
 
+import { createWrapper } from "next-redux-wrapper";
 import reducer, { State } from "./reducer";
 
 export const middleware = [...getDefaultMiddleware({})];
 
-export const getStore = () => {
+export const getStore = (preloadedState?: Partial<State>) => {
   const store = configureStore<State, Action<unknown>, typeof middleware>({
     reducer,
     middleware,
+    preloadedState,
+    devTools: process.env.NODE_ENV === "development",
   });
 
   if (process.env.NODE_ENV === "development" && module.hot) {
@@ -19,3 +22,7 @@ export const getStore = () => {
 
   return store;
 };
+
+export const wrapper = createWrapper<State>(getStore, {
+  debug: process.env.NODE_ENV === "development",
+});

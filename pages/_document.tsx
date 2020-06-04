@@ -4,20 +4,25 @@ import NextDocument, {
   Main,
   NextScript,
   DocumentContext,
-  DocumentInitialProps,
   Html,
 } from "next/document";
 import { extractCritical } from "emotion-server";
 
-export default class Document extends NextDocument {
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
-    const initialProps = await Document.getInitialProps(ctx);
+import { Context, LocaleProps } from "../server";
+
+export default class Document extends NextDocument<LocaleProps> {
+  static async getInitialProps(ctx: DocumentContext & Context) {
+    const initialProps = await NextDocument.getInitialProps(ctx);
+    const {
+      req: { locale, localeDataScript },
+    } = ctx;
+
     const styles = extractCritical(initialProps.html);
 
     return {
       ...initialProps,
+      locale,
+      localeDataScript,
       styles: (
         <>
           {initialProps.styles}
@@ -38,6 +43,13 @@ export default class Document extends NextDocument {
         <body>
           <Main />
           <NextScript />
+
+          <script
+            // eslint-disable-next-line
+            dangerouslySetInnerHTML={{
+              __html: this.props.localeDataScript,
+            }}
+          />
         </body>
       </Html>
     );

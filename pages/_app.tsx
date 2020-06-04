@@ -1,29 +1,64 @@
 import React from "react";
-import withRedux from "next-redux-wrapper";
 import { NextComponentType } from "next";
 import NextApp, { AppContext, AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { CacheProvider } from "@emotion/core";
 import { cache } from "emotion";
+import {
+  createIntl,
+  createIntlCache,
+  RawIntlProvider,
+  IntlConfig,
+} from "react-intl";
 
-import { getStore } from "../src/store";
+import { getStore, wrapper } from "../src/store";
+import { Context } from "../server";
 
-interface Props extends AppProps {
+interface Props extends AppProps, IntlConfig {
   store: ReturnType<typeof getStore>;
 }
 
-const App: NextComponentType<AppContext, Record<string, unknown>, Props> = ({
-  Component,
-  store,
-  router,
-}: Props) => {
+const intlCache = createIntlCache();
+
+const App: NextComponentType<
+  AppContext & { ctx: Context },
+  Record<string, unknown>,
+  Props
+> = ({ Component, store, locale, messages, router, pageProps }: Props) => {
+  const intl = createIntl(
+    {
+      locale,
+      messages,
+    },
+    intlCache
+  );
+
   return (
     <CacheProvider value={cache}>
-      <Provider store={store}>
-        <NextApp Component={Component} pageProps={{}} router={router} />
-      </Provider>
+      <RawIntlProvider value={intl}>
+        <Provider store={store}>
+          <NextApp
+            Component={Component}
+            pageProps={pageProps}
+            router={router}
+          />
+        </Provider>
+      </RawIntlProvider>
     </CacheProvider>
   );
 };
 
-export default withRedux(getStore)(App);
+App.getInitialProps = async ({ Component, ctx }) => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  const { req } = ctx;
+  const { locale, messages } = req;
+
+  return { pageProps, locale, messages };
+};
+
+export default wrapper.withRedux(App);
