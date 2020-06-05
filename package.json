@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prelint": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint './{pages,src}/**/*.ts{,x}'",
     "dev": "next",
     "build": "next build",
