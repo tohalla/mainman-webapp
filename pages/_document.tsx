@@ -1,3 +1,4 @@
+import { Global } from "@emotion/core";
 import { extractCritical } from "emotion-server";
 import NextDocument, {
   Head,
@@ -9,6 +10,7 @@ import NextDocument, {
 import React from "react";
 
 import { Context, LocaleProps } from "../server";
+import global from "../src/theme/global";
 
 export default class Document extends NextDocument<LocaleProps> {
   static async getInitialProps(ctx: DocumentContext & Context) {
@@ -27,10 +29,11 @@ export default class Document extends NextDocument<LocaleProps> {
         <>
           {initialProps.styles}
           <style
-            data-emotion-css={styles.ids.join(" ")}
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: styles.css }}
+            data-emotion-css={styles.ids.join(" ")}
           />
+          <Global styles={global} />
         </>
       ),
     };
