@@ -42,7 +42,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-intl": "^4.5.11",
-    "react-redux": "^7.2.0"
+    "react-redux": "^7.2.0",
+    "rebass": "^4.0.7"
   },
   "devDependencies": {
     "@formatjs/cli": "^1.7.3",
@@ -55,6 +56,7 @@
     "@types/react": "^16.9.35",
     "@types/react-redux": "^7.1.9",
     "@types/react-test-renderer": "^16.9.2",
+    "@types/rebass": "^4.0.6",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^3.0.0",
     "@typescript-eslint/parser": "^3.0.0",
