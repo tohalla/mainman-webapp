@@ -73,7 +73,7 @@ const InputContainer = styled.div<{
   label {
     ${({ theme, disabled }) =>
       disabled && `background ${theme.colors.greyscale[7]}`};
-    padding: ${path(["theme", "spacing", 1])};
+    padding: ${path(["theme", "space", 2])};
     ${({ hasFocus, theme }) =>
       `border-bottom: 3px solid ${theme.colors.greyscale[hasFocus ? 4 : 6]}`};
     > span {
