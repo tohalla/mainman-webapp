@@ -91,5 +91,7 @@ module.exports = {
     "no-use-before-define": ["error", { variables: false }],
     "sort-vars": "error",
     "react/self-closing-comp": "error",
+    "react/jsx-props-no-spreading": "off",
+    "react/destructuring-assignment": "off",
   },
 };
