@@ -1,6 +1,6 @@
 import { path } from "ramda";
 
-import type { Theme } from ".";
+type ColorAccent = "dark" | "light" | "neutral";
 
 const colors = {
   greyscale: [
@@ -15,17 +15,21 @@ const colors = {
     "#f5f5f5",
     "#ffffff",
   ],
+
+  primary: {
+    dark: "#18305b",
+    light: "#5b739f",
+    neutral: "#4f6690",
+  },
 };
 
 export type Colors = typeof colors;
 
 export const getColor = <T extends keyof Colors>(
-  p: [T, keyof Colors[T]] | T
-) => {
-  if (Array.isArray(p)) {
-    return path<Theme>(["theme", "colors", ...(p as string[])]);
-  }
-  return path<{ theme: Theme }>(["theme", "colors", p]);
-};
+  p: [T, ColorAccent | number] | T
+) =>
+  (Array.isArray(p)
+    ? path(["theme", "colors", ...p])
+    : path(["theme", "colors", p])) ?? (() => "black");
 
 export default colors;
