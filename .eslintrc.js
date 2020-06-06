@@ -39,7 +39,7 @@ module.exports = {
       version: "detect",
     },
   },
-  plugins: ["react", "@typescript-eslint", "import", "emotion"],
+  plugins: ["react", "@typescript-eslint", "prettier", "import", "emotion"],
   rules: {
     "react/jsx-curly-newline": "off",
     "react/jsx-wrap-multilines": [
@@ -90,5 +90,6 @@ module.exports = {
     ],
     "react/jsx-sort-props": "error",
     "no-use-before-define": ["error", { variables: false }],
+    "sort-vars": "error",
   },
 };
