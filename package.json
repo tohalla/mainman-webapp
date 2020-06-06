@@ -31,6 +31,7 @@
     "emotion": "^10.0.27",
     "emotion-server": "^10.0.27",
     "emotion-theming": "^10.0.27",
+    "formik": "^2.1.4",
     "glob": "^7.1.6",
     "intl": "^1.2.5",
     "intl-locales-supported": "^1.8.10",
@@ -43,7 +44,8 @@
     "react-dom": "^16.13.1",
     "react-intl": "^4.5.11",
     "react-redux": "^7.2.0",
-    "rebass": "^4.0.7"
+    "rebass": "^4.0.7",
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "@formatjs/cli": "^1.7.3",
@@ -62,7 +64,6 @@
     "@typescript-eslint/parser": "^3.0.0",
     "babel-plugin-emotion": "^10.0.33",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-emotion": "^10.0.27",
     "eslint-plugin-import": "^2.20.2",

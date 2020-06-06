@@ -8,8 +8,6 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
-    "airbnb",
-    "airbnb/hooks",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
@@ -90,6 +88,5 @@ module.exports = {
     "react/jsx-sort-props": "error",
     "no-use-before-define": ["error", { variables: false }],
     "sort-vars": "error",
-    "react/jsx-props-no-spreading": "off",
   },
 };
