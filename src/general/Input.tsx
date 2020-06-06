@@ -36,7 +36,11 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
     <InputContainer
       disabled={disabled}
       hasFocus={hasFocus}
-      labelAbove={value === 0 || hasFocus || Boolean(value)}
+      labelAbove={
+        inputProps.field.value === 0 ||
+        hasFocus ||
+        Boolean(inputProps.field.value)
+      }
     >
       <label htmlFor={name}>
         <span>{label}</span>
