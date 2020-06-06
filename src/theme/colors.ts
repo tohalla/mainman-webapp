@@ -1,6 +1,6 @@
 import { path } from "ramda";
 
-import theme from ".";
+import type { Theme } from ".";
 
 const colors = {
   greyscale: [
@@ -23,9 +23,9 @@ export const getColor = <T extends keyof Colors>(
   p: [T, keyof Colors[T]] | T
 ) => {
   if (Array.isArray(p)) {
-    return path<typeof theme>(["theme", "colors", ...(p as string[])]);
+    return path<Theme>(["theme", "colors", ...(p as string[])]);
   }
-  return path<typeof theme>(["theme", "colors", p]);
+  return path<{ theme: Theme }>(["theme", "colors", p]);
 };
 
 export default colors;
