@@ -4,8 +4,6 @@ import { basename } from "path";
 
 import accepts from "accepts";
 import glob from "glob";
-import intlPolyfill from "intl";
-import areIntlLocalesSupported from "intl-locales-supported";
 import next, { NextPageContext } from "next";
 import { IntlConfig } from "react-intl";
 
@@ -20,29 +18,6 @@ export type Context = NextPageContext & {
 const supportedLanguages = glob
   .sync("./lang/*.json")
   .map((f) => basename(f, ".json"));
-
-if (global.Intl) {
-  if (!areIntlLocalesSupported(supportedLanguages)) {
-    Intl.NumberFormat = intlPolyfill.NumberFormat;
-    Intl.DateTimeFormat = intlPolyfill.DateTimeFormat;
-    /* eslint-disable */
-    // @ts-ignore
-    Intl.__disableRegExpRestore = intlPolyfill.__disableRegExpRestore;
-    /* eslint-enable */
-  }
-} else {
-  global.Intl = intlPolyfill;
-}
-
-// Fix: https://github.com/vercel/next.js/issues/11777
-// See related issue: https://github.com/andyearnshaw/Intl.js/issues/308
-/* eslint-disable */
-// @ts-ignore
-if (Intl.__disableRegExpRestore) {
-  // @ts-ignore
-  Intl.__disableRegExpRestore();
-}
-/* eslint-enable */
 
 const port = parseInt(process.env.PORT ?? "", 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
