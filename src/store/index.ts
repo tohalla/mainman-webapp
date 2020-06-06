@@ -15,7 +15,7 @@ export const getStore = () => {
 
   if (process.env.NODE_ENV === "development" && module.hot) {
     module.hot.accept("./reducer", () => {
-      // eslint-disable-next-line global-require,@typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-member-access
       store.replaceReducer(require("./reducer").default);
     });
   }
