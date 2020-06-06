@@ -5,11 +5,11 @@ import reducer, { State } from "./reducer";
 
 export const middleware = [...getDefaultMiddleware({})];
 
-export const getStore = (preloadedState?: Partial<State>) => {
+export const getStore = () => {
   const store = configureStore<State, Action<unknown>, typeof middleware>({
     reducer,
     middleware,
-    preloadedState,
+    // preloadedState,
     devTools: process.env.NODE_ENV === "development",
   });
 
