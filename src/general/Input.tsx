@@ -1,20 +1,25 @@
+import { useField, FieldProps, FieldMetaProps } from "formik";
 import { path } from "ramda";
 import React, { HTMLProps, ReactNode, useState } from "react";
 
 import styled from "../theme/styled";
 
-interface Props
+interface Props<T>
   extends Pick<
       HTMLProps<HTMLInputElement>,
       "type" | "onBlur" | "onFocus" | "required"
     >,
-    Required<Pick<HTMLProps<HTMLInputElement>, "onChange" | "name" | "value">> {
-  label: ReactNode;
+    Required<Pick<HTMLProps<HTMLInputElement>, "onChange" | "name">> {
   disabled: boolean;
+  formik?: Pick<FieldProps<T>, "field" | "meta">;
+  label: ReactNode;
+  value?: T;
+  meta?: FieldMetaProps<T>;
 }
 
-const Input = ({
+export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
   disabled,
+  formik,
   label,
   name,
   onBlur,
@@ -23,8 +28,9 @@ const Input = ({
   required,
   type,
   value,
-}: Props) => {
+}: Props<T>) => {
   const [hasFocus, setHasFocus] = useState(false);
+  const inputProps = formik ?? { field: { value } };
 
   return (
     <InputContainer
@@ -53,7 +59,7 @@ const Input = ({
           }}
           required={required}
           type={type}
-          value={value}
+          {...inputProps.field}
         />
       </label>
     </InputContainer>
@@ -95,6 +101,18 @@ const InputContainer = styled.div<{
   }
 `;
 
-Input.displayName = "Input";
+const InputWithFormik = <T extends HTMLProps<HTMLInputElement>["value"]>(
+  props: Props<T> & { formik: FieldProps<T> }
+) => {
+  const [field, meta] = useField<T>(props.name);
+  const fieldProps: Pick<FieldProps<T>, "field" | "meta"> = { field, meta };
 
-export default Input;
+  return <Input {...props} formik={fieldProps} />;
+};
+
+InputWithFormik.defaultProps = Input.defaultProps;
+
+Input.displayName = "Input";
+InputWithFormik.displayName = "InputWithFormik";
+
+export default InputWithFormik;
