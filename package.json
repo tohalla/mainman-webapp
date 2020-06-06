@@ -6,10 +6,14 @@
   "scripts": {
     "prelint": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint './{pages,src}/**/*.ts{,x}'",
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build && tsc --project server/tsconfig.json",
+    "start": "NODE_ENV=production node dist/index.js",
+    "dev": "nodemon --exec 'ts-node --project server/tsconfig.json server/index.ts' --watch server",
     "translate": "node ./scripts/extract-translations '{pages,components}/*.{ts,tsx}'"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "14.1.x"
   },
   "repository": {
     "type": "git",
@@ -71,7 +75,9 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "jest": "^26.0.1",
     "next-transpile-modules": "^3.3.0",
+    "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
     "typescript": "^3.9.3"
   }
 }
