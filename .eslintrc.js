@@ -93,5 +93,14 @@ module.exports = {
     "react/self-closing-comp": "error",
     "react/jsx-props-no-spreading": "off",
     "react/destructuring-assignment": "off",
+    // NOTE: https://github.com/vercel/next.js/issues/5533
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        components: ["Link"],
+        specialLink: ["hrefLeft", "hrefRight"],
+        aspects: ["invalidHref", "preferButton"],
+      },
+    ],
   },
 };

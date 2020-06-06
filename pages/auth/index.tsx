@@ -1,11 +1,14 @@
 import React from "react";
 
+import AuthForm from "../../src/auth/AuthForm";
 import AuthLayout from "../../src/Layout/AuthLayout";
 import { Page } from "../_app";
 
-const AuthPage: Page = () => {
-  return <div />;
-};
+const AuthPage: Page = () => (
+  <>
+    <AuthForm />
+  </>
+);
 
 AuthPage.Layout = AuthLayout;
 

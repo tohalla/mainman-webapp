@@ -81,6 +81,7 @@ const InputContainer = styled.div<{
 }>`
   position: relative;
   label {
+    display: flex;
     ${({ theme, disabled }) =>
       disabled && `background ${theme.colors.greyscale[7]}`};
     padding: ${path(["theme", "space", 2])};
@@ -99,8 +100,12 @@ const InputContainer = styled.div<{
   `}
     }
     input {
+      flex: 1;
       background: none;
       border: none;
+      &:invalid {
+        box-shadow: none;
+      }
     }
   }
 `;

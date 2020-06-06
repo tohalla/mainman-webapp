@@ -1,5 +1,7 @@
 import { css } from "@emotion/core";
 
+import colors from "./colors";
+
 export default css`
   @font-face {
     font-family: "roboto";
@@ -21,5 +23,12 @@ export default css`
 
   body {
     height: 100%;
+  }
+
+  a {
+    color: ${colors.greyscale[3]};
+    &:hover {
+      color: ${colors.accent.neutral};
+    }
   }
 `;

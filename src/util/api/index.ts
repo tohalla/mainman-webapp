@@ -28,7 +28,7 @@ export default (
     body: config.body ? JSON.stringify(config.body) : undefined,
     credentials: "include",
     headers: {
-      ["Content-Type"]: "application/json",
+      "Content-Type": "application/json",
       ...(config.headers ?? {}),
       ...pick(["cookie"], config.ctx?.req?.headers ?? {}),
     },
