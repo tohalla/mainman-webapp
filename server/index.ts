@@ -10,7 +10,7 @@ import { IntlConfig } from "react-intl";
 export interface LocaleProps extends Pick<IntlConfig, "messages" | "locale"> {
   localeDataScript: string;
 }
-export type Context = NextPageContext & {
+export type ServerContext = NextPageContext & {
   req: Express.Request & LocaleProps;
 };
 

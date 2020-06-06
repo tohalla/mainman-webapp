@@ -9,11 +9,11 @@ import NextDocument, {
 } from "next/document";
 import React from "react";
 
-import { Context, LocaleProps } from "../server";
+import { ServerContext, LocaleProps } from "../server";
 import global from "../src/theme/global";
 
 export default class Document extends NextDocument<LocaleProps> {
-  static async getInitialProps(ctx: DocumentContext & Context) {
+  static async getInitialProps(ctx: DocumentContext & ServerContext) {
     const initialProps = await NextDocument.getInitialProps(ctx);
     const {
       req: { locale, localeDataScript },

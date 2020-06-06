@@ -88,5 +88,6 @@ module.exports = {
     "react/jsx-sort-props": "error",
     "no-use-before-define": ["error", { variables: false }],
     "sort-vars": "error",
+    "react/self-closing-comp": "error",
   },
 };

@@ -3,7 +3,7 @@ import { cache } from "emotion";
 import { ThemeProvider } from "emotion-theming";
 import { NextComponentType } from "next";
 import NextApp, { AppContext, AppProps } from "next/app";
-import React, { useState, ReactFragment } from "react";
+import React, { useState } from "react";
 import {
   IntlConfig,
   RawIntlProvider,
