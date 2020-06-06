@@ -15,6 +15,8 @@ import { Context } from "../server";
 import { getStore, wrapper } from "../src/store";
 import theme from "../src/theme";
 
+import "normalize.css";
+
 interface Props extends AppProps, IntlConfig {
   store: ReturnType<typeof getStore>;
   pageProps: Record<string, unknown>;
