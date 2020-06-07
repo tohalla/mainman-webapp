@@ -2,3 +2,6 @@
 dist
 
 lang/.messages/
+
+# we're using npm, ignore for accidental
+yarn.lock

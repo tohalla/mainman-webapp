@@ -18,7 +18,6 @@ import { ServerContext } from "../server";
 import { fetchAccount } from "../src/auth/slice";
 import Loadable from "../src/general/Loadadble";
 import DefaultLayout from "../src/Layout";
-import { getStore, wrapper, ThunkDispatch } from "../src/store";
 import theme from "../src/theme";
 import { redirect } from "../src/util/routing";
 
@@ -28,11 +27,7 @@ type Context = AppContext & {
 export type Page = {
   Layout?: typeof DefaultLayout;
 } & AppProps["Component"];
-type Props = AppProps &
-  IntlConfig & {
-    store: ReturnType<typeof getStore>;
-    Component: Page;
-  };
+type Props = AppProps & IntlConfig & { Component: Page };
 
 const intlCache = createIntlCache();
 
@@ -83,22 +78,22 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
 App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
-  await (ctx.store.dispatch as ThunkDispatch)(fetchAccount())
-    .then(() =>
-      redirect({
-        ctx,
-        location: "/",
-        condition: (route) => route.startsWith("/auth"),
-      })
-    )
-    .catch(() =>
-      redirect({
-        ctx,
-        location: "/auth",
-        condition: (route) => !route.startsWith("/auth"),
-      })
-    );
-
+  // await (ctx.store.dispatch as ThunkDispatch)(fetchAccount())
+  //   .then(() =>
+  //     redirect({
+  //       ctx,
+  //       location: "/",
+  //       condition: (route) => route.startsWith("/auth"),
+  //     })
+  //   )
+  //   .catch(() =>
+  //     redirect({
+  //       ctx,
+  //       location: "/auth",
+  //       condition: (route) => !route.startsWith("/auth"),
+  //     })
+  //   );
+  //
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }
@@ -110,4 +105,4 @@ App.getInitialProps = async ({ Component, ctx }) => {
   return { pageProps, locale, messages };
 };
 
-export default wrapper.withRedux(App);
+export default App;
