@@ -2,10 +2,14 @@ import { path } from "ramda";
 
 import colors from "./colors";
 
+const breakpoints = ["600px", "960px", "1280px", "1920px"];
+const fontSizes = ["12px", "14px", "16px", "20px", "24px", "32px", "48px"];
+const space = ["0px", "2px", "4px", "8px", "16px", "32px", "64px", "128px"];
+
 const theme = {
-  breakpoints: ["600px", "960px", "1280px", "1920px"],
-  fontSizes: ["12px", "14px", "16px", "20px", "24px", "32px", "48px"],
-  space: ["0px", "2px", "4px", "8px", "16px", "32px", "64px", "128px"],
+  breakpoints,
+  fontSizes,
+  space,
   radii: {
     default: 0,
   },
