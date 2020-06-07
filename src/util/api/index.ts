@@ -28,12 +28,12 @@ export const getApiCall = <
     method?: ApiMethods;
   } = {}
 ) => <K extends keyof T | undefined>({
-  responseType = "json",
+  responseType,
   key,
 }: {
   key?: K;
   responseType?: "json" | "text";
-} = {}): Promise<U> =>
+} = {}) =>
   fetch(`${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`, {
     method: config.method ?? "GET",
     body: config.body ? JSON.stringify(config.body) : undefined,
@@ -45,7 +45,7 @@ export const getApiCall = <
   })
     .then((response) => {
       if (response.ok) {
-        return response[responseType]();
+        return responseType ? response[responseType]() : responseType;
       }
       throw response;
     })
@@ -57,7 +57,7 @@ export const getApiCall = <
     );
 
 const callApi = (...args: Parameters<typeof getApiCall>) =>
-  getApiCall<{ id: number }>(...args)();
+  getApiCall(...args)();
 
 const formatQueryParams = (key: string) => (value: QueryParamType) =>
   `${key}=${String(value)}`;

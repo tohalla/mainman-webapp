@@ -1,13 +1,13 @@
-import callApi from "../util/api";
+import callApi, { getApiCall } from "../util/api";
 
-export interface Account {
+export type Account = {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
   locale: string;
   previouslyReviewedVersion?: string;
-}
+};
 
 export const authenticate = async (credentials: {
   email: string;
@@ -48,3 +48,5 @@ export const signOut = async () => {
     window.location.href = "/";
   }
 };
+
+export const fetchAccount = () => getApiCall<Account, Account>("/auth")();

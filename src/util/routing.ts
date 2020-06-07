@@ -10,7 +10,6 @@ export const redirect = ({
   location: string;
   condition?(route: string): boolean;
 }): void => {
-  // server
   const route = ctx.req?.url ?? Router.route;
   if (typeof condition === "function" && !condition(route)) {
     return;
