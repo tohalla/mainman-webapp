@@ -1,4 +1,6 @@
-import { map, curry } from "ramda";
+import { map } from "ramda";
+
+import { indexByProp } from "../misc";
 
 export type ApiMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
 export type QueryParamType = string | number | boolean | undefined;
@@ -15,14 +17,23 @@ export const apiURL =
 // if (ctx && ctx.res && response.headers.has("Set-Cookie")) {
 //   ctx.res.setHeader("Set-Cookie", response.headers.get("Set-Cookie") ?? "");
 // }
-const callApi = (
+export const getApiCall = <
+  T extends Record<string, unknown>,
+  U = T | Record<string, T>
+>(
   path: string,
   config: {
     body?: Record<string, unknown>;
     headers?: RequestInit["headers"];
     method?: ApiMethods;
   } = {}
-): Promise<Response> =>
+) => <K extends keyof T | undefined>({
+  responseType = "json",
+  key,
+}: {
+  key?: K;
+  responseType?: "json" | "text";
+} = {}): Promise<U> =>
   fetch(`${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`, {
     method: config.method ?? "GET",
     body: config.body ? JSON.stringify(config.body) : undefined,
@@ -31,16 +42,25 @@ const callApi = (
       "Content-Type": "application/json",
       ...(config.headers ?? {}),
     },
-  }).then((response) => {
-    if (response.ok) {
-      return response;
-    }
-    throw response;
-  });
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response[responseType]();
+      }
+      throw response;
+    })
+    .then(
+      (payload: T) =>
+        ((key && Array.isArray(payload)
+          ? indexByProp<T>(key as NonNullable<K>)(payload)
+          : payload) as unknown) as U
+    );
 
-const formatQueryParams = curry(
-  (key: string, value: QueryParamType) => `${key}=${String(value)}`
-);
+const callApi = (...args: Parameters<typeof getApiCall>) =>
+  getApiCall<{ id: number }>(...args)();
+
+const formatQueryParams = (key: string) => (value: QueryParamType) =>
+  `${key}=${String(value)}`;
 
 export const formatQuery = (
   query?: Record<string, QueryParamType[] | QueryParamType>
@@ -52,7 +72,7 @@ export const formatQuery = (
       if (Array.isArray(query[key])) {
         return map(formatQueryParams(key), query[key] as []).join("&");
       }
-      return formatQueryParams(key, query[key] as string);
+      return formatQueryParams(key)(String(query[key]));
     },
     Object.keys(query).filter((key) => typeof query[key] !== "undefined")
   );
