@@ -1,3 +1,4 @@
+import { ServerContext } from "../../server";
 import callApi, { getApiCall } from "../util/api";
 
 export type Account = {
@@ -49,4 +50,5 @@ export const signOut = async () => {
   }
 };
 
-export const fetchAccount = () => getApiCall<Account, Account>("/auth")();
+export const fetchAccount = (ctx: ServerContext) =>
+  getApiCall<Account, Account>("/auth", {}, { ctx })();

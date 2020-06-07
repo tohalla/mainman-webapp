@@ -1,5 +1,6 @@
-import { map } from "ramda";
+import { map, pick } from "ramda";
 
+import { ServerContext } from "../../../server";
 import { indexByProp } from "../misc";
 
 export type ApiMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
@@ -13,10 +14,6 @@ export const apiURL =
     ? `${process.env.API_PROTOCOL ?? "http"}://${host}:8080/api/${apiVer}`
     : `https://${host}/api/${apiVer}`;
 
-// TODO: pass set cookie (next)
-// if (ctx && ctx.res && response.headers.has("Set-Cookie")) {
-//   ctx.res.setHeader("Set-Cookie", response.headers.get("Set-Cookie") ?? "");
-// }
 export const getApiCall = <
   T extends Record<string, unknown>,
   U = T | Record<string, T>
@@ -26,7 +23,8 @@ export const getApiCall = <
     body?: Record<string, unknown>;
     headers?: RequestInit["headers"];
     method?: ApiMethods;
-  } = {}
+  } = {},
+  options?: { ctx?: ServerContext }
 ) => <K extends keyof T | undefined>({
   responseType,
   key,
@@ -40,6 +38,7 @@ export const getApiCall = <
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
+      ...pick(["cookie"], options?.ctx?.req?.headers ?? {}),
       ...(config.headers ?? {}),
     },
   })

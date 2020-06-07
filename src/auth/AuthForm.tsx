@@ -5,8 +5,10 @@ import { Link } from "rebass";
 import Form from "../general/Form";
 import { Input } from "../general/Input";
 
+import { authenticate } from ".";
+
 const AuthForm = () => (
-  <Formik initialValues={{ email: "", password: "" }} onSubmit={console.log}>
+  <Formik initialValues={{ email: "", password: "" }} onSubmit={authenticate}>
     <Form
       secondaryAction={
         <Link href="/auth/registration">

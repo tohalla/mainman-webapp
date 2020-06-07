@@ -78,7 +78,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
 App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
-  await fetchAccount()
+  await fetchAccount(ctx)
     .then(() =>
       redirect({
         ctx,
