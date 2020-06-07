@@ -14,7 +14,7 @@ export const apiURL =
     ? `${process.env.API_PROTOCOL ?? "http"}://${host}:8080/api/${apiVer}`
     : `https://${host}/api/${apiVer}`;
 
-export default (
+const callApi = (
   path: string,
   config: {
     body?: Record<string, unknown>;
@@ -22,7 +22,7 @@ export default (
     method?: APIMethods;
     ctx?: CallContext;
   } = {}
-) =>
+): Promise<Response> =>
   fetch(`${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`, {
     method: config.method ?? "GET",
     body: config.body ? JSON.stringify(config.body) : undefined,
@@ -32,6 +32,11 @@ export default (
       ...(config.headers ?? {}),
       ...pick(["cookie"], config.ctx?.req?.headers ?? {}),
     },
+  }).then((response) => {
+    if (response.ok) {
+      return response;
+    }
+    throw response;
   });
 
 const formatQueryParams = curry(
@@ -54,3 +59,5 @@ export const formatQuery = (
   );
   return q.length === 0 ? "" : `?${q.join("&")}`;
 };
+
+export default callApi;
