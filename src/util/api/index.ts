@@ -2,9 +2,9 @@ import { pick, map, curry } from "ramda";
 
 import { ServerContext } from "../../../server";
 
-export type APIMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
+export type ApiMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
 export type QueryParamType = string | number | boolean | undefined;
-export type CallContext = ServerContext;
+export type CallContext = Omit<ServerContext, "store">;
 
 const host = process.env.NODE_ENV === "development" ? "backend" : "localhost";
 const apiVer = "v1";
@@ -19,7 +19,7 @@ const callApi = (
   config: {
     body?: Record<string, unknown>;
     headers?: RequestInit["headers"];
-    method?: APIMethods;
+    method?: ApiMethods;
     ctx?: CallContext;
   } = {}
 ): Promise<Response> =>
