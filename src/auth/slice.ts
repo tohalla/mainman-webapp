@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import type { ThunkAction } from "../store";
+import { reduxApiCall } from "../store/middleware/api/reducer";
+
 import { Account } from ".";
 
 export interface SessionState {
@@ -19,5 +22,22 @@ const { reducer, actions } = createSlice({
     },
   },
 });
+
+export const fetchAccount = (): ThunkAction => (dispatch) =>
+  dispatch(
+    reduxApiCall({
+      request: {
+        endpoint: "/accounts",
+      },
+      attemptToFetchFromStore: (state) => state.session.account,
+      onSuccess: (payload) => {
+        dispatch(actions.setAccount(payload));
+      },
+      onFailure: (error) => {
+        dispatch(actions.setAccount());
+        throw error;
+      },
+    })
+  );
 
 export { reducer, actions };

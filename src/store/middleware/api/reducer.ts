@@ -1,10 +1,6 @@
 import { createReducer, Action } from "@reduxjs/toolkit";
 
-import type {
-  ApiMethods,
-  QueryParamType,
-  CallContext,
-} from "../../../util/api";
+import type { ApiMethods, QueryParamType } from "../../../util/api";
 import type { State } from "../../reducer";
 
 export const CALL_API = "CALL_API";
@@ -28,14 +24,14 @@ export interface ApiCall<Payload = any> extends Action {
     body?: Record<string, unknown>;
   };
 
-  ctx?: CallContext;
+  handleHeaders?(headers: Headers): void;
   idField?: string;
   // data to send on success, will be merged with actual payload (if any)
   additionalPayload?: Record<string, unknown>;
   // get triggered on succesfull response
-  onSuccess?(payload: Payload, cached: boolean): void;
+  onSuccess?(payload: Payload, cached: boolean): void | Promise<unknown>;
   // gets triggered if the request fails
-  onFailure?(payload: Payload): void;
+  onFailure?(payload: Payload): void | Promise<unknown>;
   // read from redux store before fetching, if value present, won't call api
   attemptToFetchFromStore?(state: State): Record<string, Payload> | undefined;
   // writes returned object to the store

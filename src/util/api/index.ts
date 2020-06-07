@@ -1,12 +1,9 @@
-import { pick, map, curry } from "ramda";
-
-import { ServerContext } from "../../../server";
+import { map, curry } from "ramda";
 
 export type ApiMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
 export type QueryParamType = string | number | boolean | undefined;
-export type CallContext = Omit<ServerContext, "store">;
 
-const host = process.env.NODE_ENV === "development" ? "backend" : "localhost";
+const host = process.env.NODE_ENV === "development" ? "localhost" : "backend";
 const apiVer = "v1";
 
 export const apiURL =
@@ -14,13 +11,16 @@ export const apiURL =
     ? `${process.env.API_PROTOCOL ?? "http"}://${host}:8080/api/${apiVer}`
     : `https://${host}/api/${apiVer}`;
 
+// TODO: pass set cookie (next)
+// if (ctx && ctx.res && response.headers.has("Set-Cookie")) {
+//   ctx.res.setHeader("Set-Cookie", response.headers.get("Set-Cookie") ?? "");
+// }
 const callApi = (
   path: string,
   config: {
     body?: Record<string, unknown>;
     headers?: RequestInit["headers"];
     method?: ApiMethods;
-    ctx?: CallContext;
   } = {}
 ): Promise<Response> =>
   fetch(`${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`, {
@@ -30,7 +30,6 @@ const callApi = (
     headers: {
       "Content-Type": "application/json",
       ...(config.headers ?? {}),
-      ...pick(["cookie"], config.ctx?.req?.headers ?? {}),
     },
   }).then((response) => {
     if (response.ok) {

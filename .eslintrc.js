@@ -104,5 +104,9 @@ module.exports = {
     ],
     "import/prefer-default-export": "off",
     "no-void": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      { devDependencies: ["**/*.spec.tsx", "**/*.spec.ts"] },
+    ],
   },
 };

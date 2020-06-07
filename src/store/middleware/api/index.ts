@@ -40,7 +40,6 @@ const apiMiddleware: Middleware = ({ getState }) => (next) => async (
       Array.isArray(response)
         ? indexBy(compose(String, prop(idField)), response)
         : response,
-    ctx,
   } = action;
 
   if (typeof attemptToFetchFromStore === "function") {
@@ -64,16 +63,9 @@ const apiMiddleware: Middleware = ({ getState }) => (next) => async (
   try {
     const response = await callApi(
       `${request.endpoint}${formatQuery(request.query)}`,
-      {
-        ...request,
-        ctx,
-      }
+      request
     );
 
-    // pass set cookie (next)
-    if (ctx && ctx.res && response.headers.has("Set-Cookie")) {
-      ctx.res.setHeader("Set-Cookie", response.headers.get("Set-Cookie") ?? "");
-    }
     if (!response.ok) {
       throw response;
     }
@@ -104,13 +96,16 @@ const apiMiddleware: Middleware = ({ getState }) => (next) => async (
     return payload;
   } catch (error) {
     const responseError = new Error(
-      // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       error && typeof error === "object" && typeof error.text === "function"
-        ? await error.text()
+        ? // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          await error.text()
         : error
     );
     if (typeof onFailure === "function") {
       await onFailure(responseError);
+    } else {
+      throw error;
     }
 
     // dispatch action indicating failure

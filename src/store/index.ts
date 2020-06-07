@@ -4,23 +4,30 @@ import {
   Action,
   ThunkAction as ReduxThunkAction,
   ThunkDispatch as ReduxThunkDispatch,
+  AnyAction,
 } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 
+import apiMiddleware from "./middleware/api";
 import reducer, { State } from "./reducer";
 
-export const middleware = [...getDefaultMiddleware({})];
+export const middleware = [
+  ...getDefaultMiddleware({ serializableCheck: false }),
+  apiMiddleware,
+];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ThunkAction<T = void, U = any> = ReduxThunkAction<
-  T,
+export type ThunkAction<A extends Action = AnyAction> = ReduxThunkAction<
+  A["type"],
   State,
   unknown,
-  Action<U>
+  A
 >;
-export type ThunkDispatch<
-  T extends ThunkAction = ThunkAction
-> = ReduxThunkDispatch<State, unknown, Action<T>>;
+export type ThunkDispatch<T extends Action = AnyAction> = ReduxThunkDispatch<
+  State,
+  unknown,
+  T
+>;
 
 export const getStore = () => {
   const store = configureStore<State, Action<unknown>, typeof middleware>({
