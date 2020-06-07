@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 import { FormikFormProps, useFormikContext } from "formik";
-import React, { Ref, forwardRef, ReactNode } from "react";
-import { Button } from "rebass";
+import React, { Ref, forwardRef, ReactNode, FormEventHandler } from "react";
+import { Button, Box, BoxProps } from "rebass";
 
 import { getSpace } from "../../theme";
 
-interface Props extends FormikFormProps {
-  submitLabel?: ReactNode;
-  secondaryAction?: ReactNode;
-}
+type Props = FormikFormProps &
+  BoxProps & {
+    submitLabel?: ReactNode;
+    secondaryAction?: ReactNode;
+  };
 
 const Form = forwardRef(
   (
@@ -21,8 +22,11 @@ const Form = forwardRef(
       <StyledForm
         ref={ref}
         action={action ?? "#"}
+        as="form"
+        display="flex"
         onReset={handleReset}
-        onSubmit={handleSubmit}
+        onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}
+        py={5}
         {...rest}
       >
         {children}
@@ -45,11 +49,9 @@ const Actions = styled.div`
   align-self: flex-end;
 `;
 
-const StyledForm = styled.form`
-  display: flex;
+const StyledForm = styled(Box)`
   flex-direction: column;
 
-  padding: ${getSpace(5)} 0;
   > div + div {
     margin-top: ${getSpace(5)};
   }
