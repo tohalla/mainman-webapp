@@ -1,3 +1,6 @@
+import "isomorphic-unfetch";
+import "normalize.css";
+
 import { CacheProvider } from "@emotion/core";
 import { cache } from "emotion";
 import { ThemeProvider } from "emotion-theming";
@@ -16,8 +19,6 @@ import Loadable from "../src/general/Loadadble";
 import DefaultLayout from "../src/Layout";
 import { getStore, wrapper } from "../src/store";
 import theme from "../src/theme";
-
-import "normalize.css";
 
 type Context = AppContext & {
   ctx: ServerContext;
