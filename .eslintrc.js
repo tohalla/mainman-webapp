@@ -102,5 +102,7 @@ module.exports = {
         aspects: ["invalidHref", "preferButton"],
       },
     ],
+    "import/prefer-default-export": "off",
+    "no-void": "off",
   },
 };
