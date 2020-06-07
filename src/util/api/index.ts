@@ -1,7 +1,9 @@
+import { snakeCase, camelCase } from "change-case";
 import { map, pick } from "ramda";
 
 import { ServerContext } from "../../../server";
 import { indexByProp } from "../misc";
+import { transformKeys } from "../transform";
 
 export type ApiMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
 export type QueryParamType = string | number | boolean | undefined;
@@ -34,7 +36,9 @@ export const getApiCall = <
 } = {}) =>
   fetch(`${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`, {
     method: config.method ?? "GET",
-    body: config.body ? JSON.stringify(config.body) : undefined,
+    body: config.body
+      ? JSON.stringify(transformKeys(snakeCase)(config.body))
+      : undefined,
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
@@ -48,11 +52,12 @@ export const getApiCall = <
       }
       throw response;
     })
-    .then(
-      (payload: T) =>
+    .then((payload: T) =>
+      transformKeys<T>(camelCase)(
         ((key && Array.isArray(payload)
           ? indexByProp<T>(key as NonNullable<K>)(payload)
           : payload) as unknown) as U
+      )
     );
 
 const callApi = (...args: Parameters<typeof getApiCall>) =>

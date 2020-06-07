@@ -108,5 +108,6 @@ module.exports = {
       "error",
       { devDependencies: ["**/*.spec.tsx", "**/*.spec.ts"] },
     ],
+    "no-nested-ternary": "off",
   },
 };
