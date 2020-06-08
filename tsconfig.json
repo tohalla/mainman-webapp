@@ -23,6 +23,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "pages/**/*",
-    "@types/**/*d.ts"
+    "@types/**/*.d.ts"
   ]
 }

@@ -24,6 +24,9 @@ const theme = {
       "&:hover": {
         backgroundColor: colors.primary.dark,
       },
+      ":disabled": {
+        backgroundColor: colors.greyscale[4],
+      },
     },
   },
 };

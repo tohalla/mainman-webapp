@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { FormikFormProps, useFormikContext } from "formik";
 import React, { Ref, forwardRef, ReactNode, FormEventHandler } from "react";
-import { Button, Box, BoxProps } from "rebass";
+import { Box, BoxProps } from "rebass";
 
 import { getSpace } from "../../theme";
+import AsyncButton from "../AsyncButton";
 
 type Props = FormikFormProps &
   BoxProps & {
@@ -16,7 +17,7 @@ const Form = forwardRef(
     { action, children, secondaryAction, submitLabel, ...rest }: Props,
     ref: Ref<HTMLFormElement>
   ) => {
-    const { handleReset, handleSubmit } = useFormikContext();
+    const { isSubmitting, handleReset, handleSubmit } = useFormikContext();
 
     return (
       <StyledForm
@@ -32,9 +33,9 @@ const Form = forwardRef(
         {children}
         <Actions>
           {secondaryAction}
-          <Button ml={[3, 5]} type="submit">
+          <AsyncButton loading={isSubmitting} ml={[3, 5]}>
             {submitLabel}
-          </Button>
+          </AsyncButton>
         </Actions>
       </StyledForm>
     );

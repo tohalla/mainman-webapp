@@ -8,7 +8,12 @@ import { Input } from "../general/Input";
 import { authenticate } from ".";
 
 const AuthForm = () => (
-  <Formik initialValues={{ email: "", password: "" }} onSubmit={authenticate}>
+  <Formik
+    initialValues={{ email: "", password: "" }}
+    onSubmit={(values, actions) =>
+      authenticate(values).finally(() => actions.setSubmitting(false))
+    }
+  >
     <Form
       secondaryAction={
         <Link href="/auth/registration">

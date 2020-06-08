@@ -18,8 +18,7 @@ export const redirect = ({
     if (route === location) {
       return;
     }
-    ctx.res.writeHead(302, { Location: location });
-    ctx.res.end();
+    ctx.res.writeHead(302, { Location: location }).end();
     return;
   }
 

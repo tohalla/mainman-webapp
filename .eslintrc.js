@@ -109,5 +109,6 @@ module.exports = {
       { devDependencies: ["**/*.spec.tsx", "**/*.spec.ts"] },
     ],
     "no-nested-ternary": "off",
+    "react-hooks/exhaustive-deps": "off",
   },
 };

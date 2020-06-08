@@ -5,7 +5,7 @@ import React from "react";
 import Form from "../general/Form";
 import { Input } from "../general/Input";
 
-import { authenticate } from ".";
+import { register } from ".";
 
 const RegistrationForm = () => (
   <Formik
@@ -15,21 +15,31 @@ const RegistrationForm = () => (
       lastName: "",
       password: "",
       retypePassword: "",
+      locale: "en",
     }}
-    onSubmit={authenticate}
+    onSubmit={register}
   >
     <Form
       secondaryAction={
-        <Link href="/auth/">
-          <a>registration</a>
+        <Link href="/auth">
+          <a>authentication</a>
         </Link>
       }
     >
       <Field as={Input} label="email" name="email" required type="email" />
+      <Field as={Input} label="first name" name="firstName" required />
+      <Field as={Input} label="last name" name="lastName" required />
       <Field
         as={Input}
         label="password"
         name="password"
+        required
+        type="password"
+      />
+      <Field
+        as={Input}
+        label="retype password"
+        name="retypePassword"
         required
         type="password"
       />
