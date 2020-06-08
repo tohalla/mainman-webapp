@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-types
-type P = Record<string | number, unknown> | {} | unknown[];
-
-export const transformKeys = <T>(fn: (s: string) => string) => (obj: P): T => {
+export const transformKeys = <T>(fn: (s: string) => string) => (obj: T): T => {
+  if (!obj || typeof obj !== "object") {
+    return obj;
+  }
   const transform = transformKeys(fn);
   return (Object.fromEntries(
     Object.entries(obj).map(([key, val]) => [
