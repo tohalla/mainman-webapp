@@ -44,13 +44,22 @@ const getMessages: (locale: string) => Record<string, string> = (locale) => {
 
 /* eslint-disable no-console */
 const listener: RequestListener = (req, res) => {
+  if (
+    req.url &&
+    req.url.substr(-1) === "/" &&
+    req.url.length > 1 &&
+    !/\?[^]*\//.test(req.url)
+  ) {
+    return res.writeHead(301, { Location: req.url.slice(0, -1) }).end();
+  }
+
   const locale = accepts(req).language(supportedLanguages) || "en";
   Object.assign(req, {
     locale,
     localeDataScript: getLocaleDataScript(locale),
     messages: dev ? {} : getMessages(locale),
   });
-  handle(req, res).catch(console.error);
+  return handle(req, res);
 };
 
 app
