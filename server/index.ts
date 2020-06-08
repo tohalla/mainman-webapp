@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { createServer } from "http";
+import { createServer, RequestListener } from "http";
 import { basename } from "path";
 
 import accepts from "accepts";
@@ -43,18 +43,18 @@ const getMessages: (locale: string) => Record<string, string> = (locale) => {
 };
 
 /* eslint-disable no-console */
+const listener: RequestListener = (req, res) => {
+  const locale = accepts(req).language(supportedLanguages) || "en";
+  Object.assign(req, {
+    locale,
+    localeDataScript: getLocaleDataScript(locale),
+    messages: dev ? {} : getMessages(locale),
+  });
+  handle(req, res).catch(console.error);
+};
+
 app
   .prepare()
-  .then(() => {
-    createServer((req, res) => {
-      const locale = accepts(req).language(supportedLanguages) || "en";
-      Object.assign(req, {
-        locale,
-        localeDataScript: getLocaleDataScript(locale),
-        messages: dev ? {} : getMessages(locale),
-      });
-      handle(req, res).catch(console.error);
-    }).listen(port);
-  })
+  .then(() => createServer(listener).listen(port))
   .catch(console.error);
 /* eslint-enable no-console */
