@@ -1,6 +1,6 @@
 import { Formik, Field } from "formik";
+import Link from "next/link";
 import React from "react";
-import { Link } from "rebass";
 
 import Form from "../general/Form";
 import { Input } from "../general/Input";
