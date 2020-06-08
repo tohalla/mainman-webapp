@@ -6,7 +6,7 @@ import { cache } from "emotion";
 import { ThemeProvider } from "emotion-theming";
 import { NextComponentType } from "next";
 import NextApp, { AppContext, AppProps } from "next/app";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   IntlConfig,
   RawIntlProvider,
@@ -45,12 +45,16 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
     router.events.on("routeChangeComplete", () => setLoading(false));
   }
 
-  const intl = createIntl(
-    {
-      locale,
-      messages,
-    },
-    intlCache
+  const intl = useMemo(
+    () =>
+      createIntl(
+        {
+          locale,
+          messages,
+        },
+        intlCache
+      ),
+    []
   );
 
   const Layout = Component.Layout ?? DefaultLayout;
@@ -98,9 +102,7 @@ App.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  const {
-    req: { locale, messages },
-  } = ctx;
+  const { req: { locale, messages } = {} } = ctx;
 
   return { pageProps, locale, messages };
 };
