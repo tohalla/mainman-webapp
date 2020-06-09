@@ -22,11 +22,17 @@ const theme = {
       bg: colors.primary.neutral,
       borderRadius: 0,
       "&:hover": {
-        backgroundColor: colors.primary.dark,
+        bg: colors.primary.dark,
       },
       ":disabled": {
-        backgroundColor: colors.greyscale[4],
+        bg: colors.greyscale[4],
       },
+    },
+    plain: {
+      borderRadius: 0,
+      color: colors.text.default,
+      p: 0,
+      bg: "transparent",
     },
   },
 };

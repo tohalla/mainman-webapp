@@ -2,19 +2,21 @@ import { path } from "ramda";
 
 type ColorAccent = "dark" | "light" | "neutral";
 
+const greyscale = [
+  "#000000",
+  "#212121",
+  "#606060",
+  "#929292",
+  "#aaaaaa",
+  "#bbbbbb",
+  "#dfdfdf",
+  "#ededed",
+  "#f5f5f5",
+  "#ffffff",
+];
+
 const colors = {
-  greyscale: [
-    "#000000",
-    "#212121",
-    "#606060",
-    "#929292",
-    "#aaaaaa",
-    "#bbbbbb",
-    "#dfdfdf",
-    "#ededed",
-    "#f5f5f5",
-    "#ffffff",
-  ],
+  greyscale,
 
   primary: {
     dark: "#18305b",
@@ -25,6 +27,10 @@ const colors = {
     dark: "#d05e00",
     light: "#ff831d",
     neutral: "#ff7400",
+  },
+
+  text: {
+    default: greyscale[0],
   },
 };
 
