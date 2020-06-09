@@ -110,5 +110,8 @@ module.exports = {
     ],
     "no-nested-ternary": "off",
     "react-hooks/exhaustive-deps": "off",
+    // NOTE: disabled due to performance issues
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
   },
 };
