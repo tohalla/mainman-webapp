@@ -27,9 +27,12 @@ const RegistrationForm = () => (
     <Form
       secondaryAction={
         <Link href="/auth">
-          <a>authentication</a>
+          <a>
+            <FormattedMessage {...registrationMessages.authenticate} />
+          </a>
         </Link>
       }
+      submitLabel={<FormattedMessage {...registrationMessages.register} />}
     >
       <Field
         as={Input}
@@ -38,18 +41,30 @@ const RegistrationForm = () => (
         required
         type="email"
       />
-      <Field as={Input} label="first name" name="firstName" required />
-      <Field as={Input} label="last name" name="lastName" required />
       <Field
         as={Input}
-        label="password"
+        label={<FormattedMessage {...registrationMessages.firstNameLabel} />}
+        name="firstName"
+        required
+      />
+      <Field
+        as={Input}
+        label={<FormattedMessage {...registrationMessages.lastNameLabel} />}
+        name="lastName"
+        required
+      />
+      <Field
+        as={Input}
+        label={<FormattedMessage {...registrationMessages.passwordLabel} />}
         name="password"
         required
         type="password"
       />
       <Field
         as={Input}
-        label="retype password"
+        label={
+          <FormattedMessage {...registrationMessages.retypePasswordLabel} />
+        }
         name="retypePassword"
         required
         type="password"
