@@ -10,8 +10,8 @@ import { authenticate } from ".";
 const AuthForm = () => (
   <Formik
     initialValues={{ email: "", password: "" }}
-    onSubmit={(values, actions) =>
-      authenticate(values).finally(() => actions.setSubmitting(false))
+    onSubmit={(values, { setSubmitting }) =>
+      authenticate(values).finally(() => setSubmitting(false))
     }
   >
     <Form

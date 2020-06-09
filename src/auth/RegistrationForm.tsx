@@ -17,7 +17,9 @@ const RegistrationForm = () => (
       retypePassword: "",
       locale: "en",
     }}
-    onSubmit={register}
+    onSubmit={(values, { setSubmitting }) =>
+      register(values).finally(() => setSubmitting(false))
+    }
   >
     <Form
       secondaryAction={
