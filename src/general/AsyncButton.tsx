@@ -2,8 +2,6 @@ import { keyframes, css } from "@emotion/core";
 import React from "react";
 import { ButtonProps, Button } from "rebass";
 
-import { getColor } from "../theme/colors";
-
 interface Props extends Omit<ButtonProps, "css"> {
   loading: boolean;
 }
