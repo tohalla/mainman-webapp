@@ -9,8 +9,7 @@
     "lint": "eslint './{pages,src}/**/*.ts{,x}'",
     "build": "next build && tsc --project server/tsconfig.json",
     "start": "NODE_ENV=production node dist/index.js",
-    "dev": "nodemon --exec 'ts-node --project server/tsconfig.json server/index.ts' --watch server",
-    "translate": "node ./scripts/extract-translations '{pages,components}/*.{ts,tsx}'"
+    "dev": "nodemon --exec 'ts-node --project server/tsconfig.json server/index.ts' --watch server"
   },
   "engineStrict": true,
   "engines": {
@@ -66,6 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
     "babel-plugin-emotion": "^10.0.33",
+    "babel-plugin-react-intl-auto": "^3.3.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",

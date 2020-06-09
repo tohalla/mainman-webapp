@@ -1,9 +1,9 @@
 import { readFileSync } from "fs";
 import { createServer, RequestListener } from "http";
-import { basename } from "path";
+// import { basename } from "path";
 
 import accepts from "accepts";
-import glob from "glob";
+// import glob from "glob";
 import next, { NextPageContext } from "next";
 import { IntlConfig } from "react-intl";
 
@@ -15,9 +15,9 @@ export type ServerContext = NextPageContext & {
 };
 
 // Get the supported languages by looking for translations in the `lang/` dir.
-const supportedLanguages = glob
-  .sync("./lang/*.json")
-  .map((f) => basename(f, ".json"));
+const supportedLanguages = ["en"]; // glob
+//   .sync("./lang/*.json")
+// .map((f) => basename(f, ".json"));
 
 const port = parseInt(process.env.PORT ?? "", 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
