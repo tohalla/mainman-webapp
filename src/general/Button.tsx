@@ -1,21 +1,25 @@
 import { keyframes, css } from "@emotion/core";
 import React from "react";
-import { ButtonProps, Button } from "rebass";
+import { ButtonProps, Button as RebassButton } from "rebass";
 
 interface Props extends Omit<ButtonProps, "css"> {
-  loading: boolean;
+  loading?: boolean;
 }
 
-const AsyncButton = ({ loading, children, ...props }: Props) => (
-  <Button
+const Button = ({ loading, children, ...props }: Props) => (
+  <RebassButton
     {...props}
     // NOTE: need to cast due to lacking type support
-    css={(styles as unknown) as string}
+    css={
+      typeof loading === "boolean" ? ((styles as unknown) as string) : undefined
+    }
     disabled={loading}
+    px={3}
+    py={2}
   >
     {loading && <div className="indicator" />}
     <span>{children}</span>
-  </Button>
+  </RebassButton>
 );
 
 const loading = keyframes`
@@ -49,5 +53,5 @@ const styles = css`
   }
 `;
 
-AsyncButton.displayName = "AsyncButton";
-export default AsyncButton;
+Button.displayName = "AsyncButton";
+export default Button;

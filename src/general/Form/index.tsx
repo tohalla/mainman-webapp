@@ -4,7 +4,7 @@ import React, { Ref, forwardRef, ReactNode, FormEventHandler } from "react";
 import { Box, BoxProps } from "rebass";
 
 import { getSpace } from "../../theme";
-import AsyncButton from "../AsyncButton";
+import Button from "../Button";
 
 type Props = FormikFormProps &
   BoxProps & {
@@ -33,9 +33,9 @@ const Form = forwardRef(
         {children}
         <Actions>
           {secondaryAction}
-          <AsyncButton loading={isSubmitting} ml={[3, 5]}>
+          <Button loading={isSubmitting} ml={[3, 5]}>
             {submitLabel}
-          </AsyncButton>
+          </Button>
         </Actions>
       </StyledForm>
     );
