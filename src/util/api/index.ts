@@ -53,7 +53,7 @@ export const getApiCall = <
       throw response;
     })
     .then((payload: T) =>
-      transformKeys<T>(camelCase)(
+      transformKeys<U>(camelCase)(
         ((key && Array.isArray(payload)
           ? indexByProp<T>(key as NonNullable<K>)(payload)
           : payload) as unknown) as U
