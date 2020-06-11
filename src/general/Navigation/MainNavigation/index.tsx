@@ -4,24 +4,23 @@ import { FaBars } from "react-icons/fa";
 import { Flex, Box } from "rebass";
 
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import useToggle from "../../../hooks/useToggle";
 import { Theme } from "../../../theme";
 import PlainButton from "../../Button/PlainButton";
 
 import Items from "./Items";
 
 const MainNavigation = () => {
-  const { breakpoints } = useTheme<Theme>();
+  const { breakpoints, colors } = useTheme<Theme>();
   const containerEl = useRef(null);
-  const [expand, setExpand] = useState(false);
+  const [expand, toggleExpand, setExpand] = useToggle(false);
   const [width, setWidth] = useState(
     typeof window === "undefined" ? 0 : window.innerWidth
   );
-
   const mobileNav = useMemo(
     () => width <= Number.parseInt(breakpoints[0], 10),
     [width]
   );
-
   useOnClickOutside(containerEl, () => {
     if (width <= Number.parseInt(breakpoints[0], 10)) {
       setExpand(false);
@@ -38,19 +37,25 @@ const MainNavigation = () => {
   return (
     <Flex
       ref={containerEl}
+      alignItems={["stretch", "center"]}
       as="nav"
+      backgroundColor={colors.greyscale[9]}
       flexDirection={["column", "row"]}
       justifyContent="space-between"
     >
       {mobileNav && (
-        <PlainButton onClick={() => setExpand(!expand)}>
+        <PlainButton alignSelf="flex-end" flex="1" onClick={toggleExpand} p={4}>
           <FaBars />
         </PlainButton>
       )}
       {(!mobileNav || expand) && (
         <>
-          <Flex flexDirection={["column", "row"]}>
-            <Items />
+          <Flex
+            alignItems={["stretch", "center"]}
+            flex={1}
+            flexDirection={["column", "row"]}
+          >
+            <Items onClick={toggleExpand} />
           </Flex>
           <Box>auth</Box>
         </>

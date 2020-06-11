@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { ReactFragment } from "react";
+import React, { ReactFragment, MouseEventHandler } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link as RebassLink } from "rebass";
 
@@ -17,7 +17,11 @@ const items = [
   },
 ];
 
-const Items = () => {
+interface Props {
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+}
+
+const Items = ({ onClick }: Props) => {
   const router = useRouter();
   return (
     <>
@@ -31,7 +35,7 @@ const Items = () => {
               : NavLink;
           return (
             <Link key={href} href={`${href}`}>
-              <Component px={4} py={4}>
+              <Component onClick={onClick} px={4} py={4}>
                 {content}
               </Component>
             </Link>
