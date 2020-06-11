@@ -3,9 +3,11 @@ import React, { useRef, useState, useMemo, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 import { Flex, Box } from "rebass";
 
-import useOnClickOutside from "../../hooks/useOnClickOutside";
-import { Theme } from "../../theme";
-import PlainButton from "../Button/PlainButton";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import { Theme } from "../../../theme";
+import PlainButton from "../../Button/PlainButton";
+
+import Items from "./Items";
 
 const MainNavigation = () => {
   const { breakpoints } = useTheme<Theme>();
@@ -47,7 +49,9 @@ const MainNavigation = () => {
       )}
       {(!mobileNav || expand) && (
         <>
-          <Flex flexDirection={["column", "row"]}>items</Flex>
+          <Flex flexDirection={["column", "row"]}>
+            <Items />
+          </Flex>
           <Box>auth</Box>
         </>
       )}
