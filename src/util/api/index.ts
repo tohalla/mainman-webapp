@@ -28,11 +28,11 @@ export const getApiCall = <
   } = {},
   options?: { ctx?: ServerContext }
 ) => <K extends keyof T | undefined>({
-  responseType,
+  responseType = "json",
   key,
 }: {
   key?: K;
-  responseType?: "json" | "text";
+  responseType?: "json" | "text" | null;
 } = {}) =>
   fetch(`${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`, {
     method: config.method ?? "GET",
@@ -61,7 +61,7 @@ export const getApiCall = <
     );
 
 const callApi = (...args: Parameters<typeof getApiCall>) =>
-  getApiCall(...args)();
+  getApiCall(...args)({ responseType: null });
 
 const formatQueryParams = (key: string) => (value: QueryParamType) =>
   `${key}=${String(value)}`;
