@@ -1,13 +1,14 @@
 import { useTheme } from "emotion-theming";
 import React, { useRef, useState, useMemo, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-import { Flex, Box } from "rebass";
+import { Flex } from "rebass";
 
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useToggle from "../../../hooks/useToggle";
 import { Theme } from "../../../theme";
 import PlainButton from "../../Button/PlainButton";
 
+import AccountMenu from "./AccountMenu";
 import Items from "./Items";
 
 const MainNavigation = () => {
@@ -57,7 +58,7 @@ const MainNavigation = () => {
           >
             <Items onClick={toggleExpand} />
           </Flex>
-          <Box>auth</Box>
+          <AccountMenu />
         </>
       )}
     </Flex>

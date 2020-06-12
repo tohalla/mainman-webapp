@@ -6,3 +6,10 @@ export default defineMessages({
   // Navigation: navigation item appliances
   appliances: "Appliances",
 });
+
+export const accountMenuMessages = defineMessages({
+  // Navigation: Greeting the user with a link to profile
+  greeting: "Authenticated as {account}",
+  // Navigation: Sign out
+  signOut: "Sign out",
+});

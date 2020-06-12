@@ -23,10 +23,11 @@ export default css`
 
   body {
     height: 100%;
+    background: ${colors.greyscale[8]};
   }
 
   a {
-    color: ${colors.greyscale[3]};
+    color: ${colors.greyscale[2]};
     &:hover {
       color: ${colors.accent.neutral};
     }
