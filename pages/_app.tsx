@@ -15,7 +15,7 @@ import {
 } from "react-intl";
 
 import { ServerContext } from "../server";
-import { fetchAccount } from "../src/auth";
+import { fetchAccountWithCtx } from "../src/auth";
 import Loadable from "../src/general/Loadadble";
 import DefaultLayout from "../src/Layout";
 import theme from "../src/theme";
@@ -82,7 +82,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
 App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
-  await fetchAccount(ctx)
+  await fetchAccountWithCtx(ctx)
     .then(() =>
       redirect({
         ctx,

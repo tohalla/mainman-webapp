@@ -50,5 +50,7 @@ export const signOut = async () => {
   }
 };
 
-export const fetchAccount = (ctx: ServerContext) =>
+export const fetchAccountWithCtx = (ctx?: ServerContext) =>
   getApiCall<Account, Account>("/auth", {}, { ctx })();
+
+export const fetchAccount = () => getApiCall<Account, Account>("/auth")();
