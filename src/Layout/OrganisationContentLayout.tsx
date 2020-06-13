@@ -4,6 +4,7 @@ import { Flex } from "rebass";
 
 import Loadable from "../general/Loadadble";
 import { Organisation, fetchOrganisations } from "../organisation";
+import NoOrganisations from "../organisation/NoOrganisations";
 import OrganisationContext from "../organisation/OrganisationContext";
 import OrganisationSelect from "../organisation/OrganisationSelect";
 
@@ -16,11 +17,11 @@ interface Props {
 const OrganisationContentLayout: (props: Props) => JSX.Element = ({
   children,
 }: Props) => {
-  const { data: organisations, isFetching } = useQuery(
-    "organisations",
-    fetchOrganisations,
-    { staleTime: 60000 }
-  );
+  const { data, isFetching } = useQuery("organisations", fetchOrganisations, {
+    staleTime: 60000,
+  });
+  const organisations = data ? Object.values(data) : [];
+
   const [activeOrganisation, setActiveOrganisation] = useState<
     Organisation | undefined
   >(undefined);
@@ -31,17 +32,23 @@ const OrganisationContentLayout: (props: Props) => JSX.Element = ({
         value={{ activeOrganisation, setActiveOrganisation }}
       >
         <Loadable isLoading={isFetching}>
-          {organisations && Object.keys(organisations).length > 0 && (
-            <Flex
-              justifyContent="flex-end"
-              mx={[2, 4]}
-              my={[2, 4]}
-              variant="subdued"
-            >
-              <OrganisationSelect />
-            </Flex>
+          {organisations.length ? (
+            <>
+              {organisations.length > 1 && (
+                <Flex
+                  justifyContent="flex-end"
+                  mx={[2, 4]}
+                  my={[2, 4]}
+                  variant="subdued"
+                >
+                  <OrganisationSelect />
+                </Flex>
+              )}
+              {children}
+            </>
+          ) : (
+            <NoOrganisations />
           )}
-          {children}
         </Loadable>
       </OrganisationContext.Provider>
     </DefaultLayout>
