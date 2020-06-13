@@ -1,17 +1,17 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import styled from "../../theme/styled";
 
 import Loader from "./Loader";
 
 interface Props {
-  children: JSX.Element;
+  children: ReactNode;
   isLoading: boolean;
 }
 
 const Loadable = ({ isLoading, children }: Props) => {
   if (!isLoading) {
-    return children;
+    return <>{children}</>;
   }
 
   return (
