@@ -1,5 +1,6 @@
 import "isomorphic-unfetch";
 import "normalize.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import { CacheProvider } from "@emotion/core";
 import { cache } from "emotion";
@@ -18,12 +19,13 @@ import {
   ReactQueryProviderConfig,
 } from "react-query";
 
-import { ServerContext } from "../server";
-import { fetchAccountWithCtx } from "../src/auth";
-import Loadable from "../src/general/Loadadble";
-import DefaultLayout from "../src/Layout";
-import theme from "../src/theme";
-import { redirect } from "../src/util/routing";
+import { ServerContext } from "server";
+import { fetchAccountWithCtx } from "src/auth";
+import Loadable from "src/general/Loadadble";
+import ToastContainer from "src/general/ToastContainer";
+import DefaultLayout from "src/Layout";
+import theme from "src/theme";
+import { redirect } from "src/util/routing";
 
 type Context = AppContext & {
   ctx: ServerContext;
@@ -82,6 +84,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
                 />
               </ReactQueryConfigProvider>
             </Loadable>
+            <ToastContainer />
           </Layout>
         </ThemeProvider>
       </RawIntlProvider>
