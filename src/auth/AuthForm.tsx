@@ -25,6 +25,9 @@ const AuthForm = () => (
           </a>
         </Link>
       }
+      submitLabel={
+        <FormattedMessage {...authenticationMessages.authenticate} />
+      }
     >
       <Field
         as={Input}
