@@ -6,8 +6,7 @@ import { Box, BoxProps } from "rebass";
 
 import { getSpace } from "../../theme";
 import Button from "../Button";
-
-import messages from "./messages";
+import messages from "../messages";
 
 type Props = FormikFormProps &
   BoxProps & {
