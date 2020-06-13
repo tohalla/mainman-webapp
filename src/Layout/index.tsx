@@ -1,8 +1,9 @@
-import React, { ReactFragment, useState } from "react";
+import React, { ReactFragment, useState, useEffect } from "react";
+import { useQuery } from "react-query";
 import { Flex } from "rebass";
 
 import MainNavigation from "../general/Navigation/MainNavigation";
-import { Organisation } from "../organisation";
+import { Organisation, fetchOrganisations } from "../organisation";
 import OrganisationContext from "../organisation/OrganisationContext";
 
 interface Props {
@@ -10,9 +11,18 @@ interface Props {
 }
 
 const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => {
+  const { data: organisations } = useQuery("organisations", fetchOrganisations);
+
   const [activeOrganisation, setActiveOrganisation] = useState<
     Organisation | undefined
-  >(undefined);
+  >();
+
+  useEffect(() => {
+    if (activeOrganisation || !organisations) {
+      return;
+    }
+    setActiveOrganisation(Object.values(organisations)[0]);
+  }, [organisations]);
 
   return (
     <OrganisationContext.Provider
