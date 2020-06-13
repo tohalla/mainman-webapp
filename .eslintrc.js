@@ -37,6 +37,9 @@ module.exports = {
     react: {
       version: "detect",
     },
+    "import/resolver": {
+      typescript: {},
+    },
   },
   plugins: ["react", "@typescript-eslint", "prettier", "import", "emotion"],
   rules: {
