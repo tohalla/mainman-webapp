@@ -16,6 +16,12 @@ const theme = {
 
   colors,
 
+  variants: {
+    subdued: {
+      color: colors.greyscale[3],
+    },
+  },
+
   buttons: {
     primary: {
       color: colors.greyscale[9],
