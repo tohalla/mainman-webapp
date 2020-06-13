@@ -18,7 +18,8 @@ const OrganisationContentLayout: (props: Props) => JSX.Element = ({
 }: Props) => {
   const { data: organisations, isFetching } = useQuery(
     "organisations",
-    fetchOrganisations
+    fetchOrganisations,
+    { staleTime: 60000 }
   );
   const [activeOrganisation, setActiveOrganisation] = useState<
     Organisation | undefined
