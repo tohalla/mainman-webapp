@@ -19,7 +19,7 @@ const MainNavigation = () => {
     typeof window === "undefined" ? 0 : window.innerWidth
   );
   const mobileNav = useMemo(
-    () => width <= Number.parseInt(breakpoints[0], 10),
+    () => width > 0 && width <= Number.parseInt(breakpoints[0], 10),
     [width]
   );
   useOnClickOutside(containerEl, () => {
