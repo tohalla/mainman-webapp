@@ -13,6 +13,10 @@ import {
   createIntl,
   createIntlCache,
 } from "react-intl";
+import {
+  ReactQueryConfigProvider,
+  ReactQueryProviderConfig,
+} from "react-query";
 
 import { ServerContext } from "../server";
 import { fetchAccountWithCtx } from "../src/auth";
@@ -30,6 +34,10 @@ export type Page = {
 type Props = AppProps & IntlConfig & { Component: Page };
 
 const intlCache = createIntlCache();
+
+const queryConfig: ReactQueryProviderConfig = {
+  refetchAllOnWindowFocus: false,
+};
 
 const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
   Component,
@@ -65,12 +73,14 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
         <ThemeProvider theme={theme}>
           <Layout>
             <Loadable isLoading={loading}>
-              <NextApp
-                Component={Component}
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                pageProps={pageProps}
-                router={router}
-              />
+              <ReactQueryConfigProvider config={queryConfig}>
+                <NextApp
+                  Component={Component}
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                  pageProps={pageProps}
+                  router={router}
+                />
+              </ReactQueryConfigProvider>
             </Loadable>
           </Layout>
         </ThemeProvider>
