@@ -15,7 +15,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "skipLibCheck": true,
-    "typeRoots": ["node_modules/@types", "./@types"]
+    "typeRoots": ["node_modules/@types", "./@types"],
+    "baseUrl": "."
   },
   "exclude": ["dist", ".next", "out", "next.config.js"],
   "include": [
