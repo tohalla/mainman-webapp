@@ -18,8 +18,8 @@ const items = (organisation?: Organisation) => [
   },
   organisation && {
     content: <FormattedMessage {...messages.appliances} />,
-    href: `/[organisation]/appliances`,
-    as: `/${organisation.id}/appliances`,
+    href: `/organisations/[organisation]/appliances`,
+    as: `/organisations/${organisation.id}/appliances`,
   },
 ];
 
