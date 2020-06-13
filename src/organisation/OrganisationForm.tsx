@@ -1,26 +1,38 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import { useMutation, queryCache } from "react-query";
 
 import Form from "../general/Form";
 import { Input } from "../general/Input";
 
 import { formMessages } from "./messages";
 
-import { Organisation } from ".";
+import { Organisation, createOrganisation } from ".";
 
 interface Props {
   organisation?: Organisation;
+  onSubmit?(organisation: Organisation): void;
 }
 
-const OrganisationForm = ({ organisation }: Props) => {
+const OrganisationForm = ({ organisation, onSubmit }: Props) => {
+  const [mutateOrganisation] = useMutation(createOrganisation, {
+    onSuccess: () => queryCache.refetchQueries("organisations"),
+  });
+
   return (
     <Formik
       initialValues={{
         name: organisation?.name ?? "",
         organisationIdentifier: organisation?.organisationIdentifier ?? "",
       }}
-      onSubmit={(values, { setSubmitting }) => setSubmitting(false)}
+      onSubmit={async (values, { setSubmitting }) => {
+        const response = await mutateOrganisation({ ...values, locale: "en" });
+        setSubmitting(false);
+        if (onSubmit) {
+          onSubmit(response);
+        }
+      }}
     >
       <Form
         submitLabel={
