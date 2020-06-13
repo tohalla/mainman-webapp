@@ -1,4 +1,5 @@
 import React, { ReactFragment } from "react";
+import { Flex } from "rebass";
 
 import MainNavigation from "../general/Navigation/MainNavigation";
 
@@ -9,7 +10,9 @@ interface Props {
 const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => (
   <>
     <MainNavigation />
-    <main>{children}</main>
+    <Flex as="main" flex={1} flexDirection="column">
+      {children}
+    </Flex>
   </>
 );
 
