@@ -31,7 +31,9 @@ const OrganisationSelect = () => {
           value={activeOrganisation?.id}
         >
           {Object.values(organisations).map(({ id, name }) => (
-            <option key={id}>{name}</option>
+            <option key={id} value={id}>
+              {name}
+            </option>
           ))}
         </Select>
       )}
