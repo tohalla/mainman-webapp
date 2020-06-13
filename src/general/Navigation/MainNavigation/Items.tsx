@@ -1,19 +1,25 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { ReactFragment, MouseEventHandler } from "react";
+import React, { MouseEventHandler, useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link as RebassLink } from "rebass";
 
+import { Organisation } from "../../../organisation";
+import OrganisationContext from "../../../organisation/OrganisationContext";
 import { getColor } from "../../../theme/colors";
 import styled from "../../../theme/styled";
 
 import messages from "./messages";
 
-const items = [
-  { content: <FormattedMessage {...messages.overview} />, href: "/" },
+const items = (organisation?: Organisation) => [
   {
+    content: <FormattedMessage {...messages.overview} />,
+    href: "/",
+  },
+  organisation && {
     content: <FormattedMessage {...messages.appliances} />,
-    href: "/appliances",
+    href: `/[organisation]/appliances`,
+    as: `/${organisation.id}/appliances`,
   },
 ];
 
@@ -22,19 +28,24 @@ interface Props {
 }
 
 const Items = ({ onClick }: Props) => {
+  const { activeOrganisation } = useContext(OrganisationContext);
   const router = useRouter();
+
   return (
     <>
-      {items
-        // .filter((page) => !page.condition || whereEq(page.condition, account))
-        .map<ReactFragment>(({ content, href }) => {
+      {items(activeOrganisation)
+        .filter(
+          (link): link is Exclude<typeof link, undefined> =>
+            typeof link !== "undefined"
+        )
+        .map(({ content, href, as }) => {
           const Component =
             router.pathname === href ||
             (href !== "/" && router.pathname.startsWith(href))
               ? ActiveNavLink
               : NavLink;
           return (
-            <Link key={href} href={`${href}`}>
+            <Link key={href} as={as} href={href}>
               <Component onClick={onClick} px={4} py={4}>
                 {content}
               </Component>
