@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { FormikFormProps, useFormikContext } from "formik";
 import React, { Ref, forwardRef, ReactNode, FormEventHandler } from "react";
+import { FormattedMessage } from "react-intl";
 import { Box, BoxProps } from "rebass";
 
 import { getSpace } from "../../theme";
 import Button from "../Button";
+
+import messages from "./messages";
 
 type Props = FormikFormProps &
   BoxProps & {
@@ -44,7 +47,7 @@ const Form = forwardRef(
 );
 
 Form.defaultProps = {
-  submitLabel: "Submit",
+  submitLabel: <FormattedMessage {...messages.submit} />,
 };
 
 const Actions = styled.div`
