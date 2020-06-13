@@ -1,7 +1,5 @@
 import { path } from "ramda";
 
-type ColorAccent = "dark" | "light" | "neutral";
-
 const greyscale = [
   "#000000",
   "#212121",
@@ -28,6 +26,12 @@ const colors = {
     light: "#ff831d",
     neutral: "#ff7400",
   },
+  indicator: {
+    warning: "#ff831d",
+    disabled: "#a9a9a9",
+    error: "#cc3300",
+    success: "#208844",
+  },
 
   text: {
     default: greyscale[0],
@@ -36,11 +40,9 @@ const colors = {
 
 export type Colors = typeof colors;
 
-export const getColor = <T extends keyof Colors>(
-  p: [T, ColorAccent | number] | T
-) =>
+export const getColor = <T extends keyof Colors>(p: [T, keyof Colors[T]] | T) =>
   ((Array.isArray(p)
-    ? path(["theme", "colors", ...p])
+    ? path(["theme", "colors", ...(p as string[])])
     : path(["theme", "colors", p])) ?? (() => "black")) as () => string;
 
 export default colors;
