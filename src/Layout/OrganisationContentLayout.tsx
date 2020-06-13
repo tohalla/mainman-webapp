@@ -35,12 +35,7 @@ const OrganisationContentLayout: (props: Props) => JSX.Element = ({
           {organisations.length ? (
             <>
               {organisations.length > 1 && (
-                <Flex
-                  justifyContent="flex-end"
-                  mx={[2, 4]}
-                  my={[2, 4]}
-                  variant="subdued"
-                >
+                <Flex justifyContent="flex-end" variant="subdued">
                   <OrganisationSelect />
                 </Flex>
               )}

@@ -10,7 +10,7 @@ interface Props {
 const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => (
   <>
     <MainNavigation />
-    <Flex as="main" flex={1} flexDirection="column">
+    <Flex as="main" flex={1} flexDirection="column" mx={[2, 5]} my={[2, 5]}>
       {children}
     </Flex>
   </>
