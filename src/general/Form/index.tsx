@@ -25,6 +25,7 @@ const Form = forwardRef(
         action={action ?? "#"}
         as="form"
         display="flex"
+        flex={1}
         onReset={handleReset}
         onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}
         py={5}

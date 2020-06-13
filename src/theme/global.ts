@@ -26,6 +26,12 @@ export default css`
     background: ${colors.greyscale[8]};
   }
 
+  #__next {
+    display: flex;
+    flex-direction column;
+    height: 100%;
+  }
+
   a {
     color: ${colors.greyscale[2]};
     &:hover {
