@@ -8,7 +8,7 @@ import { Input } from "../general/Input";
 
 import { formMessages } from "./messages";
 
-import { Organisation, createOrganisation } from ".";
+import { Organisation, createOrganisation, updateOrganisation } from ".";
 
 interface Props {
   organisation?: Organisation;
@@ -16,9 +16,12 @@ interface Props {
 }
 
 const OrganisationForm = ({ organisation, onSubmit }: Props) => {
-  const [mutateOrganisation] = useMutation(createOrganisation, {
-    onSuccess: () => queryCache.refetchQueries("organisations"),
-  });
+  const [mutateOrganisation] = useMutation(
+    organisation ? updateOrganisation : createOrganisation,
+    {
+      onSuccess: () => queryCache.refetchQueries("organisations"),
+    }
+  );
 
   return (
     <Formik
@@ -27,7 +30,14 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
         organisationIdentifier: organisation?.organisationIdentifier ?? "",
       }}
       onSubmit={async (values, { setSubmitting }) => {
-        const response = await mutateOrganisation({ ...values, locale: "en" });
+        const response = await mutateOrganisation(
+          organisation
+            ? { id: organisation?.id, locale: "en", ...values }
+            : ({
+                ...values,
+                locale: "en",
+              } as Organisation)
+        );
         setSubmitting(false);
         if (onSubmit) {
           onSubmit(response);
