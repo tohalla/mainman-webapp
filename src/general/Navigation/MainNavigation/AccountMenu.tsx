@@ -15,8 +15,8 @@ const AccountMenu = () => {
   });
 
   return (
-    <Loadable isLoading={isFetching}>
-      <Box alignSelf={["flex-end", "auto"]} px={4} py={[4, 0]}>
+    <Box alignSelf={["flex-end", "auto"]} px={4} py={[4, 0]}>
+      <Loadable isLoading={isFetching}>
         <FormattedMessage
           {...accountMenuMessages.greeting}
           values={{
@@ -27,8 +27,8 @@ const AccountMenu = () => {
             ),
           }}
         />
-      </Box>
-    </Loadable>
+      </Loadable>
+    </Box>
   );
 };
 
