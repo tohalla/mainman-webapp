@@ -4,7 +4,8 @@ import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 import { Box } from "rebass";
 
-import { fetchAccount } from "../../../auth";
+import { fetchAccount, signOut } from "../../../auth";
+import PlainButton from "../../Button/PlainButton";
 import Loadable from "../../Loadadble";
 
 import { accountMenuMessages } from "./messages";
@@ -27,6 +28,9 @@ const AccountMenu = () => {
             ),
           }}
         />
+        <PlainButton ml={5} onClick={signOut}>
+          <FormattedMessage {...accountMenuMessages.signOut} />
+        </PlainButton>
       </Loadable>
     </Box>
   );
