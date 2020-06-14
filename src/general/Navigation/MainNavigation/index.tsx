@@ -13,7 +13,7 @@ import Items from "./Items";
 
 const MainNavigation = () => {
   const { breakpoints, colors } = useTheme<Theme>();
-  const containerEl = useRef(null);
+  const containerEl = useRef<HTMLDivElement>(null);
   const [expand, toggleExpand, setExpand] = useToggle(false);
   const [width, setWidth] = useState(
     typeof window === "undefined" ? 0 : window.innerWidth
@@ -28,6 +28,11 @@ const MainNavigation = () => {
     }
   });
 
+  const height: undefined | number = useMemo(
+    () => containerEl.current?.clientHeight,
+    [containerEl.current]
+  );
+
   useEffect(() => {
     const updateDimensions = () => setWidth(window.innerWidth);
     window.addEventListener("resize", updateDimensions);
@@ -37,31 +42,43 @@ const MainNavigation = () => {
 
   return (
     <Flex
-      ref={containerEl}
-      alignItems={["stretch", "center"]}
-      as="nav"
-      backgroundColor={colors.greyscale[9]}
-      flexDirection={["column", "row"]}
-      justifyContent="space-between"
-      sx={{ boxShadow: 1 }}
+      sx={{
+        position: ["relative", "dynamic"],
+        minHeight: height,
+      }}
     >
-      {mobileNav && (
-        <PlainButton alignSelf="flex-end" flex="1" onClick={toggleExpand} p={4}>
-          <FaBars />
-        </PlainButton>
-      )}
-      {(!mobileNav || expand) && (
-        <>
-          <Flex
-            alignItems={["stretch", "center"]}
-            flex={1}
-            flexDirection={["column", "row"]}
+      <Flex
+        ref={containerEl}
+        alignItems={["stretch", "center"]}
+        backgroundColor={colors.greyscale[9]}
+        flexDirection={["column", "row"]}
+        justifyContent="space-between"
+        sx={{ boxShadow: 1, position: ["absolute", "dynamic"] }}
+        width="100%"
+      >
+        {mobileNav && (
+          <PlainButton
+            alignSelf="flex-end"
+            flex="1"
+            onClick={toggleExpand}
+            p={4}
           >
-            <Items onClick={toggleExpand} />
-          </Flex>
-          <AccountMenu />
-        </>
-      )}
+            <FaBars />
+          </PlainButton>
+        )}
+        {(!mobileNav || expand) && (
+          <>
+            <Flex
+              alignItems={["stretch", "center"]}
+              flex={1}
+              flexDirection={["column", "row"]}
+            >
+              <Items onClick={toggleExpand} />
+            </Flex>
+            <AccountMenu />
+          </>
+        )}
+      </Flex>
     </Flex>
   );
 };
