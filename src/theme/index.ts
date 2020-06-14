@@ -21,6 +21,7 @@ const theme = {
       color: colors.greyscale[3],
     },
   },
+  shadows: ["0 2px 4px rgba(0, 0, 0, .1)", "0 3px 6px rgba(0, 0, 0, .1)"],
 
   buttons: {
     primary: {

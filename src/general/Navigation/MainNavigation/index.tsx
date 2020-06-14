@@ -43,6 +43,7 @@ const MainNavigation = () => {
       backgroundColor={colors.greyscale[9]}
       flexDirection={["column", "row"]}
       justifyContent="space-between"
+      sx={{ boxShadow: 1 }}
     >
       {mobileNav && (
         <PlainButton alignSelf="flex-end" flex="1" onClick={toggleExpand} p={4}>

@@ -37,7 +37,7 @@ const Loader = ({ fill, opacity, height }: Props) => (
 
 Loader.defaultProps = {
   fill: "#000000",
-  opacity: 0.3,
+  opacity: 0.4,
   height: 32,
 };
 
