@@ -95,7 +95,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
 App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
-  await fetchAccountWithHeaders(ctx.req.headers as RequestInit["headers"])
+  await fetchAccountWithHeaders(ctx.req?.headers as RequestInit["headers"])
     .then(() =>
       redirect({
         ctx,
