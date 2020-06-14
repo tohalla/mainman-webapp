@@ -8,6 +8,9 @@ export type Organisation = {
   adminAccount: number;
 };
 
+export const fetchOrganisation = (_: string, id: number) =>
+  getApiCall<Organisation, Organisation>(`/organisations/${id}`)();
+
 export const fetchOrganisations = () =>
   getApiCall<Organisation, Record<string, Organisation>>("/organisations")({
     key: "id",
@@ -18,5 +21,13 @@ export const createOrganisation = (
 ) =>
   getApiCall<Organisation, Organisation>("/organisations", {
     method: "POST",
+    body: payload,
+  })();
+
+export const updateOrganisation = (
+  payload: Omit<Organisation, "adminAccount">
+) =>
+  getApiCall<Organisation, Organisation>("/organisations", {
+    method: "PATCH",
     body: payload,
   })();
