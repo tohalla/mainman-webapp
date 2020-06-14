@@ -34,12 +34,14 @@ const theme = {
       ":disabled": {
         bg: colors.greyscale[4],
       },
+      display: "inline-flex",
     },
     plain: {
       borderRadius: 0,
       color: colors.text.default,
       p: 0,
       bg: "transparent",
+      display: "inline-flex",
     },
   },
 };
