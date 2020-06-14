@@ -27,6 +27,8 @@ export const redirect = ({
   void Router.replace(location).catch();
 };
 
-export const getParam = curry((key: string, query: BaseRouter["query"]) =>
-  Array.isArray(query[key]) ? query[key]?.[0] : query[key]
+export const getParam = curry((key: string, query: BaseRouter["query"]):
+  | string
+  | undefined =>
+  Array.isArray(query[key]) ? query[key]?.[0] : (query[key] as string)
 );
