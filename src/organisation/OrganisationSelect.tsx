@@ -25,9 +25,10 @@ const OrganisationSelect = () => {
         <Select
           label={<FormattedMessage {...messages.activeOrganisation} />}
           name="organisation"
-          onChange={(event) =>
-            setActiveOrganisation(organisations[event.currentTarget.value])
-          }
+          onChange={(event) => {
+            localStorage.setItem("activeOrganisation", event.target.value);
+            setActiveOrganisation(organisations[event.currentTarget.value]);
+          }}
           value={activeOrganisation?.id}
         >
           {Object.values(organisations).map(({ id, name }) => (

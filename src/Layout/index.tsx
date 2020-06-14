@@ -25,18 +25,22 @@ const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => {
     if (activeOrganisation || !organisations) {
       return;
     }
-    const organisation = getParam("organisation", query);
-    setActiveOrganisation(
-      organisation
-        ? organisations[organisation]
-        : Object.values(organisations)[0]
-    );
+    const organisation =
+      getParam("organisation", query) ??
+      localStorage.getItem("activeOrganisation");
+    if (organisation) {
+      setActiveOrganisation(organisations[organisation]);
+    } else {
+      setActiveOrganisation(Object.values(organisations)[0]);
+    }
   }, [organisations]);
 
   useEffect(() => {
+    const organisation = getParam("organisation", query);
     if (
       activeOrganisation &&
-      Number(getParam("organisation", query)) !== activeOrganisation.id
+      organisation &&
+      Number(organisation) !== activeOrganisation.id
     ) {
       void push(
         pathname,
