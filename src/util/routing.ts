@@ -1,5 +1,7 @@
-import { NextPageContext } from "next";
+import type { NextPageContext } from "next";
+import { BaseRouter } from "next/dist/next-server/lib/router/router";
 import Router from "next/router";
+import { curry } from "ramda";
 
 export const redirect = ({
   ctx,
@@ -24,3 +26,7 @@ export const redirect = ({
 
   void Router.replace(location).catch();
 };
+
+export const getParam = curry((key: string, query: BaseRouter["query"]) =>
+  Array.isArray(query[key]) ? query[key]?.[0] : query[key]
+);
