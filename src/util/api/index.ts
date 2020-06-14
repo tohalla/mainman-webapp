@@ -1,7 +1,6 @@
 import { snakeCase, camelCase } from "change-case";
-import { map, pick } from "ramda";
+import { map } from "ramda";
 
-import { ServerContext } from "../../../server";
 import { indexByProp } from "../misc";
 import { transformKeys } from "../transform";
 
@@ -25,8 +24,7 @@ export const getApiCall = <
     body?: Record<string, unknown>;
     headers?: RequestInit["headers"];
     method?: ApiMethods;
-  } = {},
-  options?: { ctx?: ServerContext }
+  } = {}
 ) => <K extends keyof T | undefined>({
   responseType = "json",
   key,
@@ -42,7 +40,6 @@ export const getApiCall = <
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
-      ...pick(["cookie"], options?.ctx?.req?.headers ?? {}),
       ...(config.headers ?? {}),
     },
   })

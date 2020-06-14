@@ -20,7 +20,7 @@ import {
 } from "react-query";
 
 import { ServerContext } from "server";
-import { fetchAccountWithCtx } from "src/auth";
+import { fetchAccountWithHeaders } from "src/auth";
 import Loadable from "src/general/Loadadble";
 import ToastContainer from "src/general/ToastContainer";
 import DefaultLayout from "src/Layout";
@@ -95,7 +95,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
 App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
-  await fetchAccountWithCtx(ctx)
+  await fetchAccountWithHeaders(ctx.req.headers as RequestInit["headers"])
     .then(() =>
       redirect({
         ctx,
