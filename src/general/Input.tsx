@@ -103,6 +103,7 @@ const InputContainer = styled.div<{
       flex: 1;
       background: none;
       border: none;
+      outline: none;
       &:invalid {
         box-shadow: none;
       }

@@ -15,7 +15,7 @@ interface Props {
 
 const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => {
   const { data: organisations } = useQuery("organisations", fetchOrganisations);
-  const { query, push, pathname, asPath } = useRouter();
+  const { query, replace, pathname } = useRouter();
 
   const [activeOrganisation, setActiveOrganisation] = useState<
     Organisation | undefined
@@ -25,29 +25,22 @@ const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => {
     if (activeOrganisation || !organisations) {
       return;
     }
-    const organisation =
-      getParam("organisation", query) ??
-      localStorage.getItem("activeOrganisation");
+    const organisation = getParam("organisation", query);
     if (organisation) {
       setActiveOrganisation(organisations[organisation]);
     } else {
       setActiveOrganisation(Object.values(organisations)[0]);
     }
-  }, [organisations]);
+  }, [organisations, activeOrganisation]);
 
+  // update path
   useEffect(() => {
     const organisation = getParam("organisation", query);
-    if (
-      activeOrganisation &&
-      organisation &&
-      Number(organisation) !== activeOrganisation.id
-    ) {
-      void push(
-        pathname,
-        asPath.replace(
-          /(\/organisations\/)(\d+)/,
-          `$1${String(activeOrganisation.id)}`
-        )
+    if (activeOrganisation && Number(organisation) !== activeOrganisation.id) {
+      void replace(
+        { pathname, query: { organisation: activeOrganisation.id } },
+        undefined,
+        { shallow: true }
       );
     }
   }, [activeOrganisation]);
