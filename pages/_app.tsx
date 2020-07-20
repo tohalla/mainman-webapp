@@ -23,7 +23,7 @@ import { ServerContext } from "server";
 import { fetchAccountWithHeaders } from "src/auth";
 import Loadable from "src/general/Loadadble";
 import ToastContainer from "src/general/ToastContainer";
-import DefaultLayout from "src/Layout";
+import DefaultLayout, { LayoutProps } from "src/Layout";
 import theme from "src/theme";
 import { onError } from "src/util/intl";
 import { redirect } from "src/util/routing";
@@ -33,6 +33,7 @@ type Context = AppContext & {
 };
 export type Page = {
   Layout?: typeof DefaultLayout;
+  layoutProps?: LayoutProps;
 } & AppProps["Component"];
 type Props = AppProps & IntlConfig & { Component: Page };
 
@@ -75,7 +76,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
     <CacheProvider value={cache}>
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
-          <Layout>
+          <Layout {...Component.layoutProps}>
             <Loadable isLoading={loading}>
               <ReactQueryConfigProvider config={queryConfig}>
                 <NextApp

@@ -1,21 +1,19 @@
-import React, { ReactFragment } from "react";
+import React from "react";
 
-import DefaultLayout from "..";
+import DefaultLayout, { LayoutProps } from "..";
 
 import WithHeading from "./WithHeading";
 
-interface Props {
-  children: ReactFragment;
-}
-
-const OrganisationContentLayout: (props: Props) => JSX.Element = ({
-  children,
-}: Props) => {
+const OrganisationContentLayout = ({ children, ...props }: LayoutProps) => {
   return (
-    <DefaultLayout>
+    <DefaultLayout {...props}>
       <WithHeading>{children}</WithHeading>
     </DefaultLayout>
   );
+};
+
+OrganisationContentLayout.defaultProps = {
+  updatePath: true,
 };
 
 export default OrganisationContentLayout;

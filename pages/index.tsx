@@ -1,12 +1,12 @@
 import React from "react";
 
-import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
+import DefaultLayout from "src/Layout";
 
 const IndexPage = () => {
   return <div />;
 };
 
 IndexPage.displayName = "IndexPage";
-IndexPage.Layout = OrganisationContentLayout;
+IndexPage.Layout = DefaultLayout;
 
 export default IndexPage;

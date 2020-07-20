@@ -9,11 +9,12 @@ import OrganisationContext from "../organisation/OrganisationContext";
 
 import { getParam } from "src/util/routing";
 
-interface Props {
+export interface LayoutProps {
   children: ReactFragment;
+  updatePath: boolean;
 }
 
-const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => {
+const DefaultLayout = ({ children, updatePath }: LayoutProps) => {
   const { data: organisations } = useQuery("organisations", fetchOrganisations);
   const { query, replace, pathname } = useRouter();
 
@@ -36,14 +37,18 @@ const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => {
   // update path
   useEffect(() => {
     const organisation = getParam("organisation", query);
-    if (activeOrganisation && Number(organisation) !== activeOrganisation.id) {
+    if (
+      updatePath &&
+      activeOrganisation &&
+      Number(organisation) !== activeOrganisation.id
+    ) {
       void replace(
         { pathname, query: { organisation: activeOrganisation.id } },
         undefined,
         { shallow: true }
       );
     }
-  }, [activeOrganisation]);
+  }, [activeOrganisation, updatePath]);
 
   return (
     <OrganisationContext.Provider
@@ -55,6 +60,10 @@ const DefaultLayout: (props: Props) => JSX.Element = ({ children }: Props) => {
       </Flex>
     </OrganisationContext.Provider>
   );
+};
+
+DefaultLayout.defaultProps = {
+  updatePath: false,
 };
 
 export default DefaultLayout;
