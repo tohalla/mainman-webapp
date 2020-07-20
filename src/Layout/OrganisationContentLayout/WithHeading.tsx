@@ -4,8 +4,9 @@ import { Flex } from "rebass";
 
 import Loadable from "../../general/Loadadble";
 import { fetchOrganisations } from "../../organisation";
-import NoOrganisations from "../../organisation/NoOrganisations";
 import OrganisationSelect from "../../organisation/OrganisationSelect";
+
+import NoOrganisations from "./NoOrganisations";
 
 interface Props {
   children: ReactFragment;
@@ -15,6 +16,7 @@ const WithHeading: (props: Props) => JSX.Element = ({ children }: Props) => {
   const { data, isFetching } = useQuery("organisations", fetchOrganisations, {
     staleTime: 60000,
   });
+
   const view = useMemo(() => {
     const organisations = data ? Object.values(data) : [];
     if (organisations.length > 1) {
@@ -26,7 +28,7 @@ const WithHeading: (props: Props) => JSX.Element = ({ children }: Props) => {
     return "none";
   }, [data]);
 
-  return view === "single" ? (
+  return view === "none" ? (
     <NoOrganisations />
   ) : (
     <>
