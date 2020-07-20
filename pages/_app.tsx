@@ -25,6 +25,7 @@ import Loadable from "src/general/Loadadble";
 import ToastContainer from "src/general/ToastContainer";
 import DefaultLayout from "src/Layout";
 import theme from "src/theme";
+import { onError } from "src/util/intl";
 import { redirect } from "src/util/routing";
 
 type Context = AppContext & {
@@ -61,6 +62,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
         {
           locale,
           messages,
+          onError,
         },
         intlCache
       ),
