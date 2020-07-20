@@ -32,7 +32,7 @@ const DefaultLayout = ({ children, updatePath }: LayoutProps) => {
     } else {
       setActiveOrganisation(Object.values(organisations)[0]);
     }
-  }, [organisations, activeOrganisation]);
+  }, [organisations, activeOrganisation, query]);
 
   // update path
   useEffect(() => {
@@ -48,7 +48,7 @@ const DefaultLayout = ({ children, updatePath }: LayoutProps) => {
         { shallow: true }
       );
     }
-  }, [activeOrganisation, updatePath]);
+  }, [activeOrganisation, updatePath, query]);
 
   return (
     <OrganisationContext.Provider
