@@ -54,4 +54,9 @@ const styles = css`
 `;
 
 Button.displayName = "AsyncButton";
+
+Button.defaultProps = {
+  type: "button",
+};
+
 export default Button;

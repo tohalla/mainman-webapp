@@ -7,4 +7,8 @@ const PlainButton = (props: Omit<ButtonProps, "css">) => {
 
 PlainButton.displayName = "PlainButton";
 
+Button.defaultProps = {
+  type: "button",
+};
+
 export default PlainButton;

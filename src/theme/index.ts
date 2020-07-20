@@ -42,6 +42,10 @@ const theme = {
       p: 0,
       bg: "transparent",
       display: "inline-flex",
+      textDecoration: "underline",
+      "&:hover": {
+        color: colors.accent.neutral,
+      },
     },
   },
 };

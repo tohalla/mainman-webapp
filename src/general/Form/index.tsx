@@ -36,7 +36,7 @@ const Form = forwardRef(
         {children}
         <Actions>
           {secondaryAction}
-          <Button loading={isSubmitting} ml={[3, 5]}>
+          <Button loading={isSubmitting} ml={[3, 5]} type="submit">
             {submitLabel}
           </Button>
         </Actions>

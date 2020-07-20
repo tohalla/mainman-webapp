@@ -10,6 +10,9 @@ import { formMessages } from "./messages";
 
 import { Organisation, createOrganisation, updateOrganisation } from ".";
 
+import ReturnButton from "src/general/Button/ReturnButton";
+import messages from "src/general/messages";
+
 interface Props {
   organisation?: Organisation;
   onSubmit?(organisation: Organisation): void;
@@ -45,6 +48,11 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
       }}
     >
       <Form
+        secondaryAction={
+          <ReturnButton>
+            <FormattedMessage {...messages.cancel} />
+          </ReturnButton>
+        }
         submitLabel={
           <FormattedMessage
             {...formMessages[organisation ? "update" : "create"]}
