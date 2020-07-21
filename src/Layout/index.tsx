@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { ReactFragment, useState, useEffect } from "react";
+import React, { ReactFragment, useState, useEffect, ReactNode } from "react";
 import { useQuery } from "react-query";
 import { Flex } from "rebass";
 
@@ -12,9 +12,10 @@ import { getParam } from "src/util/routing";
 export interface LayoutProps {
   children: ReactFragment;
   updatePath: boolean;
+  title?: ReactNode;
 }
 
-const DefaultLayout = ({ children, updatePath }: LayoutProps) => {
+const DefaultLayout = ({ children, updatePath, title }: LayoutProps) => {
   const { data: organisations } = useQuery("organisations", fetchOrganisations);
   const { query, replace, pathname } = useRouter();
 
@@ -55,7 +56,15 @@ const DefaultLayout = ({ children, updatePath }: LayoutProps) => {
       value={{ activeOrganisation, setActiveOrganisation }}
     >
       <MainNavigation />
-      <Flex as="main" flex={1} flexDirection="column" mx={[2, 5]} my={[2, 5]}>
+      <Flex
+        as="main"
+        flex={1}
+        flexDirection="column"
+        mx={[2, 5]}
+        my={[2, 5]}
+        sx={{ h1: { color: "greyscale.2", m: 0 } }}
+      >
+        {title && <h1>{title}</h1>}
         {children}
       </Flex>
     </OrganisationContext.Provider>

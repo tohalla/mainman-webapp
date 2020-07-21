@@ -4,10 +4,14 @@ import DefaultLayout, { LayoutProps } from "..";
 
 import WithHeading from "./WithHeading";
 
-const OrganisationContentLayout = ({ children, ...props }: LayoutProps) => {
+const OrganisationContentLayout = ({
+  children,
+  title,
+  ...props
+}: LayoutProps) => {
   return (
     <DefaultLayout {...props}>
-      <WithHeading>{children}</WithHeading>
+      <WithHeading title={title}>{children}</WithHeading>
     </DefaultLayout>
   );
 };
