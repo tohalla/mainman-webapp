@@ -7,15 +7,22 @@ import MainNavigation from "../general/Navigation/MainNavigation";
 import { Organisation, fetchOrganisations } from "../organisation";
 import OrganisationContext from "../organisation/OrganisationContext";
 
+import Loadable from "src/general/Loadadble";
 import { getParam } from "src/util/routing";
 
 export interface LayoutProps {
   children: ReactFragment;
   updatePath: boolean;
   title?: ReactNode;
+  isLoading: boolean;
 }
 
-const DefaultLayout = ({ children, updatePath, title }: LayoutProps) => {
+const DefaultLayout = ({
+  children,
+  updatePath,
+  title,
+  isLoading,
+}: LayoutProps) => {
   const { data: organisations } = useQuery("organisations", fetchOrganisations);
   const { query, replace, pathname } = useRouter();
 
@@ -64,8 +71,10 @@ const DefaultLayout = ({ children, updatePath, title }: LayoutProps) => {
         my={[2, 5]}
         sx={{ h1: { color: "greyscale.2", m: 0 } }}
       >
-        {title && <h1>{title}</h1>}
-        {children}
+        <Loadable isLoading={isLoading}>
+          {title && <h1>{title}</h1>}
+          {children}
+        </Loadable>
       </Flex>
     </OrganisationContext.Provider>
   );
