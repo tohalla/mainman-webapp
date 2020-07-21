@@ -62,6 +62,7 @@ const NavLink = styled(RebassLink)`
 `;
 
 const ActiveNavLink = styled(NavLink)`
+  text-decoration: underline;
   &,
   &:hover {
     color: ${getColor(["greyscale", 0])};

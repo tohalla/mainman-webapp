@@ -38,4 +38,8 @@ export default css`
       color: ${colors.accent.neutral};
     }
   }
+
+  * {
+    box-sizing: border-box;
+  }
 `;

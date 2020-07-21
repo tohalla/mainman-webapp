@@ -53,6 +53,7 @@ const MainNavigation = () => {
         backgroundColor={colors.greyscale[9]}
         flexDirection={["column", "row"]}
         justifyContent="space-between"
+        px={[0, 3]}
         sx={{ boxShadow: 1, position: ["absolute", "dynamic"] }}
         width="100%"
       >
