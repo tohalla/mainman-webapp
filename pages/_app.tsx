@@ -32,7 +32,7 @@ type Context = AppContext & {
   ctx: ServerContext;
 };
 export type Page = {
-  Layout?: typeof DefaultLayout;
+  Layout?: React.FC<LayoutProps>;
   layoutProps?: LayoutProps;
 } & AppProps["Component"];
 type Props = AppProps & IntlConfig & { Component: Page };
