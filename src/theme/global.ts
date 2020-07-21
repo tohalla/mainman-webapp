@@ -42,4 +42,11 @@ export default css`
   * {
     box-sizing: border-box;
   }
+
+  h1 {
+    font-size: 24px;
+  }
+  h2, h3, h4, h5, h6 {
+    font-size: 16px;
+  }
 `;
