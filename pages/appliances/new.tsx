@@ -1,9 +1,12 @@
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
+import { FormattedMessage } from "react-intl";
 
 import { Page } from "../_app";
 
 import ApplianceForm from "src/appliances/ApplianceForm";
+import { titles } from "src/general/messages";
+import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import OrganisationContext from "src/organisations/OrganisationContext";
 
 const NewAppliancePage: Page = () => {
@@ -28,5 +31,9 @@ const NewAppliancePage: Page = () => {
 };
 
 NewAppliancePage.displayName = "NewAppliancePage";
+NewAppliancePage.Layout = OrganisationContentLayout;
+NewAppliancePage.layoutProps = {
+  title: <FormattedMessage {...titles.newAppliance} />,
+};
 
 export default NewAppliancePage;
