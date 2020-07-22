@@ -28,10 +28,6 @@ const Container = styled.div<{ height?: number }>`
   flex: 1;
   align-items: center;
   justify-content: center;
-
-  svg {
-    ${({ height }) => height && `height: ${height};`}
-  }
 `;
 
 export default Loadable;
