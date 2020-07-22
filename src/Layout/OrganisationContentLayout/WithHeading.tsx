@@ -9,15 +9,11 @@ import OrganisationSelect from "../../organisation/OrganisationSelect";
 
 import NoOrganisations from "./NoOrganisations";
 
-interface Props {
+interface Props extends Pick<LayoutProps, "description" | "title"> {
   children: ReactFragment;
-  title: LayoutProps["title"];
 }
 
-const WithHeading: (props: Props) => JSX.Element = ({
-  children,
-  title,
-}: Props) => {
+const WithHeading = ({ children, title, description }: Props) => {
   const { data, isLoading } = useQuery("organisations", fetchOrganisations, {
     staleTime: 60000,
   });
@@ -54,6 +50,7 @@ const WithHeading: (props: Props) => JSX.Element = ({
           </Flex>
         </Flex>
       )}
+      {description && <p>{description}</p>}
       {children}
     </>
   );

@@ -116,5 +116,6 @@ module.exports = {
     // NOTE: disabled due to performance issues
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-return": "off",
+    "react/prop-types": "off",
   },
 };

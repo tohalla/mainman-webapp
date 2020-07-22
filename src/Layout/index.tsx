@@ -14,14 +14,16 @@ export interface LayoutProps {
   children: ReactFragment;
   updatePath: boolean;
   title?: ReactNode;
+  description?: ReactNode;
   isLoading: boolean;
 }
 
 const DefaultLayout = ({
   children,
-  updatePath,
-  title,
+  description,
   isLoading,
+  title,
+  updatePath,
 }: LayoutProps) => {
   const { data: organisations } = useQuery("organisations", fetchOrganisations);
   const { query, replace, pathname } = useRouter();
@@ -73,6 +75,7 @@ const DefaultLayout = ({
       >
         <Loadable isLoading={isLoading}>
           {title && <h1>{title}</h1>}
+          {description && <p>{description}</p>}
           {children}
         </Loadable>
       </Flex>

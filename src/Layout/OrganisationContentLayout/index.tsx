@@ -6,12 +6,15 @@ import WithHeading from "./WithHeading";
 
 const OrganisationContentLayout = ({
   children,
+  description,
   title,
   ...props
 }: LayoutProps) => {
   return (
     <DefaultLayout {...props}>
-      <WithHeading title={title}>{children}</WithHeading>
+      <WithHeading description={description} title={title}>
+        {children}
+      </WithHeading>
     </DefaultLayout>
   );
 };
