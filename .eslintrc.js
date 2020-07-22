@@ -118,5 +118,6 @@ module.exports = {
     "@typescript-eslint/no-unsafe-return": "off",
     "react/prop-types": "off",
     "react/require-default-props": "off",
+    "react/display-name": "off",
   },
 };
