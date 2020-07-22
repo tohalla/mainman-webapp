@@ -24,10 +24,11 @@ export const createOrganisation = (
     body: payload,
   })();
 
-export const updateOrganisation = (
-  payload: Omit<Organisation, "adminAccount">
-) =>
-  getApiCall<Organisation, Organisation>("/organisations", {
+export const updateOrganisation = ({
+  id,
+  ...payload
+}: Omit<Organisation, "adminAccount">) =>
+  getApiCall<Organisation, Organisation>(`/organisations/${id}`, {
     method: "PATCH",
     body: payload,
   })();
