@@ -41,10 +41,11 @@ export const createAppliance = ({
 
 export const updateAppliance = ({
   organisation,
+  hash,
   ...payload
-}: Omit<Appliance, "hash" | keyof Timestamps>) =>
+}: Omit<Appliance, keyof Timestamps>) =>
   getApiCall<Appliance, Appliance>(
-    `/organisations/appliances/${organisation}`,
+    `/organisations/appliances/${organisation}/${hash}`,
     {
       method: "PATCH",
       body: payload,
