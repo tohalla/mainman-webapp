@@ -9,14 +9,22 @@ export type Appliance = Timestamps & {
   organisation: number;
 };
 
-export const fetchAppliance = (_: string, organisation: number, id: number) =>
+interface QueryContext {
+  organisation?: number;
+}
+
+export const fetchAppliance = (
+  _: string,
+  id: number,
+  { organisation }: QueryContext
+) =>
   getApiCall<Appliance, Appliance>(
-    `/organisations/${organisation}/appliances/${id}`
+    `/organisations/${organisation ?? ""}/appliances/${id}`
   )({ key: "hash" });
 
-export const fetchAppliances = (_: string, organisation: number) =>
+export const fetchAppliances = (_: string, { organisation }: QueryContext) =>
   getApiCall<Appliance, Appliance>(
-    `/organisations/${organisation}/appliances`
+    `/organisations/${organisation ?? ""}/appliances`
   )();
 
 export const createAppliance = ({
