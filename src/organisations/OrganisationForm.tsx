@@ -32,20 +32,24 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
         name: organisation?.name ?? "",
         organisationIdentifier: organisation?.organisationIdentifier ?? "",
       }}
-      onSubmit={async (values, { setSubmitting }) => {
-        const response = await mutateOrganisation(
+      onSubmit={async (values, { setSubmitting }) =>
+        mutateOrganisation(
           organisation
             ? { id: organisation?.id, locale: "en", ...values }
             : ({
                 ...values,
                 locale: "en",
-              } as Organisation)
-        );
-        setSubmitting(false);
-        if (onSubmit) {
-          onSubmit(response);
-        }
-      }}
+              } as Organisation),
+          {
+            onSuccess: (response) => {
+              setSubmitting(false);
+              if (onSubmit) {
+                onSubmit(response);
+              }
+            },
+          }
+        )
+      }
     >
       <Form
         secondaryAction={

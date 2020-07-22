@@ -34,8 +34,8 @@ const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
         name: appliance?.name ?? "",
         description: appliance?.description ?? "",
       }}
-      onSubmit={async (values, { setSubmitting }) => {
-        const response = await mutateAppliance(
+      onSubmit={async (values, { setSubmitting }) =>
+        mutateAppliance(
           appliance
             ? {
                 ...values,
@@ -45,13 +45,17 @@ const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
             : ({
                 ...values,
                 organisation: organisation.id,
-              } as Appliance)
-        );
-        setSubmitting(false);
-        if (onSubmit) {
-          onSubmit(response);
-        }
-      }}
+              } as Appliance),
+          {
+            onSuccess: (response) => {
+              setSubmitting(false);
+              if (onSubmit) {
+                onSubmit(response);
+              }
+            },
+          }
+        )
+      }
     >
       <Form
         secondaryAction={
