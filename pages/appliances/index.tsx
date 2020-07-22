@@ -1,12 +1,35 @@
-import React from "react";
+import { isEmpty } from "ramda";
+import React, { useContext } from "react";
 import { FormattedMessage } from "react-intl";
+import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
+import { fetchAppliances } from "src/appliances";
+import NoAppliances from "src/appliances/NoAppliances";
+import Loadable from "src/general/Loadadble";
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
+import OrganisationContext from "src/organisations/OrganisationContext";
 
 const AppliancesPage: Page = () => {
-  return <div />;
+  const { activeOrganisation } = useContext(OrganisationContext);
+  const { data: appliances, isLoading } = useQuery(
+    ["appliances", { organisation: activeOrganisation?.id }],
+    fetchAppliances,
+    { enabled: activeOrganisation?.id }
+  );
+
+  if (!activeOrganisation) {
+    return null;
+  }
+
+  return (
+    <Loadable isLoading={isLoading}>
+      {isEmpty(appliances) && (
+        <NoAppliances organisation={activeOrganisation} />
+      )}
+    </Loadable>
+  );
 };
 
 AppliancesPage.displayName = "AppliancesPage";
