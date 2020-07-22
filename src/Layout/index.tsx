@@ -16,12 +16,14 @@ export interface LayoutProps {
   title?: ReactNode;
   description?: ReactNode;
   isLoading: boolean;
+  renderContent(content: ReactFragment): ReactFragment;
 }
 
 const DefaultLayout = ({
   children,
   description,
   isLoading,
+  renderContent,
   title,
   updatePath,
 }: LayoutProps) => {
@@ -76,7 +78,7 @@ const DefaultLayout = ({
         <Loadable isLoading={isLoading}>
           {title && <h1>{title}</h1>}
           {description && <p>{description}</p>}
-          {children}
+          {renderContent(children)}
         </Loadable>
       </Flex>
     </OrganisationContext.Provider>
@@ -85,6 +87,7 @@ const DefaultLayout = ({
 
 DefaultLayout.defaultProps = {
   updatePath: false,
+  renderContent: (content: ReactFragment) => <Flex mt={4}>{content}</Flex>,
 };
 
 export default DefaultLayout;

@@ -1,3 +1,4 @@
+import { identity } from "ramda";
 import React from "react";
 
 import DefaultLayout, { LayoutProps } from "..";
@@ -11,9 +12,9 @@ const OrganisationContentLayout = ({
   ...props
 }: LayoutProps) => {
   return (
-    <DefaultLayout {...props}>
+    <DefaultLayout {...props} renderContent={identity}>
       <WithHeading description={description} title={title}>
-        {children}
+        {DefaultLayout.defaultProps.renderContent(children)}
       </WithHeading>
     </DefaultLayout>
   );

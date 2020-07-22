@@ -32,7 +32,10 @@ type Context = AppContext & {
 };
 export type Page = {
   Layout?: React.FC<LayoutProps>;
-  layoutProps?: Omit<LayoutProps, "children" | "updatePath" | "isLoading"> &
+  layoutProps?: Omit<
+    LayoutProps,
+    "children" | "updatePath" | "isLoading" | "renderContent"
+  > &
     Partial<Pick<LayoutProps, "updatePath">>;
 } & AppProps["Component"];
 type Props = AppProps & IntlConfig & { Component: Page };
