@@ -32,7 +32,7 @@ export const createAppliance = ({
   ...payload
 }: Omit<Appliance, "hash" | keyof Timestamps>) =>
   getApiCall<Appliance, Appliance>(
-    `/organisations/appliances/${organisation}`,
+    `/organisations/${organisation}/appliances`,
     {
       method: "POST",
       body: payload,
@@ -45,7 +45,7 @@ export const updateAppliance = ({
   ...payload
 }: Omit<Appliance, keyof Timestamps>) =>
   getApiCall<Appliance, Appliance>(
-    `/organisations/appliances/${organisation}/${hash}`,
+    `/organisations/${organisation}/appliances/${hash}`,
     {
       method: "PATCH",
       body: payload,
