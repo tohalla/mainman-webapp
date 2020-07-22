@@ -11,3 +11,14 @@ export default defineMessages({
    have rights to create them */
   noAppliancesRestricted: "There exists no appliances for {organisationLink}.",
 });
+
+export const formMessages = defineMessages({
+  // Appliance form: label for the name field
+  nameLabel: "Name",
+  // Appliance form: label for the appliance description field
+  description: "Description",
+  // Appliance form: submit text for creating a new appliance
+  create: "Create appliance",
+  // Appliance form: submit text for updating an appliance
+  update: "Update appliance",
+});
