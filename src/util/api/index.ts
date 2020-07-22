@@ -16,12 +16,13 @@ export const apiURL =
     : `https://${host}/api/${apiVer}`;
 
 export const getApiCall = <
-  T extends Record<string, unknown>,
-  U = T | Record<string, T>
+  T extends { [key: string]: unknown },
+  U = T | { [key: string]: T },
+  V = Partial<U>
 >(
   path: string,
   config: {
-    body?: Record<string, unknown>;
+    body?: V;
     headers?: RequestInit["headers"];
     method?: ApiMethods;
   } = {}
