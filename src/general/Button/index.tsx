@@ -14,8 +14,6 @@ const Button = ({ loading, children, ...props }: Props) => (
       typeof loading === "boolean" ? ((styles as unknown) as string) : undefined
     }
     disabled={loading}
-    px={3}
-    py={2}
   >
     {loading && <div className="indicator" />}
     <span>{children}</span>

@@ -47,6 +47,8 @@ const theme = {
         bg: colors.greyscale[4],
       },
       display: "inline-flex",
+      px: 4,
+      py: 3,
     },
     plain: {
       borderRadius: 0,
