@@ -4,8 +4,8 @@ import { useQuery } from "react-query";
 import { Flex } from "rebass";
 
 import MainNavigation from "../general/Navigation/MainNavigation";
-import { Organisation, fetchOrganisations } from "../organisation";
-import OrganisationContext from "../organisation/OrganisationContext";
+import { Organisation, fetchOrganisations } from "../organisations";
+import OrganisationContext from "../organisations/OrganisationContext";
 
 import Loadable from "src/general/Loadadble";
 import { getParam } from "src/util/routing";

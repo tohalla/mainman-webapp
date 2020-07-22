@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { Page } from "pages/_app";
 import Loadable from "src/general/Loadadble";
 import Section from "src/general/Section";
-import { fetchOrganisation } from "src/organisation";
+import { fetchOrganisation } from "src/organisations";
 import { getParam } from "src/util/routing";
 
 const OrganisationPage: Page = () => {

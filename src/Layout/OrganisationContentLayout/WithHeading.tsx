@@ -4,8 +4,8 @@ import { Flex, Box } from "rebass";
 
 import { LayoutProps } from "..";
 import Loadable from "../../general/Loadadble";
-import { fetchOrganisations } from "../../organisation";
-import OrganisationSelect from "../../organisation/OrganisationSelect";
+import { fetchOrganisations } from "../../organisations";
+import OrganisationSelect from "../../organisations/OrganisationSelect";
 
 import NoOrganisations from "./NoOrganisations";
 

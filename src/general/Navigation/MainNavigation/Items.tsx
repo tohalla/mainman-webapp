@@ -4,8 +4,8 @@ import React, { MouseEventHandler, useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link as RebassLink } from "rebass";
 
-import { Organisation } from "../../../organisation";
-import OrganisationContext from "../../../organisation/OrganisationContext";
+import { Organisation } from "../../../organisations";
+import OrganisationContext from "../../../organisations/OrganisationContext";
 import { getColor } from "../../../theme/colors";
 import styled from "../../../theme/styled";
 

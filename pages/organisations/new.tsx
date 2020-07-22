@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-import OrganisationForm from "../../src/organisation/OrganisationForm";
+import OrganisationForm from "../../src/organisations/OrganisationForm";
 import { Page } from "../_app";
 
 import DefaultLayout from "src/Layout";
