@@ -40,7 +40,9 @@ type Props = AppProps & IntlConfig & { Component: Page };
 const intlCache = createIntlCache();
 
 const queryConfig: ReactQueryProviderConfig = {
-  refetchAllOnWindowFocus: false,
+  queries: {
+    refetchOnWindowFocus: false,
+  },
 };
 
 const App: NextComponentType<Context, Record<string, unknown>, Props> = ({

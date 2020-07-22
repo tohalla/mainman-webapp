@@ -18,7 +18,7 @@ const WithHeading: (props: Props) => JSX.Element = ({
   children,
   title,
 }: Props) => {
-  const { data, isFetching } = useQuery("organisations", fetchOrganisations, {
+  const { data, isLoading } = useQuery("organisations", fetchOrganisations, {
     staleTime: 60000,
   });
 
@@ -46,7 +46,7 @@ const WithHeading: (props: Props) => JSX.Element = ({
             justifyContent="space-between"
           >
             {title && <h1>{title}</h1>}
-            <Loadable isLoading={isFetching}>
+            <Loadable isLoading={isLoading}>
               <Box variant="subdued">
                 <OrganisationSelect />
               </Box>

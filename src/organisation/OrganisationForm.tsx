@@ -22,7 +22,7 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
   const [mutateOrganisation] = useMutation(
     organisation ? updateOrganisation : createOrganisation,
     {
-      onSuccess: () => queryCache.refetchQueries("organisations"),
+      onSuccess: () => queryCache.invalidateQueries("organisations"),
     }
   );
 

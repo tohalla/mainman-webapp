@@ -14,13 +14,13 @@ const OrganisationSelect = () => {
   const { setActiveOrganisation, activeOrganisation } = useContext(
     OrganisationContext
   );
-  const { data: organisations, isFetching } = useQuery(
+  const { data: organisations, isLoading } = useQuery(
     "organisations",
     fetchOrganisations
   );
 
   return (
-    <Loadable isLoading={isFetching}>
+    <Loadable isLoading={isLoading}>
       {organisations && (
         <Select
           label={<FormattedMessage {...messages.activeOrganisation} />}
