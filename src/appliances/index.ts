@@ -23,7 +23,7 @@ export const fetchAppliance = (
   )({ key: "hash" });
 
 export const fetchAppliances = (_: string, { organisation }: QueryContext) =>
-  getApiCall<Appliance, Appliance>(
+  getApiCall<Appliance, Record<string, Appliance>>(
     `/organisations/${organisation ?? ""}/appliances`
   )();
 
