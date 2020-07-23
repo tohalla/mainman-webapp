@@ -8,12 +8,9 @@ import {
 import { Box } from "rebass";
 
 const Row = <T extends Record<string, unknown>>({
-  role,
-  className,
-  style,
   cells,
 }: TableCommonProps & Omit<UseTableRowProps<T>, "getRowProps">) => (
-  <Box as="tr" className={className} role={role} style={style}>
+  <Box as="tr">
     {cells.map(({ getCellProps, ...props }) => {
       const { key, ...cellProps } = getCellProps();
       return <Cell key={key} {...cellProps} {...props} />;
@@ -42,10 +39,9 @@ export default <T extends Record<string, unknown>>({
   TableCommonProps) => {
   return (
     <Box as="tbody" className={className} role={role} style={style}>
-      {rows.map(({ getRowProps, ...props }) => {
-        const { key, ...rowProps } = getRowProps();
-        prepareRow({ getRowProps, ...props });
-        return <Row key={key} {...rowProps} {...props} />;
+      {rows.map((row) => {
+        prepareRow(row);
+        return <Row key={row.id} {...row} />;
       })}
     </Box>
   );
