@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
 import { fetchAppliances } from "src/appliances";
+import ApplianceList from "src/appliances/ApplianceList";
 import NoAppliances from "src/appliances/NoAppliances";
 import Loadable from "src/general/Loadadble";
 import { titles } from "src/general/messages";
@@ -25,8 +26,10 @@ const AppliancesPage: Page = () => {
 
   return (
     <Loadable>
-      {isEmpty(appliances) && (
+      {isEmpty(appliances) ? (
         <NoAppliances organisation={activeOrganisation} />
+      ) : (
+        appliances && <ApplianceList appliances={appliances} />
       )}
     </Loadable>
   );
