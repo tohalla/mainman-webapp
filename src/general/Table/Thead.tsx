@@ -3,38 +3,32 @@ import { FaSortDown, FaSortUp } from "react-icons/fa";
 import {
   UseTableInstanceProps,
   UseTableHeaderGroupProps,
-  HeaderProps,
   TableCommonProps,
+  ColumnInstance,
 } from "react-table";
 import { Box } from "rebass";
 
 const HeaderGroup = <T extends Record<string, unknown>>({
-  headers,
-  role,
-  className,
-  style,
-}: TableCommonProps &
-  Omit<UseTableHeaderGroupProps<T>, "getHeaderGroupProps">) => (
-  <Box as="tr" className={className} role={role} style={style}>
-    {headers.map(({ getHeaderProps, ...props }) => {
-      const { key, ...headerProps } = getHeaderProps();
-      return <Header key={key} {...headerProps} {...props} />;
+  headerGroup,
+  ...props
+}: TableCommonProps & { headerGroup: UseTableHeaderGroupProps<T> }) => (
+  <Box as="tr" {...props}>
+    {headerGroup.headers.map((header) => {
+      const { key, ...headerProps } = header.getHeaderProps(
+        header.getSortByToggleProps()
+      );
+      return <Header key={key} {...headerProps} column={header} />;
     })}
   </Box>
 );
 
 const Header = <T extends Record<string, unknown>>({
-  render,
-  isSorted,
-  isSortedDesc,
-  role,
-  className,
-  style,
-}: Omit<HeaderProps<T>["column"], "getHeaderProps"> & TableCommonProps) => (
-  <Box as="th" className={className} role={role} style={style}>
-    {render("Header")}
-    {isSortedDesc && <FaSortDown />}
-    {isSorted && <FaSortUp />}
+  column,
+  ...props
+}: { column: ColumnInstance<T> } & TableCommonProps) => (
+  <Box as="th" {...props}>
+    {column.render("Header")}
+    {column.isSorted && (column.isSortedDesc ? <FaSortDown /> : <FaSortUp />)}
   </Box>
 );
 
@@ -42,9 +36,15 @@ export default <T extends Record<string, unknown>>({
   headerGroups,
 }: Pick<UseTableInstanceProps<T>, "headerGroups">) => (
   <Box as="thead">
-    {headerGroups.map(({ getHeaderGroupProps, ...props }) => {
-      const { key, ...headerGroupProps } = getHeaderGroupProps();
-      return <HeaderGroup key={key} {...headerGroupProps} {...props} />;
+    {headerGroups.map((headerGroup) => {
+      const { key, ...headerGroupProps } = headerGroup.getHeaderGroupProps();
+      return (
+        <HeaderGroup
+          key={key}
+          {...headerGroupProps}
+          headerGroup={headerGroup}
+        />
+      );
     })}
   </Box>
 );

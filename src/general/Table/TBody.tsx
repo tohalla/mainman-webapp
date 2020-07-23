@@ -2,30 +2,28 @@ import React from "react";
 import {
   TableCommonProps,
   UseTableInstanceProps,
-  UseTableRowProps,
-  UseTableCellProps,
+  Cell as CellType,
+  Row as RowType,
 } from "react-table";
 import { Box } from "rebass";
 
 const Row = <T extends Record<string, unknown>>({
-  cells,
-}: TableCommonProps & Omit<UseTableRowProps<T>, "getRowProps">) => (
+  row,
+}: TableCommonProps & { row: RowType<T> }) => (
   <Box as="tr">
-    {cells.map(({ getCellProps, ...props }) => {
-      const { key, ...cellProps } = getCellProps();
-      return <Cell key={key} {...cellProps} {...props} />;
+    {row.cells.map((cell) => {
+      const { key, ...props } = cell.getCellProps();
+      return <Cell key={key} cell={cell} {...props} />;
     })}
   </Box>
 );
 
 const Cell = <T extends Record<string, unknown>>({
-  className,
-  role,
-  style,
-  render,
-}: TableCommonProps & Omit<UseTableCellProps<T>, "getCellProps">) => (
-  <Box as="td" className={className} role={role} style={style}>
-    {render("Cell")}
+  cell,
+  ...props
+}: TableCommonProps & { cell: CellType<T> }) => (
+  <Box as="td" {...props}>
+    {cell.render("Cell")}
   </Box>
 );
 
@@ -41,7 +39,7 @@ export default <T extends Record<string, unknown>>({
     <Box as="tbody" className={className} role={role} style={style}>
       {rows.map((row) => {
         prepareRow(row);
-        return <Row key={row.id} {...row} />;
+        return <Row key={row.id} row={row} />;
       })}
     </Box>
   );
