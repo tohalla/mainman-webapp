@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef } from "react";
+import React, { ReactNode, useRef, Suspense } from "react";
 
 import styled from "../../theme/styled";
 
@@ -6,12 +6,12 @@ import Loader from "./Loader";
 
 interface Props {
   children: ReactNode;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const Loadable = ({ isLoading, children }: Props) => {
   const el = useRef<HTMLDivElement>(null);
-  if (!isLoading) {
+  if (isLoading === false) {
     return <div ref={el}>{children}</div>;
   }
 
@@ -30,4 +30,17 @@ const Container = styled.div<{ height?: number }>`
   justify-content: center;
 `;
 
-export default Loadable;
+export default (props: Props) =>
+  typeof props.isLoading === "boolean" ? (
+    <Loadable {...props} />
+  ) : typeof window === "undefined" ? null : (
+    <Suspense
+      fallback={
+        <Container>
+          <Loader />
+        </Container>
+      }
+    >
+      {props.children}
+    </Suspense>
+  );

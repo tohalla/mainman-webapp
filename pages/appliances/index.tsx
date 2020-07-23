@@ -13,7 +13,7 @@ import OrganisationContext from "src/organisations/OrganisationContext";
 
 const AppliancesPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
-  const { data: appliances, isLoading } = useQuery(
+  const { data: appliances } = useQuery(
     ["appliances", { organisation: activeOrganisation?.id }],
     fetchAppliances,
     { enabled: activeOrganisation?.id }
@@ -24,7 +24,7 @@ const AppliancesPage: Page = () => {
   }
 
   return (
-    <Loadable isLoading={isLoading}>
+    <Loadable>
       {isEmpty(appliances) && (
         <NoAppliances organisation={activeOrganisation} />
       )}

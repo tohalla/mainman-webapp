@@ -10,14 +10,14 @@ import { getParam } from "src/util/routing";
 
 const OrganisationPage: Page = () => {
   const { query } = useRouter();
-  const { data: organisation, isLoading } = useQuery(
+  const { data: organisation } = useQuery(
     ["organisations", Number(getParam("organisation", query))],
     fetchOrganisation,
     { enabled: typeof query.organisation === "undefined" }
   );
 
   return (
-    <Loadable isLoading={isLoading}>
+    <Loadable>
       <Section>
         <h1>{organisation?.name}</h1>
       </Section>

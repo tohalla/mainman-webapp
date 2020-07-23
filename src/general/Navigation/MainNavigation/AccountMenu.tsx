@@ -11,13 +11,13 @@ import Loadable from "../../Loadadble";
 import { accountMenuMessages } from "./messages";
 
 const AccountMenu = () => {
-  const { data: account, isLoading } = useQuery("account", fetchAccount, {
+  const { data: account } = useQuery("account", fetchAccount, {
     staleTime: 60000,
   });
 
   return (
     <Box alignSelf={["flex-end", "auto"]} px={4} py={[4, 0]}>
-      <Loadable isLoading={isLoading}>
+      <Loadable>
         <FormattedMessage
           {...accountMenuMessages.greeting}
           values={{
