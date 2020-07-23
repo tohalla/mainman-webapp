@@ -6,7 +6,7 @@ import {
   TableCommonProps,
   ColumnInstance,
 } from "react-table";
-import { Box } from "rebass";
+import { Box, Flex } from "rebass";
 
 const HeaderGroup = <T extends Record<string, unknown>>({
   headerGroup,
@@ -27,8 +27,14 @@ const Header = <T extends Record<string, unknown>>({
   ...props
 }: { column: ColumnInstance<T> } & TableCommonProps) => (
   <Box as="th" {...props}>
-    {column.render("Header")}
-    {column.isSorted && (column.isSortedDesc ? <FaSortDown /> : <FaSortUp />)}
+    <Flex
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{ userSelect: "none" }}
+    >
+      {column.render("Header")}
+      {column.isSorted && (column.isSortedDesc ? <FaSortDown /> : <FaSortUp />)}
+    </Flex>
   </Box>
 );
 
