@@ -23,3 +23,10 @@ export const titles = defineMessages({
   // title text for profile
   profile: "Profile",
 });
+
+export const pageLinks = defineMessages({
+  // link text for navigating to appliances root page
+  appliances: "Appliances",
+  // link text for navigating to creating a new appliance
+  newAppliance: "Create a new appliance",
+});
