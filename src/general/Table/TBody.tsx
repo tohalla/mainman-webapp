@@ -5,26 +5,33 @@ import {
   Cell as CellType,
   Row as RowType,
 } from "react-table";
-import { Box } from "rebass";
+import { Flex } from "rebass";
 
 const Row = <T extends Record<string, unknown>>({
   row,
 }: TableCommonProps & { row: RowType<T> }) => (
-  <Box as="tr">
+  <Flex as="tr">
     {row.cells.map((cell) => {
       const { key, ...props } = cell.getCellProps();
       return <Cell key={key} cell={cell} {...props} />;
     })}
-  </Box>
+  </Flex>
 );
 
 const Cell = <T extends Record<string, unknown>>({
   cell,
   ...props
 }: TableCommonProps & { cell: CellType<T> }) => (
-  <Box as="td" {...props} px={3}>
+  <Flex
+    as="td"
+    {...props}
+    overflow="hidden"
+    px={3}
+    py={2}
+    sx={{ boxShadow: "0 1px 1px rgba(0, 0, 0, .4)" }}
+  >
     {cell.render("Cell")}
-  </Box>
+  </Flex>
 );
 
 export default <T extends Record<string, unknown>>({
@@ -36,11 +43,17 @@ export default <T extends Record<string, unknown>>({
 }: Pick<UseTableInstanceProps<T>, "rows" | "prepareRow"> &
   TableCommonProps) => {
   return (
-    <Box as="tbody" className={className} role={role} style={style}>
+    <Flex
+      as="tbody"
+      className={className}
+      flexDirection="column"
+      role={role}
+      style={style}
+    >
       {rows.map((row) => {
         prepareRow(row);
         return <Row key={row.id} row={row} />;
       })}
-    </Box>
+    </Flex>
   );
 };

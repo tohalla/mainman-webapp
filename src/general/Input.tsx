@@ -4,6 +4,8 @@ import React, { HTMLProps, ReactNode, useState } from "react";
 
 import styled from "../theme/styled";
 
+import { getSpace } from "src/theme";
+
 interface Props<T>
   extends Pick<
       HTMLProps<HTMLInputElement>,
@@ -80,6 +82,7 @@ const InputContainer = styled.div<{
   hasFocus: boolean;
 }>`
   position: relative;
+  margin-top: ${getSpace(3)};
   label {
     display: flex;
     ${({ theme, disabled }) =>
