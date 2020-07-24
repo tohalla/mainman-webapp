@@ -5,6 +5,7 @@ import { FormattedMessage } from "react-intl";
 import { Page } from "../_app";
 
 import ApplianceForm from "src/appliances/ApplianceForm";
+import Tabbed from "src/appliances/Tabbed";
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import OrganisationContext from "src/organisations/OrganisationContext";
@@ -18,15 +19,17 @@ const NewAppliancePage: Page = () => {
   }
 
   return (
-    <ApplianceForm
-      onSubmit={() =>
-        push({
-          pathname: "/appliances",
-          query: { organisation: activeOrganisation.id },
-        })
-      }
-      organisation={activeOrganisation}
-    />
+    <Tabbed>
+      <ApplianceForm
+        onSubmit={() =>
+          push({
+            pathname: "/appliances",
+            query: { organisation: activeOrganisation.id },
+          })
+        }
+        organisation={activeOrganisation}
+      />
+    </Tabbed>
   );
 };
 

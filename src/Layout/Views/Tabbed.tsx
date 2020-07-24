@@ -1,17 +1,16 @@
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/router";
-import React, { ReactFragment, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import { Flex, Link as RebassLink } from "rebass";
 
 interface TabProps extends Required<Pick<LinkProps, "href">> {
   children: ReactNode;
   isActive: boolean;
-  sticky?: true;
   as: string;
 }
 
 interface Props {
-  children: ReactFragment;
+  children: ReactNode;
   initialTabs?: Omit<TabProps, "isActive">[];
 }
 
