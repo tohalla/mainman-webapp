@@ -26,7 +26,7 @@ const Header = <T extends Record<string, unknown>>({
   column,
   ...props
 }: { column: ColumnInstance<T> } & TableCommonProps) => (
-  <Box as="th" {...props}>
+  <Box as="th" {...props} px={3}>
     <Flex
       alignItems="center"
       justifyContent="space-between"

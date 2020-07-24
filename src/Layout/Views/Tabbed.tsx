@@ -1,6 +1,6 @@
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/router";
-import React, { FC, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Flex, Link as RebassLink } from "rebass";
 
 interface TabProps extends Required<Pick<LinkProps, "href">> {
@@ -17,10 +17,16 @@ interface Props {
 const Tab = ({ href, as, children, isActive }: TabProps) => (
   <Link as={as} href={href}>
     <RebassLink
-      backgroundColor={isActive ? "greyscale.9" : "none"}
+      backgroundColor={isActive ? "greyscale.9" : "greyscale.7"}
+      flex="0 0 auto"
+      pb={2}
+      pt={3}
       px={3}
-      py={3}
-      sx={{ whiteSpace: "nowrap" }}
+      sx={{
+        userSelect: "none",
+        whiteSpace: "nowrap",
+        marginTop: isActive ? 0 : 2,
+      }}
     >
       {children}
     </RebassLink>
@@ -30,14 +36,16 @@ const Tab = ({ href, as, children, isActive }: TabProps) => (
 export default ({ children, initialTabs }: Props) => {
   const { pathname } = useRouter();
   return (
-    <Flex flex="1">
-      <Flex backgroundColor="greyscale.9" flex="1">
-        {children}
+    <Flex flex="1" flexDirection="column">
+      <Flex mb={-3} mx={3} overflowX="scroll" pb={3}>
+        <Flex flex="0 0 auto" flexDirection="row">
+          {initialTabs?.map((tab) => (
+            <Tab key={tab.as} isActive={pathname === tab.as} {...tab} />
+          ))}
+        </Flex>
       </Flex>
-      <Flex alignItems="stretch" flex="0 0 auto" flexDirection="column">
-        {initialTabs?.map((tab) => (
-          <Tab key={tab.as} isActive={pathname === tab.as} {...tab} />
-        ))}
+      <Flex backgroundColor="greyscale.9" flex="1" px={4} py={4}>
+        {children}
       </Flex>
     </Flex>
   );

@@ -22,7 +22,7 @@ const Cell = <T extends Record<string, unknown>>({
   cell,
   ...props
 }: TableCommonProps & { cell: CellType<T> }) => (
-  <Box as="td" {...props}>
+  <Box as="td" {...props} px={3}>
     {cell.render("Cell")}
   </Box>
 );

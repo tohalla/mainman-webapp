@@ -30,7 +30,6 @@ const Form = forwardRef(
         flex={1}
         onReset={handleReset}
         onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}
-        py={5}
         {...rest}
       >
         {children}
