@@ -1,4 +1,4 @@
-import React, { useMemo, ReactFragment } from "react";
+import React, { useMemo, ReactNode } from "react";
 import { useQuery } from "react-query";
 import { Flex, Box } from "rebass";
 
@@ -10,7 +10,7 @@ import OrganisationSelect from "../../organisations/OrganisationSelect";
 import NoOrganisations from "./NoOrganisations";
 
 interface Props extends Pick<LayoutProps, "description" | "title"> {
-  children: ReactFragment;
+  children: ReactNode;
 }
 
 const WithHeading = ({ children, title, description }: Props) => {
@@ -33,23 +33,22 @@ const WithHeading = ({ children, title, description }: Props) => {
     <NoOrganisations />
   ) : (
     <>
-      {view === "multiple" && (
-        <Flex justifyContent="flex-end">
-          <Flex
-            alignItems="center"
-            flex={1}
-            flexDirection="row"
-            justifyContent="space-between"
-          >
-            {title && <h1>{title}</h1>}
-            <Loadable isLoading={isLoading}>
-              <Box variant="subdued">
-                <OrganisationSelect />
-              </Box>
-            </Loadable>
-          </Flex>
-        </Flex>
-      )}
+      <Flex
+        alignItems="center"
+        flex={1}
+        flexDirection="row"
+        justifyContent="space-between"
+        mb={5}
+      >
+        {title ? <h1>{title}</h1> : <span />}
+        {view === "multiple" && (
+          <Loadable isLoading={isLoading}>
+            <Box variant="subdued">
+              <OrganisationSelect />
+            </Box>
+          </Loadable>
+        )}
+      </Flex>
       {description && <p>{description}</p>}
       {children}
     </>

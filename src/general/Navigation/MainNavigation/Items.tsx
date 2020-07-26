@@ -1,22 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { MouseEventHandler, useContext } from "react";
+import React, { MouseEventHandler } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link as RebassLink } from "rebass";
 
-import { Organisation } from "../../../organisations";
-import OrganisationContext from "../../../organisations/OrganisationContext";
 import { getColor } from "../../../theme/colors";
 import styled from "../../../theme/styled";
 
 import messages from "./messages";
 
-const items = (organisation?: Organisation) => [
+const items = () => [
   {
     content: <FormattedMessage {...messages.overview} />,
     href: "/",
   },
-  organisation && {
+  {
     content: <FormattedMessage {...messages.appliances} />,
     href: `/appliances`,
     as: `/appliances`,
@@ -28,12 +26,11 @@ interface Props {
 }
 
 const Items = ({ onClick }: Props) => {
-  const { activeOrganisation } = useContext(OrganisationContext);
   const router = useRouter();
 
   return (
     <>
-      {items(activeOrganisation)
+      {items()
         .filter(
           (link): link is Exclude<typeof link, undefined> =>
             typeof link !== "undefined"

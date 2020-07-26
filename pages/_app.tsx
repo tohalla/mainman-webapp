@@ -22,7 +22,10 @@ import {
 import { ServerContext } from "server";
 import { fetchAccountWithHeaders } from "src/auth";
 import ToastContainer from "src/general/ToastContainer";
-import DefaultLayout, { LayoutProps } from "src/Layout";
+import DefaultLayout, {
+  LayoutProps,
+  Props as DefaultLayoutProps,
+} from "src/Layout";
 import theme from "src/theme";
 import { onError } from "src/util/intl";
 import { redirect } from "src/util/routing";
@@ -31,12 +34,8 @@ type Context = AppContext & {
   ctx: ServerContext;
 };
 export type Page = {
-  Layout?: React.FC<LayoutProps>;
-  layoutProps?: Omit<
-    LayoutProps,
-    "children" | "updatePath" | "isLoading" | "renderContent"
-  > &
-    Partial<Pick<LayoutProps, "updatePath">>;
+  Layout?: React.SFC<DefaultLayoutProps>;
+  layoutProps?: Omit<LayoutProps, "children" | "isLoading">;
 } & AppProps["Component"];
 type Props = AppProps & IntlConfig & { Component: Page };
 
@@ -81,11 +80,10 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
     <CacheProvider value={cache}>
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
-          <Layout {...Component.layoutProps} isLoading={loading}>
+          <Layout isLoading={loading} layoutProps={Component.layoutProps}>
             <ReactQueryConfigProvider config={queryConfig}>
               <NextApp
                 Component={Component}
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 pageProps={pageProps}
                 router={router}
               />

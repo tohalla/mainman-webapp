@@ -54,7 +54,10 @@ const MainNavigation = () => {
         flexDirection={["column", "row"]}
         justifyContent="space-between"
         px={[0, 3]}
-        sx={{ boxShadow: 1, position: ["absolute", "dynamic"] }}
+        sx={{
+          boxShadow: 1,
+          position: height ? ["absolute", "dynamic"] : "dynamic",
+        }}
         width="100%"
       >
         {mobileNav && (
