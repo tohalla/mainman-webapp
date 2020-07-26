@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { ReactFragment, useState, useEffect } from "react";
 import { Flex, Box } from "rebass";
 
@@ -45,11 +46,12 @@ const DefaultLayout = ({
   ContentWrapper,
 }: Props) => {
   const [layoutContextProps, setLayoutContextProps] = useState(layoutProps);
+  const { asPath } = useRouter();
 
   // reset to default
   useEffect(() => {
     setLayoutContextProps(layoutProps);
-  }, [layoutProps]);
+  }, [asPath]);
 
   return (
     <LayoutContext.Provider
