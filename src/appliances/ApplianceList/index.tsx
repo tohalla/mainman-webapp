@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useMemo } from "react";
 import { FormattedMessage } from "react-intl";
 import { Column } from "react-table";
@@ -19,11 +20,21 @@ export default ({ appliances }: Props) => {
       {
         Header: <FormattedMessage {...messages.nameColumnHeader} />,
         accessor: "name",
+        Cell: ({
+          row: {
+            original: { hash, name },
+          },
+        }) => (
+          <Link as={`/appliances/${hash}`} href="/appliances/[appliance]">
+            <a>{name}</a>
+          </Link>
+        ),
       },
       {
         Header: <FormattedMessage {...messages.descriptionColumnHeader} />,
         accessor: "description",
         disableSortBy: true,
+        maxWidth: 1500,
       },
     ],
     []

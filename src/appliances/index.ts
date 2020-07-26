@@ -10,22 +10,19 @@ export type Appliance = Timestamps & {
 };
 
 interface QueryContext {
+  hash?: string;
   organisation?: number;
 }
 
-export const fetchAppliance = (
-  _: string,
-  id: number,
-  { organisation }: QueryContext
-) =>
-  getApiCall<Appliance, Appliance>(
-    `/organisations/${organisation ?? ""}/appliances/${id}`
-  )({ key: "hash" });
+const queryOpts = { key: "hash" as const };
+
+export const fetchAppliance = (_: string, { hash }: QueryContext) =>
+  getApiCall<Appliance>(`/appliances/${hash ?? ""}`)(queryOpts);
 
 export const fetchAppliances = (_: string, { organisation }: QueryContext) =>
   getApiCall<Appliance, Record<string, Appliance>>(
     `/organisations/${organisation ?? ""}/appliances`
-  )();
+  )(queryOpts);
 
 export const createAppliance = ({
   organisation,
@@ -37,7 +34,7 @@ export const createAppliance = ({
       method: "POST",
       body: payload,
     }
-  )();
+  )(queryOpts);
 
 export const updateAppliance = ({
   organisation,
@@ -50,4 +47,4 @@ export const updateAppliance = ({
       method: "PATCH",
       body: payload,
     }
-  )();
+  )(queryOpts);

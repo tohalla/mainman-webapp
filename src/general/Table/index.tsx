@@ -60,6 +60,7 @@ const Table = <T extends Record<string, unknown>>({
 
   return (
     <Box
+      as="table"
       {...getTableProps()}
       sx={{
         borderColor: "greyscale.2",
