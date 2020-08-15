@@ -10,38 +10,25 @@ import { Flex } from "rebass";
 
 const HeaderGroup = <T extends Record<string, unknown>>({
   headerGroup,
-  fullWidth,
   ...props
-}: TableCommonProps & { fullWidth?: boolean } & {
+}: TableCommonProps & {
   headerGroup: UseTableHeaderGroupProps<T>;
 }) => (
   <Flex as="tr" {...props}>
-    {headerGroup.headers.map((header, i, arr) => {
+    {headerGroup.headers.map((header) => {
       const { key, ...headerProps } = header.getHeaderProps(
         header.getSortByToggleProps()
       );
-      return (
-        <Header
-          key={key}
-          fullWidth={fullWidth}
-          {...headerProps}
-          column={header}
-          // allow resizing for all but last (if full width tables enabled at some point)
-          resizable={!fullWidth || i < arr.length - 1}
-        />
-      );
+      return <Header key={key} column={header} {...headerProps} />;
     })}
   </Flex>
 );
 
 const Header = <T extends Record<string, unknown>>({
   column,
-  resizable,
   ...props
 }: {
   column: ColumnInstance<T>;
-  resizable: boolean;
-  fullWidth?: boolean;
 } & TableCommonProps) => (
   <Flex
     alignItems="stretch"
@@ -58,46 +45,41 @@ const Header = <T extends Record<string, unknown>>({
       alignItems="center"
       flex="1"
       justifyContent="space-between"
+      overflow="hidden"
       px={3}
       py={2}
     >
       {column.render("Header")}
       {column.isSorted && (column.isSortedDesc ? <FaSortDown /> : <FaSortUp />)}
     </Flex>
-    {resizable && (
-      <Flex
-        alignSelf="stretch"
-        height="100%"
-        sx={{
-          position: "absolute",
-          right: 0,
-          touchAction: "none",
-          transform: "translateX(50%)",
-          zIndex: 1,
-        }}
-        title=""
-        width="15px"
-        {...column.getResizerProps()}
-        onClick={(event) => event.stopPropagation()}
-      />
-    )}
+    <Flex
+      alignSelf="stretch"
+      onClick={(event) => event.stopPropagation()}
+      sx={{
+        bottom: 0,
+        position: "absolute",
+        right: 0,
+        top: 0,
+        touchAction: "none",
+        transform: "translateX(50%)",
+        zIndex: 1,
+      }}
+      title=""
+      width="15px"
+      {...column.getResizerProps()}
+    />
   </Flex>
 );
 
 export default <T extends Record<string, unknown>>({
   headerGroups,
-  fullWidth,
-}: { fullWidth?: boolean } & Pick<
-  UseTableInstanceProps<T>,
-  "headerGroups"
->) => (
+}: Pick<UseTableInstanceProps<T>, "headerGroups">) => (
   <Flex as="thead">
     {headerGroups.map((headerGroup) => {
       const { key, ...headerGroupProps } = headerGroup.getHeaderGroupProps();
       return (
         <HeaderGroup
           key={key}
-          fullWidth={fullWidth}
           {...headerGroupProps}
           headerGroup={headerGroup}
         />

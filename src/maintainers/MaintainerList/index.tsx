@@ -30,11 +30,19 @@ export default ({ maintainers }: Props) => {
           </Link>
         ),
       },
+      {
+        id: "name",
+        accessor: ({ details }) => details?.name ?? "",
+        Header: <FormattedMessage {...messages.nameColumnHeader} />,
+      },
+      {
+        id: "email",
+        accessor: ({ details }) => details?.email ?? "",
+        Header: <FormattedMessage {...messages.emailColumnHeader} />,
+      },
     ],
     []
   );
 
-  return (
-    <Table columns={columns} data={data} fullWidth sortBy={{ id: "name" }} />
-  );
+  return <Table columns={columns} data={data} sortBy={{ id: "name" }} />;
 };
