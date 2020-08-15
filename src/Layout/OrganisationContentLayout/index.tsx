@@ -9,6 +9,7 @@ import WithHeading from "./WithHeading";
 
 import { Organisation, fetchOrganisations } from "src/organisations";
 import OrganisationContext from "src/organisations/OrganisationContext";
+import { formatQuery } from "src/util/api";
 import { getParam } from "src/util/routing";
 
 const Content: Props["ContentWrapper"] = ({
@@ -62,12 +63,12 @@ const OrganisationContentLayout = ({
     const organisation = getParam("organisation", query);
     if (activeOrganisation && Number(organisation) !== activeOrganisation.id) {
       void replace(
-        { pathname, query: { organisation: activeOrganisation.id } },
-        asPath,
+        { pathname },
+        `${pathname}${formatQuery({ organisation: activeOrganisation.id })}`,
         { shallow: true }
       );
     }
-  }, [activeOrganisation, query, pathname, asPath]);
+  }, [activeOrganisation, pathname, asPath]);
 
   return (
     <OrganisationContext.Provider
