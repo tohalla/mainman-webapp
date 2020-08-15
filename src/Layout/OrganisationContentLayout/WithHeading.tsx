@@ -14,7 +14,7 @@ interface Props extends Pick<LayoutProps, "description" | "title"> {
 }
 
 const WithHeading = ({ children, title, description }: Props) => {
-  const { data, isLoading } = useQuery("organisations", fetchOrganisations, {
+  const { data, isFetching } = useQuery("organisations", fetchOrganisations, {
     staleTime: 60000,
   });
 
@@ -29,29 +29,33 @@ const WithHeading = ({ children, title, description }: Props) => {
     return "none";
   }, [data]);
 
-  return view === "none" ? (
-    <NoOrganisations />
-  ) : (
-    <>
-      <Flex
-        alignItems="center"
-        flex={1}
-        flexDirection="row"
-        justifyContent="space-between"
-        mb={5}
-      >
-        {title ? <h1>{title}</h1> : <span />}
-        {view === "multiple" && (
-          <Loadable isLoading={isLoading}>
-            <Box variant="subdued">
-              <OrganisationSelect />
-            </Box>
-          </Loadable>
-        )}
-      </Flex>
-      {description && <p>{description}</p>}
-      {children}
-    </>
+  return (
+    <Loadable isLoading={isFetching}>
+      {view === "none" ? (
+        <NoOrganisations />
+      ) : (
+        <>
+          <Flex
+            alignItems="center"
+            flex={0}
+            flexDirection="row"
+            justifyContent="space-between"
+            mb={5}
+          >
+            {title ? <h1>{title}</h1> : <span />}
+            {view === "multiple" && (
+              <Loadable>
+                <Box variant="subdued">
+                  <OrganisationSelect />
+                </Box>
+              </Loadable>
+            )}
+          </Flex>
+          {description && <p>{description}</p>}
+          {children}
+        </>
+      )}
+    </Loadable>
   );
 };
 

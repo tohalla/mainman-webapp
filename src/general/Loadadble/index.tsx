@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, Suspense } from "react";
+import React, { ReactNode, Suspense } from "react";
 
 import styled from "../../theme/styled";
 
@@ -10,19 +10,18 @@ interface Props {
 }
 
 const Loadable = ({ isLoading, children }: Props) => {
-  const el = useRef<HTMLDivElement>(null);
   if (isLoading === false) {
-    return <div ref={el}>{children}</div>;
+    return <>{children}</>;
   }
 
   return (
     <Container>
-      <Loader height={el.current ? el.current.clientHeight : undefined} />
+      <Loader />
     </Container>
   );
 };
 
-const Container = styled.div<{ height?: number }>`
+const Container = styled.div`
   display: flex;
   align-self: stretch;
   flex: 1;
