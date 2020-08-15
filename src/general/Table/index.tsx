@@ -19,13 +19,15 @@ interface Props<T extends Record<string, unknown>>
     "sortBy" | "data" | "columns" | "defaultColumn"
   > {
   sortBy: SortingRule<T> | SortingRule<T>[];
+  fullWidth?: boolean;
 }
 
 const Table = <T extends Record<string, unknown>>({
   columns,
   data,
-  sortBy,
   defaultColumn,
+  sortBy,
+  fullWidth,
 }: Props<T>) => {
   const initialState = useMemo<Partial<TableState>>(
     () => ({ sortBy: Array.isArray(sortBy) ? sortBy : [sortBy] }),
@@ -47,15 +49,18 @@ const Table = <T extends Record<string, unknown>>({
     },
     useResizeColumns,
     useSortBy,
-    useFlexLayout
-    // (hooks) => { one col should be resized if going to use full width tables or will go bonkers
-    //   hooks.useInstanceBeforeDimensions.push(({ headerGroups: groups }) => {
-    //     groups.forEach((group) => {
-    //       // eslint-disable-next-line no-param-reassign
-    //       group.headers[0].canResize = false;
-    //     });
-    //   });
-    // }
+    useFlexLayout,
+    // one col should not be resized if going to use full width tables or will go bonkers
+    (hooks) => {
+      if (fullWidth) {
+        hooks.useInstanceBeforeDimensions.push(({ headerGroups: groups }) => {
+          groups.forEach((group) => {
+            // eslint-disable-next-line no-param-reassign
+            group.headers[0].canResize = false;
+          });
+        });
+      }
+    }
   );
 
   return (
@@ -68,6 +73,7 @@ const Table = <T extends Record<string, unknown>>({
         borderStyle: "solid",
         borderCollapse: "collapse",
       }}
+      width={fullWidth ? "100%" : undefined}
     >
       <Thead headerGroups={headerGroups} />
       <TBody {...getTableBodyProps()} prepareRow={prepareRow} rows={rows} />

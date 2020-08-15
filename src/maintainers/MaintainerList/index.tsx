@@ -34,5 +34,7 @@ export default ({ maintainers }: Props) => {
     []
   );
 
-  return <Table columns={columns} data={data} sortBy={{ id: "name" }} />;
+  return (
+    <Table columns={columns} data={data} fullWidth sortBy={{ id: "name" }} />
+  );
 };
