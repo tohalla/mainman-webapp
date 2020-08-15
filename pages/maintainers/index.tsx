@@ -27,15 +27,13 @@ const MaintainersPage: Page = () => {
 
   return (
     <Loadable>
-      {isEmpty(maintainers) ? (
-        <NoMaintainers organisation={activeOrganisation} />
-      ) : (
-        maintainers && (
-          <Tabbed>
-            <MaintainerList maintainers={maintainers} />
-          </Tabbed>
-        )
-      )}
+      <Tabbed>
+        {isEmpty(maintainers) ? (
+          <NoMaintainers organisation={activeOrganisation} />
+        ) : (
+          maintainers && <MaintainerList maintainers={maintainers} />
+        )}
+      </Tabbed>
     </Loadable>
   );
 };

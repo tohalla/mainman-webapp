@@ -13,6 +13,7 @@ interface Props {
 const NoAppliances = ({ organisation }: Props) => {
   return (
     <FormattedMessage
+      tagName="p"
       {...messages.noAppliances}
       values={{
         createLink: (

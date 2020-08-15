@@ -15,7 +15,7 @@ import OrganisationContext from "src/organisations/OrganisationContext";
 
 const AppliancesPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
-  const { data: appliances, isFetching } = useQuery(
+  const { data: appliances } = useQuery(
     ["appliances", { organisation: activeOrganisation?.id }],
     fetchAppliances,
     { enabled: activeOrganisation?.id }
@@ -27,15 +27,13 @@ const AppliancesPage: Page = () => {
 
   return (
     <Loadable>
-      {!isFetching && isEmpty(appliances) ? (
-        <NoAppliances organisation={activeOrganisation} />
-      ) : (
-        appliances && (
-          <Tabbed>
-            <ApplianceList appliances={appliances} />
-          </Tabbed>
-        )
-      )}
+      <Tabbed>
+        {isEmpty(appliances) ? (
+          <NoAppliances organisation={activeOrganisation} />
+        ) : (
+          appliances && <ApplianceList appliances={appliances} />
+        )}
+      </Tabbed>
     </Loadable>
   );
 };

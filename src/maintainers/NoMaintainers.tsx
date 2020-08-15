@@ -13,6 +13,7 @@ interface Props {
 const NoMaintainers = ({ organisation }: Props) => {
   return (
     <FormattedMessage
+      tagName="p"
       {...messages.noMaintainers}
       values={{
         createLink: (
