@@ -70,17 +70,17 @@ const OrganisationContentLayout = ({
   }, [activeOrganisation, query, pathname, asPath]);
 
   return (
-    <DefaultLayout
-      ContentWrapper={Content}
-      layoutProps={{ renderContent: identity, ...layoutProps }}
-      {...props}
+    <OrganisationContext.Provider
+      value={{ activeOrganisation, setActiveOrganisation }}
     >
-      <OrganisationContext.Provider
-        value={{ activeOrganisation, setActiveOrganisation }}
+      <DefaultLayout
+        ContentWrapper={Content}
+        layoutProps={{ renderContent: identity, ...layoutProps }}
+        {...props}
       >
         {children}
-      </OrganisationContext.Provider>
-    </DefaultLayout>
+      </DefaultLayout>
+    </OrganisationContext.Provider>
   );
 };
 
