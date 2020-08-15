@@ -8,44 +8,44 @@ import { Input } from "../general/Input";
 
 import { formMessages } from "./messages";
 
-import { Appliance, createAppliance, updateAppliance } from ".";
+import { Maintainer, createMaintainer, updateMaintainer } from ".";
 
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
 import { Organisation } from "src/organisations";
 
 interface Props {
-  appliance?: Appliance;
-  onSubmit?(appliance: Appliance): void;
+  maintainer?: Maintainer;
+  onSubmit?(maintainer: Maintainer): void;
   organisation: Organisation;
 }
 
-const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
-  const [mutateAppliance] = useMutation(
-    appliance ? updateAppliance : createAppliance,
+const MaintainerForm = ({ maintainer, onSubmit, organisation }: Props) => {
+  const [mutateMaintainer] = useMutation(
+    maintainer ? updateMaintainer : createMaintainer,
     {
-      onSuccess: () => queryCache.invalidateQueries("appliances"),
+      onSuccess: () => queryCache.invalidateQueries("maintainers"),
     }
   );
 
   return (
     <Formik
       initialValues={{
-        name: appliance?.name ?? "",
-        description: appliance?.description ?? "",
+        name: maintainer?.details?.name ?? "",
+        email: maintainer?.details?.email ?? "",
       }}
       onSubmit={async (values, { setSubmitting }) =>
-        mutateAppliance(
-          appliance
+        mutateMaintainer(
+          maintainer
             ? {
-                ...values,
+                details: { ...values },
                 organisation: organisation.id,
-                hash: appliance?.hash,
+                id: maintainer?.id,
               }
             : ({
-                ...values,
+                details: { ...values },
                 organisation: organisation.id,
-              } as Appliance),
+              } as Maintainer),
           {
             onSuccess: (response) => {
               setSubmitting(false);
@@ -65,7 +65,7 @@ const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
         }
         submitLabel={
           <FormattedMessage
-            {...formMessages[appliance ? "update" : "create"]}
+            {...formMessages[maintainer ? "update" : "create"]}
           />
         }
       >
@@ -77,14 +77,15 @@ const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
         />
         <Field
           as={Input}
-          label={<FormattedMessage {...formMessages.description} />}
-          name="description"
+          label={<FormattedMessage {...formMessages.email} />}
+          name="email"
+          type="email"
         />
       </Form>
     </Formik>
   );
 };
 
-ApplianceForm.displayName = "ApplianceForm";
+MaintainerForm.displayName = "MaintainerForm";
 
-export default ApplianceForm;
+export default MaintainerForm;

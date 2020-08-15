@@ -5,6 +5,8 @@ export default defineMessages({
   overview: "Overview",
   // Navigation: navigation item appliances
   appliances: "Appliances",
+  // Navigation: navigation item appliances
+  maintainers: "Maintainers",
 });
 
 export const accountMenuMessages = defineMessages({

@@ -36,7 +36,7 @@ const Tab = ({ href, as, children, isActive }: TabProps) => (
 export default ({ children, initialTabs }: Props) => {
   const { pathname } = useRouter();
   return (
-    <Flex flex="1" flexDirection="column">
+    <Flex flex={0} flexDirection="column">
       <Flex mb={-3} mx={3} overflowX="scroll" pb={3}>
         <Flex flex="0 0 auto" flexDirection="row">
           {initialTabs?.map((tab) => (

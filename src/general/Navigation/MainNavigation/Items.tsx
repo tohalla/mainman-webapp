@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link as RebassLink } from "rebass";
 
@@ -9,7 +9,10 @@ import styled from "../../../theme/styled";
 
 import messages from "./messages";
 
-const items = () => [
+const items = (): ({ content: ReactNode } & {
+  href: string;
+  as?: string;
+})[] => [
   {
     content: <FormattedMessage {...messages.overview} />,
     href: "/",
@@ -17,7 +20,10 @@ const items = () => [
   {
     content: <FormattedMessage {...messages.appliances} />,
     href: `/appliances`,
-    as: `/appliances`,
+  },
+  {
+    content: <FormattedMessage {...messages.maintainers} />,
+    href: `/maintainers`,
   },
 ];
 

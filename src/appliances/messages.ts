@@ -14,7 +14,7 @@ export default defineMessages({
 
 export const formMessages = defineMessages({
   // Appliance form: label for the name field
-  nameLabel: "Name",
+  name: "Name",
   // Appliance form: label for the appliance description field
   description: "Description",
   // Appliance form: submit text for creating a new appliance
