@@ -45,6 +45,9 @@ const queryConfig: ReactQueryProviderConfig = {
   queries: {
     refetchOnWindowFocus: false,
   },
+  // shared: {
+  //   suspense: typeof window !== "undefined",
+  // },
 };
 
 const App: NextComponentType<Context, Record<string, unknown>, Props> = ({

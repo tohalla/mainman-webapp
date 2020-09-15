@@ -29,7 +29,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-export default (props: Props) =>
+const WithSuspense = (props: Props) =>
   typeof props.isLoading === "boolean" ? (
     <Loadable {...props} />
   ) : typeof window === "undefined" ? null : (
@@ -43,3 +43,5 @@ export default (props: Props) =>
       {props.children}
     </Suspense>
   );
+
+export default WithSuspense;
