@@ -91,7 +91,7 @@ module.exports = {
       { props: true, ignorePropertyModificationsFor: ["draft"] },
     ],
     "react/jsx-sort-props": "error",
-    "no-use-before-define": ["error", { variables: false }],
+    "no-use-before-define": "off",
     "sort-vars": "error",
     "react/self-closing-comp": "error",
     "react/jsx-props-no-spreading": "off",
