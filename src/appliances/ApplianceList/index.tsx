@@ -13,7 +13,7 @@ interface Props {
   appliances: Record<string, Appliance>;
 }
 
-export default ({ appliances }: Props) => {
+const ApplianceList = ({ appliances }: Props) => {
   const data = useMemo(() => Object.values(appliances), [appliances]);
   const columns = useMemo<Column<Appliance>[]>(
     () => [
@@ -42,3 +42,5 @@ export default ({ appliances }: Props) => {
 
   return <Table columns={columns} data={data} sortBy={{ id: "name" }} />;
 };
+
+export default ApplianceList;

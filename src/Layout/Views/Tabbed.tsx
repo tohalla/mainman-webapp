@@ -33,7 +33,7 @@ const Tab = ({ href, as, children, isActive }: TabProps) => (
   </Link>
 );
 
-export default ({ children, initialTabs }: Props) => {
+const Tabbed = ({ children, initialTabs }: Props) => {
   const { pathname } = useRouter();
   return (
     <Flex flex={0} flexDirection="column">
@@ -50,3 +50,5 @@ export default ({ children, initialTabs }: Props) => {
     </Flex>
   );
 };
+
+export default Tabbed;

@@ -13,7 +13,7 @@ interface Props {
   maintainers: Record<string, Maintainer>;
 }
 
-export default ({ maintainers }: Props) => {
+const MaintainerList = ({ maintainers }: Props) => {
   const data = useMemo(() => Object.values(maintainers), [maintainers]);
   const columns = useMemo<Column<Maintainer>[]>(
     () => [
@@ -46,3 +46,5 @@ export default ({ maintainers }: Props) => {
 
   return <Table columns={columns} data={data} sortBy={{ id: "name" }} />;
 };
+
+export default MaintainerList;

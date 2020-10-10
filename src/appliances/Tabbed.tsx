@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode;
 }
 
-export default ({ children }: Props) => {
+const TabbedAppliances = ({ children }: Props) => {
   const { activeOrganisation } = useContext(OrganisationContext);
   if (!activeOrganisation) {
     return null;
@@ -40,3 +40,5 @@ export default ({ children }: Props) => {
     </Tabbed>
   );
 };
+
+export default TabbedAppliances;
