@@ -26,37 +26,43 @@ export const getApiCall = <
     headers?: RequestInit["headers"];
     method?: ApiMethods;
   } = {}
-) => <K extends keyof T | undefined>({
+) => async <K extends keyof T | undefined, R extends "json" | "text" | null>({
   responseType = "json",
   key,
 }: {
   key?: K;
-  responseType?: "json" | "text" | null;
-} = {}) =>
-  fetch(`${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`, {
-    method: config.method ?? "GET",
-    body: config.body
-      ? JSON.stringify(transformKeys(snakeCase)(config.body))
-      : undefined,
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...(config.headers ?? {}),
-    },
-  })
-    .then((response) => {
-      if (response.ok) {
-        return responseType ? response[responseType]() : responseType;
-      }
-      throw response;
-    })
-    .then((payload: T) =>
-      transformKeys<U>(camelCase)(
-        ((key && Array.isArray(payload)
-          ? indexByProp<T>(key as NonNullable<K>)(payload)
-          : payload) as unknown) as U
-      )
-    );
+  responseType?: R;
+} = {}): Promise<R extends string ? U : Response> => {
+  const res = await fetch(
+    `${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`,
+    {
+      method: config.method ?? "GET",
+      body: config.body
+        ? JSON.stringify(transformKeys(snakeCase)(config.body))
+        : undefined,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        ...(config.headers ?? {}),
+      },
+    }
+  );
+
+  if (!res.ok) {
+    throw res;
+  }
+
+  if (responseType === null) {
+    return res as R extends string ? U : Response;
+  }
+
+  const payload = await res[responseType]();
+  return transformKeys<U>(camelCase)(
+    ((key && Array.isArray(payload)
+      ? indexByProp<T>(key as NonNullable<K>)(payload)
+      : payload) as unknown) as U
+  ) as R extends string ? U : Response;
+};
 
 const callApi = (...args: Parameters<typeof getApiCall>) =>
   getApiCall(...args)({ responseType: null });

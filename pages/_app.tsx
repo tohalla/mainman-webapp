@@ -14,19 +14,18 @@ import {
   createIntl,
   createIntlCache,
 } from "react-intl";
-import {
-  ReactQueryConfigProvider,
-  ReactQueryProviderConfig,
-} from "react-query";
+import { ReactQueryConfigProvider } from "react-query";
 
 import { ServerContext } from "server";
-import { fetchAccountWithHeaders } from "src/auth";
+import { fetchAccountWithHeaders, refreshSession } from "src/auth";
+import { queryConfig } from "src/config/react-query";
 import ToastContainer from "src/general/ToastContainer";
 import DefaultLayout, {
   LayoutProps,
   Props as DefaultLayoutProps,
 } from "src/Layout";
 import theme from "src/theme";
+import { parseCookieHeader } from "src/util/cookie";
 import { onError } from "src/util/intl";
 import { redirect } from "src/util/routing";
 
@@ -34,21 +33,12 @@ type Context = AppContext & {
   ctx: ServerContext;
 };
 export type Page = {
-  Layout?: React.SFC<DefaultLayoutProps>;
+  Layout?: React.FC<DefaultLayoutProps>;
   layoutProps?: Omit<LayoutProps, "children" | "isLoading">;
 } & AppProps["Component"];
 type Props = AppProps & IntlConfig & { Component: Page };
 
 const intlCache = createIntlCache();
-
-const queryConfig: ReactQueryProviderConfig = {
-  queries: {
-    refetchOnWindowFocus: false,
-  },
-  // shared: {
-  //   suspense: typeof window !== "undefined",
-  // },
-};
 
 const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
   Component,
@@ -103,6 +93,21 @@ App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
   await fetchAccountWithHeaders(ctx.req?.headers as RequestInit["headers"])
+    .catch(async (error: Response) => {
+      if (error.status === 401) {
+        const res = await refreshSession(
+          ctx.req?.headers as RequestInit["headers"]
+        );
+
+        if (res.headers.get("Set-Cookie")) {
+          return ctx.res?.setHeader(
+            "Set-Cookie",
+            parseCookieHeader(res.headers.get("Set-Cookie") ?? "")
+          );
+        }
+      }
+      throw error;
+    })
     .then(() =>
       redirect({
         ctx,
