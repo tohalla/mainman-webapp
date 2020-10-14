@@ -19,12 +19,12 @@ interface QueryContext {
 }
 
 export const fetchMaintainer = (_: string, { id }: QueryContext) =>
-  getApiCall<Maintainer>(`/maintainers/${id ?? ""}`)();
+  getApiCall<Maintainer>(`/maintainers/${id ?? ""}`)({ responseType: "json" });
 
 export const fetchMaintainers = (_: string, { organisation }: QueryContext) =>
   getApiCall<Maintainer, Record<string, Maintainer>>(
     `/organisations/${organisation ?? ""}/maintainers`
-  )();
+  )({ responseType: "json" });
 
 export const createMaintainer = ({
   organisation,
@@ -36,7 +36,7 @@ export const createMaintainer = ({
       method: "POST",
       body: payload,
     }
-  )();
+  )({ responseType: "json" });
 
 export const updateMaintainer = ({
   organisation,
@@ -49,4 +49,4 @@ export const updateMaintainer = ({
       method: "PATCH",
       body: payload,
     }
-  )();
+  )({ responseType: "json" });

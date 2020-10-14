@@ -9,11 +9,14 @@ export type Organisation = {
 };
 
 export const fetchOrganisation = (_: string, id: number) =>
-  getApiCall<Organisation, Organisation>(`/organisations/${id}`)();
+  getApiCall<Organisation, Organisation>(`/organisations/${id}`)({
+    responseType: "json",
+  });
 
 export const fetchOrganisations = () =>
   getApiCall<Organisation, Record<string, Organisation>>("/organisations")({
     key: "id",
+    responseType: "json",
   });
 
 export const createOrganisation = (
@@ -22,7 +25,7 @@ export const createOrganisation = (
   getApiCall<Organisation, Organisation>("/organisations", {
     method: "POST",
     body: payload,
-  })();
+  })({ responseType: "json" });
 
 export const updateOrganisation = ({
   id,
@@ -31,4 +34,4 @@ export const updateOrganisation = ({
   getApiCall<Organisation, Organisation>(`/organisations/${id}`, {
     method: "PATCH",
     body: payload,
-  })();
+  })({ responseType: "json" });
