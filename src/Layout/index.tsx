@@ -34,7 +34,7 @@ export const DefaultContentWrapper: Props["ContentWrapper"] = ({
         {title && <h1>{title}</h1>}
         {description && <p>{description}</p>}
       </Box>
-      {renderContent?.(children)}
+      {renderContent?.(children) ?? children}
     </>
   );
 };
