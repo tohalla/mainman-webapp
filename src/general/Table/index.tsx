@@ -11,7 +11,7 @@ import {
 import { Box } from "rebass";
 
 import TBody from "./TBody";
-import Thead from "./Thead";
+import THead from "./THead";
 
 interface Props<T extends Record<string, unknown>>
   extends Pick<
@@ -62,7 +62,7 @@ const Table = <T extends Record<string, unknown>>({
           borderCollapse: "collapse",
         }}
       >
-        <Thead headerGroups={headerGroups} />
+        <THead headerGroups={headerGroups} />
         <TBody {...getTableBodyProps()} prepareRow={prepareRow} rows={rows} />
       </Box>
     </Box>

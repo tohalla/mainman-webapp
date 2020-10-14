@@ -34,7 +34,7 @@ const Cell = <T extends Record<string, unknown>>({
   </Flex>
 );
 
-export default <T extends Record<string, unknown>>({
+const TBody = <T extends Record<string, unknown>>({
   rows,
   role,
   className,
@@ -57,3 +57,5 @@ export default <T extends Record<string, unknown>>({
     </Flex>
   );
 };
+
+export default TBody;
