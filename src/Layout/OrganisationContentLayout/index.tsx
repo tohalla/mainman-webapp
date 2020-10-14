@@ -52,7 +52,7 @@ const OrganisationContentLayout = ({
       return;
     }
     const organisation = getParam("organisation", query);
-    if (organisation) {
+    if (organisation && organisation in organisations) {
       setActiveOrganisation(organisations[organisation]);
     } else {
       setActiveOrganisation(Object.values(organisations)[0]);
@@ -64,11 +64,13 @@ const OrganisationContentLayout = ({
     if (activeOrganisation && Number(organisation) !== activeOrganisation.id) {
       void replace(
         { pathname },
-        `${pathname}${formatQuery({ organisation: activeOrganisation.id })}`,
+        `${asPath.split("?")[0]}${formatQuery({
+          organisation: activeOrganisation.id,
+        })}`,
         { shallow: true }
       );
     }
-  }, [activeOrganisation, pathname, asPath]);
+  }, [activeOrganisation, asPath, pathname]);
 
   return (
     <OrganisationContext.Provider
