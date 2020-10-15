@@ -7,7 +7,7 @@ import Loadadble from "src/general/Loadadble";
 import LayoutContext from "src/Layout/LayoutContext";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainer } from "src/maintainers";
-import Tabbed from "src/maintainers/Tabbed";
+import { layoutProps } from "src/maintainers/layout";
 import { getParam } from "src/util/routing";
 
 const MaintainerPage: Page = () => {
@@ -27,16 +27,13 @@ const MaintainerPage: Page = () => {
     setTitle(String(data?.id));
   }, [data?.id]);
 
-  return (
-    <Tabbed>
-      <Loadadble>{data?.id}</Loadadble>
-    </Tabbed>
-  );
+  return <Loadadble>{data?.id}</Loadadble>;
 };
 
 MaintainerPage.displayName = "MaintainerPage";
 MaintainerPage.Layout = OrganisationContentLayout;
 MaintainerPage.layoutProps = {
+  ...layoutProps,
   options: { organisationSelect: false },
 };
 

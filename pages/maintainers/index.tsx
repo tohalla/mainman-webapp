@@ -8,9 +8,9 @@ import Loadable from "src/general/Loadadble";
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainers } from "src/maintainers";
+import { layoutProps } from "src/maintainers/layout";
 import MaintainerList from "src/maintainers/MaintainerList";
 import NoMaintainers from "src/maintainers/NoMaintainers";
-import Tabbed from "src/maintainers/Tabbed";
 import OrganisationContext from "src/organisations/OrganisationContext";
 
 const MaintainersPage: Page = () => {
@@ -27,13 +27,11 @@ const MaintainersPage: Page = () => {
 
   return (
     <Loadable>
-      <Tabbed>
-        {isEmpty(maintainers) ? (
-          <NoMaintainers organisation={activeOrganisation} />
-        ) : (
-          maintainers && <MaintainerList maintainers={maintainers} />
-        )}
-      </Tabbed>
+      {!maintainers || isEmpty(maintainers) ? (
+        <NoMaintainers organisation={activeOrganisation} />
+      ) : (
+        <MaintainerList maintainers={maintainers} />
+      )}
     </Loadable>
   );
 };
@@ -41,6 +39,7 @@ const MaintainersPage: Page = () => {
 MaintainersPage.displayName = "MaintainersPage";
 MaintainersPage.Layout = OrganisationContentLayout;
 MaintainersPage.layoutProps = {
+  ...layoutProps,
   title: <FormattedMessage {...titles.maintainers} />,
 };
 

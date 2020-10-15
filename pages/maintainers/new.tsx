@@ -6,8 +6,8 @@ import { Page } from "../_app";
 
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
+import { layoutProps } from "src/maintainers/layout";
 import MaintainerForm from "src/maintainers/MaintainerForm";
-import Tabbed from "src/maintainers/Tabbed";
 import OrganisationContext from "src/organisations/OrganisationContext";
 
 const NewMaintainerPage: Page = () => {
@@ -19,23 +19,22 @@ const NewMaintainerPage: Page = () => {
   }
 
   return (
-    <Tabbed>
-      <MaintainerForm
-        onSubmit={() =>
-          push({
-            pathname: "/maintainers",
-            query: { organisation: activeOrganisation.id },
-          })
-        }
-        organisation={activeOrganisation}
-      />
-    </Tabbed>
+    <MaintainerForm
+      onSubmit={() =>
+        push({
+          pathname: "/maintainers",
+          query: { organisation: activeOrganisation.id },
+        })
+      }
+      organisation={activeOrganisation}
+    />
   );
 };
 
 NewMaintainerPage.displayName = "NewMaintainerPage";
 NewMaintainerPage.Layout = OrganisationContentLayout;
 NewMaintainerPage.layoutProps = {
+  ...layoutProps,
   title: <FormattedMessage {...titles.newMaintainer} />,
 };
 

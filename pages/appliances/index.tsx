@@ -6,8 +6,8 @@ import { useQuery } from "react-query";
 import { Page } from "pages/_app";
 import { fetchAppliances } from "src/appliances";
 import ApplianceList from "src/appliances/ApplianceList";
+import { layoutProps } from "src/appliances/layout";
 import NoAppliances from "src/appliances/NoAppliances";
-import Tabbed from "src/appliances/Tabbed";
 import Loadable from "src/general/Loadadble";
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
@@ -27,13 +27,11 @@ const AppliancesPage: Page = () => {
 
   return (
     <Loadable>
-      <Tabbed>
-        {isEmpty(appliances) ? (
-          <NoAppliances organisation={activeOrganisation} />
-        ) : (
-          appliances && <ApplianceList appliances={appliances} />
-        )}
-      </Tabbed>
+      {!appliances || isEmpty(appliances) ? (
+        <NoAppliances organisation={activeOrganisation} />
+      ) : (
+        <ApplianceList appliances={appliances} />
+      )}
     </Loadable>
   );
 };
@@ -42,6 +40,7 @@ AppliancesPage.displayName = "AppliancesPage";
 AppliancesPage.Layout = OrganisationContentLayout;
 AppliancesPage.layoutProps = {
   title: <FormattedMessage {...titles.appliances} />,
+  ...layoutProps,
 };
 
 export default AppliancesPage;

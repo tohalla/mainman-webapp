@@ -14,7 +14,7 @@ interface QueryContext {
   organisation?: number;
 }
 
-const queryOpts = { key: "hash" as const };
+const queryOpts = { key: "hash" as const, responseType: "json" as const };
 
 export const fetchAppliance = (_: string, { hash }: QueryContext) =>
   getApiCall<Appliance>(`/appliances/${hash ?? ""}`)(queryOpts);

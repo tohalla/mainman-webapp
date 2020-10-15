@@ -28,6 +28,8 @@ const theme = {
 
   colors,
 
+  link: { cursor: "pointer" },
+
   variants: {
     subdued: {
       color: colors.greyscale[3],

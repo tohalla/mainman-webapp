@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
 import { fetchAppliance } from "src/appliances";
-import Tabbed from "src/appliances/Tabbed";
+import { layoutProps } from "src/appliances/layout";
 import Loadadble from "src/general/Loadadble";
 import LayoutContext from "src/Layout/LayoutContext";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
@@ -27,16 +27,13 @@ const AppliancePage: Page = () => {
     setTitle(data?.name);
   }, [data?.name]);
 
-  return (
-    <Tabbed>
-      <Loadadble>{data?.name}</Loadadble>
-    </Tabbed>
-  );
+  return <Loadadble>{data?.name}</Loadadble>;
 };
 
 AppliancePage.displayName = "AppliancePage";
 AppliancePage.Layout = OrganisationContentLayout;
 AppliancePage.layoutProps = {
+  ...layoutProps,
   options: { organisationSelect: false },
 };
 
