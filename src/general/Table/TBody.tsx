@@ -22,14 +22,7 @@ const Cell = <T extends Record<string, unknown>>({
   cell,
   ...props
 }: TableCommonProps & { cell: CellType<T> }) => (
-  <Flex
-    as="td"
-    {...props}
-    overflow="hidden"
-    px={3}
-    py={2}
-    sx={{ boxShadow: "0 1px 1px rgba(0, 0, 0, .4)" }}
-  >
+  <Flex as="td" {...props} overflow="hidden">
     {cell.render("Cell")}
   </Flex>
 );

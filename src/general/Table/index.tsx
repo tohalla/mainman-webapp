@@ -8,16 +8,17 @@ import {
   TableState,
   useFlexLayout,
 } from "react-table";
-import { Box } from "rebass";
+import { Box, SxProps } from "rebass";
 
 import TBody from "./TBody";
 import THead from "./THead";
 
 interface Props<T extends Record<string, unknown>>
   extends Pick<
-    TableOptions<T>,
-    "sortBy" | "data" | "columns" | "defaultColumn"
-  > {
+      TableOptions<T>,
+      "sortBy" | "data" | "columns" | "defaultColumn"
+    >,
+    SxProps {
   sortBy: SortingRule<T> | SortingRule<T>[];
 }
 
@@ -26,6 +27,7 @@ const Table = <T extends Record<string, unknown>>({
   data,
   defaultColumn,
   sortBy,
+  sx,
 }: Props<T>) => {
   const initialState = useMemo<Partial<TableState>>(
     () => ({ sortBy: Array.isArray(sortBy) ? sortBy : [sortBy] }),
@@ -56,10 +58,13 @@ const Table = <T extends Record<string, unknown>>({
         as="table"
         {...getTableProps()}
         sx={{
-          borderColor: "greyscale.2",
-          borderWidth: "1px",
-          borderStyle: "solid",
+          backgroundColor: "greyscale.9",
           borderCollapse: "collapse",
+          boxShadow: "outline.0",
+          thead: { backgroundColor: "primary.light", color: "text.light" },
+          td: { px: 3, py: 2, boxShadow: "outline.1" },
+          th: { p: 3, boxShadow: "outline.2" },
+          ...sx,
         }}
       >
         <THead headerGroups={headerGroups} />

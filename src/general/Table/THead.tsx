@@ -37,7 +37,6 @@ const Header = <T extends Record<string, unknown>>({
     sx={{
       position: "relative",
       userSelect: "none",
-      boxShadow: "0 1px 1px rgba(0, 0, 0, .7)",
     }}
     {...props}
   >
@@ -46,8 +45,6 @@ const Header = <T extends Record<string, unknown>>({
       flex="1"
       justifyContent="space-between"
       overflow="hidden"
-      px={3}
-      py={2}
     >
       {column.render("Header")}
       {column.isSorted && (column.isSortedDesc ? <FaSortDown /> : <FaSortUp />)}

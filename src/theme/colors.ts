@@ -35,6 +35,7 @@ const colors = {
 
   text: {
     default: greyscale[0],
+    light: greyscale[greyscale.length - 1],
   },
 };
 
