@@ -11,11 +11,10 @@ interface Props {
 
 const SubPageLink = ({
   href,
-  as,
   children,
   isActive,
 }: Page & { isActive: boolean }) => (
-  <Link as={as} href={href}>
+  <Link href={href}>
     <RebassLink
       color={isActive ? "greyscale.0" : undefined}
       fontSize={2}
@@ -45,7 +44,11 @@ const SubNavigation = ({ pages }: Props) => {
       }}
     >
       {pages?.map((page) => (
-        <SubPageLink key={page.as} {...page} isActive={page.as === pathname} />
+        <SubPageLink
+          key={page.href}
+          {...page}
+          isActive={page.href === pathname}
+        />
       ))}
     </Flex>
   );

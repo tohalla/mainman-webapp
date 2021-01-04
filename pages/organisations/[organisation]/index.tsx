@@ -10,9 +10,11 @@ import { getParam } from "src/util/routing";
 
 const OrganisationPage: Page = () => {
   const { query } = useRouter();
+  const organisationId = Number(getParam("organisation", query));
+
   const { data: organisation } = useQuery(
-    ["organisations", Number(getParam("organisation", query))],
-    fetchOrganisation,
+    ["organisations", organisationId],
+    () => fetchOrganisation(organisationId),
     { enabled: typeof query.organisation === "undefined" }
   );
 

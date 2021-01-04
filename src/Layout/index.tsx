@@ -68,21 +68,21 @@ const DefaultLayout = ({
           setLayoutContextProps({ ...layoutContextProps, title }),
       }}
     >
-      <Flex flex={1} flexDirection="column">
-        <MainNavigation subPages={layoutProps.subPages} />
-        <Flex
-          as="main"
-          flex={1}
-          flexDirection="column"
-          mx={[2, 5]}
-          my={[2, 5]}
-          sx={{ h1: { color: "greyscale.2", m: 0 } }}
-        >
-          <Loadable isLoading={isLoading}>
+      <Loadable>
+        <Flex flex={1} flexDirection="column">
+          <MainNavigation subPages={layoutProps.subPages} />
+          <Flex
+            as="main"
+            flex={1}
+            flexDirection="column"
+            mx={[2, 5]}
+            my={[2, 5]}
+            sx={{ h1: { color: "greyscale.2", m: 0 } }}
+          >
             <ContentWrapper {...layoutContextProps}>{children}</ContentWrapper>
-          </Loadable>
+          </Flex>
         </Flex>
-      </Flex>
+      </Loadable>
     </LayoutContext.Provider>
   );
 };

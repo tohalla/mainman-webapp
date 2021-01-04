@@ -14,11 +14,11 @@ import {
   createIntl,
   createIntlCache,
 } from "react-intl";
-import { ReactQueryConfigProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 
 import { ServerContext } from "server";
 import { fetchAccountWithHeaders, refreshSession } from "src/auth";
-import { queryConfig } from "src/config/react-query";
+import { queryClient } from "src/config/react-query";
 import ToastContainer from "src/general/ToastContainer";
 import DefaultLayout, {
   LayoutProps,
@@ -73,16 +73,16 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
     <CacheProvider value={cache}>
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
-          <Layout isLoading={loading} layoutProps={Component.layoutProps}>
-            <ReactQueryConfigProvider config={queryConfig}>
+          <QueryClientProvider client={queryClient}>
+            <Layout isLoading={loading} layoutProps={Component.layoutProps}>
               <NextApp
                 Component={Component}
                 pageProps={pageProps}
                 router={router}
               />
-            </ReactQueryConfigProvider>
-            <ToastContainer />
-          </Layout>
+              <ToastContainer />
+            </Layout>
+          </QueryClientProvider>
         </ThemeProvider>
       </RawIntlProvider>
     </CacheProvider>

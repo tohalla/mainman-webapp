@@ -25,7 +25,7 @@ const ApplianceList = ({ appliances }: Props) => {
             original: { hash, name },
           },
         }) => (
-          <Link as={`/appliances/${hash}`} href="/appliances/[appliance]">
+          <Link href={`/appliances/${hash}`}>
             <a>{name}</a>
           </Link>
         ),

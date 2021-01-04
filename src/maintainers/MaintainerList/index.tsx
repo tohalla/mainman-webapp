@@ -25,7 +25,7 @@ const MaintainerList = ({ maintainers }: Props) => {
             original: { id },
           },
         }) => (
-          <Link as={`/maintainers/${id}`} href="/maintainers/[maintainer]">
+          <Link href={`/maintainers/${id}`}>
             <a>{id}</a>
           </Link>
         ),

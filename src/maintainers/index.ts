@@ -13,20 +13,12 @@ export type Maintainer = Timestamps & {
   organisation: number;
 };
 
-interface QueryContext {
-  id?: string;
-  organisation: number;
-}
-
-export const fetchMaintainer = (
-  _: string,
-  { id, organisation }: Required<QueryContext>
-) =>
+export const fetchMaintainer = (organisation: number, id: number) =>
   getApiCall<Maintainer>(`/organisations/${organisation}/maintainers/${id}`)({
     responseType: "json",
   });
 
-export const fetchMaintainers = (_: string, { organisation }: QueryContext) =>
+export const fetchMaintainers = (organisation: number) =>
   getApiCall<Maintainer, Record<string, Maintainer>>(
     `/organisations/${organisation}/maintainers`
   )({ responseType: "json" });

@@ -17,8 +17,8 @@ const MaintainersPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data: maintainers } = useQuery(
     ["maintainers", { organisation: activeOrganisation?.id }],
-    fetchMaintainers,
-    { enabled: activeOrganisation?.id }
+    ({ queryKey: [_, { organisation }] }) => fetchMaintainers(organisation),
+    { enabled: typeof activeOrganisation !== "undefined" }
   );
 
   if (!activeOrganisation) {

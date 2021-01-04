@@ -5,9 +5,9 @@ import { Flex } from "rebass";
 
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useToggle from "../../../hooks/useToggle";
-import { Theme } from "../../../theme";
 import PlainButton from "../../Button/PlainButton";
 import SubNavigation from "../SubNavigation";
+import theme from "src/theme";
 
 import AccountMenu from "./AccountMenu";
 import Items, { Page } from "./Items";
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const MainNavigation = ({ subPages }: Props) => {
-  const { breakpoints } = useTheme<Theme>();
+  const { breakpoints } = useTheme<typeof theme>();
   const containerEl = useRef<HTMLDivElement>(null);
   const [expand, toggleExpand, setExpand] = useToggle(false);
   const [width, setWidth] = useState(

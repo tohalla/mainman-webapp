@@ -1,18 +1,16 @@
-import styled from "@emotion/styled";
-import { FormikFormProps, useFormikContext } from "formik";
+import { useFormikContext } from "formik";
 import React, { Ref, forwardRef, ReactNode, FormEventHandler } from "react";
 import { FormattedMessage } from "react-intl";
 import { Box, BoxProps } from "rebass";
 
-import { getSpace } from "../../theme";
 import Button from "../Button";
 import messages from "../messages";
 
-type Props = FormikFormProps &
-  BoxProps & {
-    submitLabel?: ReactNode;
-    secondaryAction?: ReactNode;
-  };
+interface Props extends Omit<BoxProps, "css"> {
+  action?: string;
+  submitLabel?: ReactNode;
+  secondaryAction?: ReactNode;
+}
 
 const Form = forwardRef(
   (
@@ -22,24 +20,27 @@ const Form = forwardRef(
     const { isSubmitting, handleReset, handleSubmit } = useFormikContext();
 
     return (
-      <StyledForm
+      <Box
         ref={ref}
-        action={action ?? "#"}
         as="form"
-        display="flex"
-        flex={1}
         onReset={handleReset}
         onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}
+        sx={{
+          display: "flex",
+          flex: 1,
+          flexDirection: "column",
+          "> div + div": { marginTop: 5 },
+        }}
         {...rest}
       >
         {children}
-        <Actions>
+        <Box sx={{ alignSelf: "flex-end" }}>
           {secondaryAction}
           <Button loading={isSubmitting} ml={[3, 5]} type="submit">
             {submitLabel}
           </Button>
-        </Actions>
-      </StyledForm>
+        </Box>
+      </Box>
     );
   }
 );
@@ -47,18 +48,6 @@ const Form = forwardRef(
 Form.defaultProps = {
   submitLabel: <FormattedMessage {...messages.submit} />,
 };
-
-const Actions = styled.div`
-  align-self: flex-end;
-`;
-
-const StyledForm = styled(Box)`
-  flex-direction: column;
-
-  > div + div {
-    margin-top: ${getSpace(5)};
-  }
-`;
 
 Form.displayName = "Form";
 

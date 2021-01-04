@@ -23,8 +23,9 @@ const AppliancePage: Page = () => {
         organisation: activeOrganisation?.id,
       },
     ],
-    fetchAppliance,
-    { enabled: activeOrganisation }
+    ({ queryKey: [_, { organisation, appliance }] }) =>
+      fetchAppliance(organisation, appliance),
+    { enabled: typeof activeOrganisation !== "undefined" }
   );
 
   useEffect(() => {

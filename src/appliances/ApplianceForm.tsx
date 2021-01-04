@@ -1,7 +1,7 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { useMutation, queryCache } from "react-query";
+import { useMutation } from "react-query";
 
 import Form from "../general/Form";
 import { Input } from "../general/Input";
@@ -10,6 +10,7 @@ import { formMessages } from "./messages";
 
 import { Appliance, createAppliance, updateAppliance } from ".";
 
+import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
 import { Organisation } from "src/organisations";
@@ -21,10 +22,10 @@ interface Props {
 }
 
 const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
-  const [mutateAppliance] = useMutation(
+  const { mutate } = useMutation(
     appliance ? updateAppliance : createAppliance,
     {
-      onSuccess: () => queryCache.invalidateQueries("appliances"),
+      onSuccess: () => queryClient.invalidateQueries("appliances"),
     }
   );
 
@@ -34,8 +35,8 @@ const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
         name: appliance?.name ?? "",
         description: appliance?.description ?? "",
       }}
-      onSubmit={async (values, { setSubmitting }) =>
-        mutateAppliance(
+      onSubmit={(values, { setSubmitting }) =>
+        mutate(
           appliance
             ? {
                 ...values,

@@ -73,9 +73,7 @@ const theme = {
   },
 };
 
-export type Theme = typeof theme;
-
 export const getSpace = (index: number) =>
-  path<{ theme: Theme }>(["theme", "space", index]);
+  path<{ theme: typeof theme }>(["theme", "space", index]);
 
 export default theme;

@@ -23,8 +23,9 @@ const MaintainerPage: Page = () => {
         organisation: activeOrganisation?.id,
       },
     ],
-    fetchMaintainer,
-    { enabled: activeOrganisation }
+    ({ queryKey: [_, { organisation, maintainer }] }) =>
+      fetchMaintainer(organisation, maintainer),
+    { enabled: typeof activeOrganisation !== "undefined" }
   );
 
   useEffect(() => {

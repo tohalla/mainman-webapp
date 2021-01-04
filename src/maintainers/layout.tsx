@@ -8,17 +8,11 @@ export const layoutProps: Partial<LayoutProps> = {
   subPages: [
     {
       children: <FormattedMessage {...pageLinks.maintainers} />,
-      as: "/maintainers",
-      href: {
-        pathname: "/maintaners",
-      },
+      href: "/maintaners",
     },
     {
       children: <FormattedMessage {...pageLinks.newMaintainer} />,
-      as: "/maintainers/new",
-      href: {
-        pathname: "/maintainers/new",
-      },
+      href: "/maintainers/new",
     },
   ],
 };

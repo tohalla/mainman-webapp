@@ -9,7 +9,6 @@ import messages from "./messages";
 export interface Page {
   children: ReactNode;
   href: string;
-  as?: string;
 }
 
 const items = (): Page[] => [
@@ -47,7 +46,7 @@ const Items = ({ onClick }: Props) => {
             (page.href !== "/" && router.pathname.startsWith(page.href));
           return (
             <PageLink
-              key={page.as ?? page.href}
+              key={page.href}
               onClick={onClick}
               {...page}
               isActive={isActive}
@@ -60,12 +59,11 @@ const Items = ({ onClick }: Props) => {
 
 const PageLink = ({
   href,
-  as,
   children,
   isActive,
   onClick,
 }: Page & { isActive: boolean } & Pick<Props, "onClick">) => (
-  <Link as={as} href={href}>
+  <Link href={href}>
     <RebassLink
       color={`greyscale.${isActive ? 9 : 8}`}
       fontSize={2}

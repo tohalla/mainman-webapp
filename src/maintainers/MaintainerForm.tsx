@@ -1,7 +1,7 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { useMutation, queryCache } from "react-query";
+import { useMutation } from "react-query";
 
 import Form from "../general/Form";
 import { Input } from "../general/Input";
@@ -10,6 +10,7 @@ import { formMessages } from "./messages";
 
 import { Maintainer, createMaintainer, updateMaintainer } from ".";
 
+import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
 import { Organisation } from "src/organisations";
@@ -21,10 +22,10 @@ interface Props {
 }
 
 const MaintainerForm = ({ maintainer, onSubmit, organisation }: Props) => {
-  const [mutateMaintainer] = useMutation(
+  const { mutate } = useMutation(
     maintainer ? updateMaintainer : createMaintainer,
     {
-      onSuccess: () => queryCache.invalidateQueries("maintainers"),
+      onSuccess: () => queryClient.invalidateQueries("maintainers"),
     }
   );
 
@@ -34,8 +35,8 @@ const MaintainerForm = ({ maintainer, onSubmit, organisation }: Props) => {
         name: maintainer?.details?.name ?? "",
         email: maintainer?.details?.email ?? "",
       }}
-      onSubmit={async (values, { setSubmitting }) =>
-        mutateMaintainer(
+      onSubmit={(values, { setSubmitting }) =>
+        mutate(
           maintainer
             ? {
                 details: { ...values },

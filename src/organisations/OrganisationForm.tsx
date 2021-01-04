@@ -1,7 +1,7 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { useMutation, queryCache } from "react-query";
+import { useMutation } from "react-query";
 
 import Form from "../general/Form";
 import { Input } from "../general/Input";
@@ -10,6 +10,7 @@ import { formMessages } from "./messages";
 
 import { Organisation, createOrganisation, updateOrganisation } from ".";
 
+import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
 
@@ -19,10 +20,10 @@ interface Props {
 }
 
 const OrganisationForm = ({ organisation, onSubmit }: Props) => {
-  const [mutateOrganisation] = useMutation(
+  const { mutate } = useMutation(
     organisation ? updateOrganisation : createOrganisation,
     {
-      onSuccess: () => queryCache.invalidateQueries("organisations"),
+      onSuccess: () => queryClient.invalidateQueries("organisations"),
     }
   );
 
@@ -32,8 +33,8 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
         name: organisation?.name ?? "",
         organisationIdentifier: organisation?.organisationIdentifier ?? "",
       }}
-      onSubmit={async (values, { setSubmitting }) =>
-        mutateOrganisation(
+      onSubmit={(values, { setSubmitting }) =>
+        mutate(
           organisation
             ? { id: organisation?.id, locale: "en", ...values }
             : ({

@@ -1,9 +1,11 @@
 import { RefObject, useEffect } from "react";
+import useRootNode from "./useRootNode";
 
 const useOnClickOutside = (
   ref: RefObject<HTMLDivElement>,
   fn: (event: MouseEvent | TouchEvent) => void
 ) => {
+  const rootNode = useRootNode();
   const handleClickOutside = (event: MouseEvent | TouchEvent) => {
     if (
       ref.current &&
@@ -15,13 +17,16 @@ const useOnClickOutside = (
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    if (!rootNode) {
+      return;
+    }
+    rootNode.addEventListener("mousedown", handleClickOutside);
+    rootNode.addEventListener("touchstart", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      rootNode.removeEventListener("mousedown", handleClickOutside);
+      rootNode.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [ref, fn]);
+  }, [ref, fn, rootNode]);
 };
 
 export default useOnClickOutside;

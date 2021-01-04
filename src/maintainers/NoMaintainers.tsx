@@ -18,7 +18,6 @@ const NoMaintainers = ({ organisation }: Props) => {
       values={{
         createLink: (
           <Link
-            as="/maintainers/new"
             href={{
               pathname: "/maintainers/new",
               query: { organisation: organisation.id },
@@ -30,10 +29,7 @@ const NoMaintainers = ({ organisation }: Props) => {
           </Link>
         ),
         organisationLink: (
-          <Link
-            as={`/organisations/${organisation.id}`}
-            href="/organisations/[organisation]"
-          >
+          <Link href={`/organisations/${organisation.id}`}>
             <a> {organisation.name}</a>
           </Link>
         ),

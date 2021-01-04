@@ -8,7 +8,7 @@ export type Organisation = {
   adminAccount: number;
 };
 
-export const fetchOrganisation = (_: string, id: number) =>
+export const fetchOrganisation = (id: number) =>
   getApiCall<Organisation, Organisation>(`/organisations/${id}`)({
     responseType: "json",
   });

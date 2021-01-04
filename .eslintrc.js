@@ -70,6 +70,7 @@ module.exports = {
       "warn",
       {
         ignoreRestSiblings: true,
+        argsIgnorePattern: "^_",
       },
     ],
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
@@ -120,5 +121,6 @@ module.exports = {
     "react/require-default-props": "off",
     "react/display-name": "off",
     "react/default-props-match-prop-types": "off",
+    "@typescript-eslint/no-empty-interface": "off",
   },
 };
