@@ -56,7 +56,7 @@ export const getApiCall = <
     return res as R extends string ? U : Response;
   }
 
-  const payload = await res[responseType]();
+  const { data: payload } = await res[responseType]();
   return transformKeys<U>(camelCase)(
     ((key && Array.isArray(payload)
       ? indexByProp<T>(key as NonNullable<K>)(payload)
