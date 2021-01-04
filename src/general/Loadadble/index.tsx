@@ -6,20 +6,7 @@ import Loader from "./Loader";
 
 interface Props {
   children: ReactNode;
-  isLoading?: boolean;
 }
-
-const Loadable = ({ isLoading, children }: Props) => {
-  if (isLoading === false) {
-    return <>{children}</>;
-  }
-
-  return (
-    <Container>
-      <Loader />
-    </Container>
-  );
-};
 
 const Container = styled.div`
   display: flex;
@@ -31,7 +18,7 @@ const Container = styled.div`
 
 const WithSuspense = (props: Props) => {
   if (typeof window === "undefined") {
-    return <Loadable {...props} />;
+    return null;
   }
 
   return (

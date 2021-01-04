@@ -14,7 +14,7 @@ interface Props extends Pick<LayoutProps, "description" | "title"> {
 }
 
 const WithHeading = ({ children, title, description }: Props) => {
-  const { data, isFetching } = useQuery("organisations", fetchOrganisations, {
+  const { data } = useQuery("organisations", fetchOrganisations, {
     staleTime: 60000,
     suspense: typeof window !== "undefined",
   });
@@ -31,7 +31,7 @@ const WithHeading = ({ children, title, description }: Props) => {
   }, [data]);
 
   return (
-    <Loadable isLoading={isFetching}>
+    <Loadable>
       {view === "none" ? (
         <NoOrganisations />
       ) : (

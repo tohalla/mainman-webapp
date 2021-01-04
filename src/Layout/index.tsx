@@ -10,7 +10,6 @@ import Loadable from "src/general/Loadadble";
 import { Page } from "src/general/Navigation/MainNavigation/Items";
 
 export interface Props {
-  isLoading: boolean;
   children: ReactFragment;
   layoutProps: LayoutProps;
   ContentWrapper(props: { children: ReactFragment } & LayoutProps): JSX.Element;
@@ -41,12 +40,7 @@ export const DefaultContentWrapper: Props["ContentWrapper"] = ({
   );
 };
 
-const DefaultLayout = ({
-  children,
-  isLoading,
-  layoutProps,
-  ContentWrapper,
-}: Props) => {
+const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
   const [layoutContextProps, setLayoutContextProps] = useState(layoutProps);
   const { asPath } = useRouter();
 

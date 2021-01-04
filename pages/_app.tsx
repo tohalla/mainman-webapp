@@ -7,7 +7,7 @@ import { cache } from "emotion";
 import { ThemeProvider } from "emotion-theming";
 import { NextComponentType } from "next";
 import NextApp, { AppContext, AppProps } from "next/app";
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   IntlConfig,
   RawIntlProvider,
@@ -34,7 +34,7 @@ type Context = AppContext & {
 };
 export type Page = {
   Layout?: React.FC<DefaultLayoutProps>;
-  layoutProps?: Omit<LayoutProps, "children" | "isLoading">;
+  layoutProps?: Omit<LayoutProps, "children">;
 } & AppProps["Component"];
 type Props = AppProps & IntlConfig & { Component: Page };
 
@@ -47,13 +47,6 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
   router,
   pageProps,
 }: Props) => {
-  const [loading, setLoading] = useState(false);
-
-  if (typeof router.events !== "undefined") {
-    router.events.on("routeChangeStart", () => setLoading(true));
-    router.events.on("routeChangeComplete", () => setLoading(false));
-  }
-
   const intl = useMemo(
     () =>
       createIntl(
@@ -74,7 +67,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
-            <Layout isLoading={loading} layoutProps={Component.layoutProps}>
+            <Layout layoutProps={Component.layoutProps}>
               <NextApp
                 Component={Component}
                 pageProps={pageProps}

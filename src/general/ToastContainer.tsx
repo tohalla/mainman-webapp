@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import {
@@ -8,6 +7,7 @@ import {
 
 import { getSpace } from "src/theme";
 import { getColor } from "src/theme/colors";
+import styled from "src/theme/styled";
 
 const ToastContainer = () => (
   <Container
