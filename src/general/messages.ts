@@ -35,13 +35,13 @@ export const titles = defineMessages({
 export const pageLinks = defineMessages({
   // Appliances
   // link text for navigating to appliances root page
-  appliances: "Appliances",
+  appliances: "All appliances",
   // link text for navigating to creating a new appliance
   newAppliance: "Create a new appliance",
 
   // Maintainers
   // link text for navigating to maintainers root page
-  maintainers: "Maintainers",
+  maintainers: "All maintainers",
   // link text for navigating to creating a new maintainer
   newMaintainer: "Create a new maintainer",
 });

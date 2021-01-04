@@ -16,6 +16,7 @@ interface Props extends Pick<LayoutProps, "description" | "title"> {
 const WithHeading = ({ children, title, description }: Props) => {
   const { data, isFetching } = useQuery("organisations", fetchOrganisations, {
     staleTime: 60000,
+    suspense: typeof window !== "undefined",
   });
 
   const view = useMemo(() => {
@@ -44,11 +45,9 @@ const WithHeading = ({ children, title, description }: Props) => {
           >
             {title ? <h1>{title}</h1> : <span />}
             {view === "multiple" && (
-              <Loadable>
-                <Box variant="subdued">
-                  <OrganisationSelect />
-                </Box>
-              </Loadable>
+              <Box variant="subdued">
+                <OrganisationSelect />
+              </Box>
             )}
           </Flex>
           {description && <p>{description}</p>}

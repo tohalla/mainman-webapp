@@ -8,19 +8,23 @@ import { layoutProps } from "src/appliances/layout";
 import Loadadble from "src/general/Loadadble";
 import LayoutContext from "src/Layout/LayoutContext";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
+import OrganisationContext from "src/organisations/OrganisationContext";
 import { getParam } from "src/util/routing";
 
 const AppliancePage: Page = () => {
   const { setTitle } = useContext(LayoutContext);
   const { query } = useRouter();
+  const { activeOrganisation } = useContext(OrganisationContext);
   const { data } = useQuery(
     [
       "appliances",
       {
         hash: getParam("appliance", query),
+        organisation: activeOrganisation?.id,
       },
     ],
-    fetchAppliance
+    fetchAppliance,
+    { enabled: activeOrganisation }
   );
 
   useEffect(() => {

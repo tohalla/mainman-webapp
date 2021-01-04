@@ -3,13 +3,13 @@ import { path } from "ramda";
 const greyscale = [
   "#000000",
   "#212121",
+  "#383838",
   "#606060",
   "#929292",
   "#aaaaaa",
   "#bbbbbb",
   "#dfdfdf",
   "#ededed",
-  "#f5f5f5",
   "#ffffff",
 ];
 
@@ -35,7 +35,7 @@ const colors = {
 
   text: {
     default: greyscale[0],
-    light: greyscale[greyscale.length - 1],
+    light: greyscale[greyscale.length - 2],
   },
 };
 

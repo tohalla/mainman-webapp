@@ -5,7 +5,7 @@ export const queryConfig: ReactQueryConfig = {
     refetchOnWindowFocus: false,
     onError: console.error,
   },
-  // shared: {
-  //   suspense: typeof window !== "undefined",
-  // },
+  shared: {
+    suspense: typeof window !== "undefined",
+  },
 };

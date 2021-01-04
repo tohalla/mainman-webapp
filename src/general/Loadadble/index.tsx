@@ -29,10 +29,12 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const WithSuspense = (props: Props) =>
-  typeof props.isLoading === "boolean" ? (
-    <Loadable {...props} />
-  ) : typeof window === "undefined" ? null : (
+const WithSuspense = (props: Props) => {
+  if (typeof window === "undefined") {
+    return <Loadable {...props} />;
+  }
+
+  return (
     <Suspense
       fallback={
         <Container>
@@ -43,5 +45,6 @@ const WithSuspense = (props: Props) =>
       {props.children}
     </Suspense>
   );
+};
 
 export default WithSuspense;

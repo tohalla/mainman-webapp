@@ -4,25 +4,25 @@ import React, { MouseEventHandler, ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
 import { Link as RebassLink } from "rebass";
 
-import { getColor } from "../../../theme/colors";
-import styled from "../../../theme/styled";
-
 import messages from "./messages";
 
-const items = (): ({ content: ReactNode } & {
+export interface Page {
+  children: ReactNode;
   href: string;
   as?: string;
-})[] => [
+}
+
+const items = (): Page[] => [
   {
-    content: <FormattedMessage {...messages.overview} />,
+    children: <FormattedMessage {...messages.overview} />,
     href: "/",
   },
   {
-    content: <FormattedMessage {...messages.appliances} />,
+    children: <FormattedMessage {...messages.appliances} />,
     href: `/appliances`,
   },
   {
-    content: <FormattedMessage {...messages.maintainers} />,
+    children: <FormattedMessage {...messages.maintainers} />,
     href: `/maintainers`,
   },
 ];
@@ -41,35 +41,45 @@ const Items = ({ onClick }: Props) => {
           (link): link is Exclude<typeof link, undefined> =>
             typeof link !== "undefined"
         )
-        .map(({ content, href, as }) => {
-          const Component =
-            router.pathname === href ||
-            (href !== "/" && router.pathname.startsWith(href))
-              ? ActiveNavLink
-              : NavLink;
+        .map((page) => {
+          const isActive =
+            router.pathname === page.href ||
+            (page.href !== "/" && router.pathname.startsWith(page.href));
           return (
-            <Link key={href} as={as} href={href}>
-              <Component onClick={onClick} px={4} py={4}>
-                {content}
-              </Component>
-            </Link>
+            <PageLink
+              key={page.as ?? page.href}
+              onClick={onClick}
+              {...page}
+              isActive={isActive}
+            />
           );
         })}
     </>
   );
 };
 
-const NavLink = styled(RebassLink)`
-  user-select: none;
-  color: ${getColor(["greyscale", 2])};
-`;
-
-const ActiveNavLink = styled(NavLink)`
-  text-decoration: underline;
-  &,
-  &:hover {
-    color: ${getColor(["greyscale", 0])};
-  }
-`;
+const PageLink = ({
+  href,
+  as,
+  children,
+  isActive,
+  onClick,
+}: Page & { isActive: boolean } & Pick<Props, "onClick">) => (
+  <Link as={as} href={href}>
+    <RebassLink
+      color={`greyscale.${isActive ? 9 : 8}`}
+      fontSize={2}
+      onClick={onClick}
+      px={4}
+      py={4}
+      sx={{
+        textDecoration: isActive ? "underline" : undefined,
+        ":hover": { color: isActive ? "greyscale.9" : undefined },
+      }}
+    >
+      {children}
+    </RebassLink>
+  </Link>
+);
 
 export default Items;

@@ -1,27 +1,25 @@
-import Link, { LinkProps } from "next/link";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { ReactNode } from "react";
+import React from "react";
 import { Flex, Link as RebassLink } from "rebass";
 
-export interface SubPage extends Required<Pick<LinkProps, "href">> {
-  children: ReactNode;
-  as: string;
-}
-
-interface SubPageLinkProps extends SubPage {
-  isActive: boolean;
-}
+import { Page } from "./MainNavigation/Items";
 
 interface Props {
-  pages: SubPage[];
+  pages: Omit<Page[], "isActive">;
 }
 
-const SubPageLink = ({ href, as, children, isActive }: SubPageLinkProps) => (
+const SubPageLink = ({
+  href,
+  as,
+  children,
+  isActive,
+}: Page & { isActive: boolean }) => (
   <Link as={as} href={href}>
     <RebassLink
       color={isActive ? "greyscale.0" : undefined}
       fontSize={2}
-      px={[4]}
+      px={[3]}
       sx={{
         textDecoration: isActive ? "underline" : undefined,
         ":hover": { color: isActive ? "greyscale.0" : undefined },
@@ -38,10 +36,13 @@ const SubNavigation = ({ pages }: Props) => {
   return (
     <Flex
       alignSelf="stretch"
+      backgroundColor="greyscale.9"
       flexDirection="row"
-      justifyContent={["flex-end"]}
-      mt={[4]}
-      pr={[0, 6]}
+      px={4}
+      py={2}
+      sx={{
+        boxShadow: 1,
+      }}
     >
       {pages?.map((page) => (
         <SubPageLink key={page.as} {...page} isActive={page.as === pathname} />

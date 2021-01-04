@@ -8,19 +8,23 @@ import LayoutContext from "src/Layout/LayoutContext";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainer } from "src/maintainers";
 import { layoutProps } from "src/maintainers/layout";
+import OrganisationContext from "src/organisations/OrganisationContext";
 import { getParam } from "src/util/routing";
 
 const MaintainerPage: Page = () => {
   const { setTitle } = useContext(LayoutContext);
   const { query } = useRouter();
+  const { activeOrganisation } = useContext(OrganisationContext);
   const { data } = useQuery(
     [
       "maintainers",
       {
         id: getParam("maintainer", query),
+        organisation: activeOrganisation?.id,
       },
     ],
-    fetchMaintainer
+    fetchMaintainer,
+    { enabled: activeOrganisation }
   );
 
   useEffect(() => {

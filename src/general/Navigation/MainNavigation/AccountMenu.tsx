@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
-import { Box } from "rebass";
+import { Box, Link as RebassLink } from "rebass";
 
 import { fetchAccount, signOut } from "../../../auth";
 import PlainButton from "../../Button/PlainButton";
@@ -23,12 +23,12 @@ const AccountMenu = () => {
           values={{
             account: (
               <Link href="/profile">
-                <a>{account?.firstName}</a>
+                <RebassLink color="text.light">{account?.firstName}</RebassLink>
               </Link>
             ),
           }}
         />
-        <PlainButton ml={5} onClick={signOut}>
+        <PlainButton color="text.light" ml={5} onClick={signOut}>
           <FormattedMessage {...accountMenuMessages.signOut} />
         </PlainButton>
       </Loadable>

@@ -7,12 +7,17 @@ import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useToggle from "../../../hooks/useToggle";
 import { Theme } from "../../../theme";
 import PlainButton from "../../Button/PlainButton";
+import SubNavigation from "../SubNavigation";
 
 import AccountMenu from "./AccountMenu";
-import Items from "./Items";
+import Items, { Page } from "./Items";
 
-const MainNavigation = () => {
-  const { breakpoints, colors } = useTheme<Theme>();
+interface Props {
+  subPages?: Page[];
+}
+
+const MainNavigation = ({ subPages }: Props) => {
+  const { breakpoints } = useTheme<Theme>();
   const containerEl = useRef<HTMLDivElement>(null);
   const [expand, toggleExpand, setExpand] = useToggle(false);
   const [width, setWidth] = useState(
@@ -41,49 +46,53 @@ const MainNavigation = () => {
   }, []);
 
   return (
-    <Flex
-      sx={{
-        position: ["relative", "dynamic"],
-        minHeight: height,
-      }}
-    >
+    <>
       <Flex
-        ref={containerEl}
-        alignItems={["stretch", "center"]}
-        backgroundColor={colors.greyscale[9]}
-        flexDirection={["column", "row"]}
-        justifyContent="space-between"
-        px={[0, 3]}
         sx={{
-          boxShadow: 1,
-          position: height ? ["absolute", "dynamic"] : "dynamic",
+          position: ["relative", "dynamic"],
+          minHeight: height,
         }}
-        width="100%"
       >
-        {mobileNav && (
-          <PlainButton
-            alignSelf="flex-end"
-            flex="1"
-            onClick={toggleExpand}
-            p={4}
-          >
-            <FaBars />
-          </PlainButton>
-        )}
-        {(!mobileNav || expand) && (
-          <>
-            <Flex
-              alignItems={["stretch", "center"]}
-              flex={1}
-              flexDirection={["column", "row"]}
+        <Flex
+          ref={containerEl}
+          alignItems={["stretch", "center"]}
+          backgroundColor="greyscale.1"
+          color="text.light"
+          flexDirection={["column", "row"]}
+          justifyContent="space-between"
+          px={[0, 3]}
+          sx={{
+            boxShadow: 1,
+            position: height ? ["absolute", "dynamic"] : "dynamic",
+          }}
+          width="100%"
+        >
+          {mobileNav && (
+            <PlainButton
+              alignSelf="flex-end"
+              flex="1"
+              onClick={toggleExpand}
+              p={4}
             >
-              <Items onClick={toggleExpand} />
-            </Flex>
-            <AccountMenu />
-          </>
-        )}
+              <FaBars />
+            </PlainButton>
+          )}
+          {(!mobileNav || expand) && (
+            <>
+              <Flex
+                alignItems={["stretch", "center"]}
+                flex={1}
+                flexDirection={["column", "row"]}
+              >
+                <Items onClick={toggleExpand} />
+              </Flex>
+              <AccountMenu />
+            </>
+          )}
+        </Flex>
       </Flex>
-    </Flex>
+      {subPages && <SubNavigation pages={subPages} />}
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ import MainNavigation from "../general/Navigation/MainNavigation";
 import LayoutContext from "./LayoutContext";
 
 import Loadable from "src/general/Loadadble";
-import SubNavigation, { SubPage } from "src/general/Navigation/SubNavigation";
+import { Page } from "src/general/Navigation/MainNavigation/Items";
 
 export interface Props {
   isLoading: boolean;
@@ -21,7 +21,7 @@ export interface LayoutProps {
   description?: ReactFragment;
   renderContent?(content: ReactFragment): ReactFragment;
   options?: Record<string, boolean>;
-  subPages?: SubPage[];
+  subPages?: Page[];
 }
 
 export const DefaultContentWrapper: Props["ContentWrapper"] = ({
@@ -69,8 +69,7 @@ const DefaultLayout = ({
       }}
     >
       <Flex flex={1} flexDirection="column">
-        <MainNavigation />
-        {layoutProps.subPages && <SubNavigation pages={layoutProps.subPages} />}
+        <MainNavigation subPages={layoutProps.subPages} />
         <Flex
           as="main"
           flex={1}
