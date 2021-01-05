@@ -49,4 +49,8 @@ export default css`
   h2, h3, h4, h5, h6 {
     font-size: 16px;
   }
+
+  p {
+    margin-top: 0;
+  }
 `;
