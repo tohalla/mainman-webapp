@@ -17,9 +17,9 @@ const colors = {
   greyscale,
 
   primary: {
-    dark: "#18305b",
-    light: "#5b739f",
-    neutral: "#4f6690",
+    dark: "#34495e",
+    light: "#577C9E",
+    neutral: "#415C76",
   },
   accent: {
     dark: "#d05e00",

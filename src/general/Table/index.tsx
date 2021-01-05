@@ -61,7 +61,7 @@ const Table = <T extends Record<string, unknown>>({
           backgroundColor: "greyscale.9",
           borderCollapse: "collapse",
           boxShadow: "outline.0",
-          thead: { backgroundColor: "primary.light", color: "text.light" },
+          thead: { backgroundColor: "primary.neutral", color: "text.light" },
           td: { px: 3, py: 2, boxShadow: "outline.1" },
           th: { p: 3, boxShadow: "outline.2" },
           ...sx,
