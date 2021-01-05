@@ -23,8 +23,8 @@ const MaintainerPage: Page = () => {
         organisation: activeOrganisation?.id,
       },
     ],
-    ({ queryKey: [_, { organisation, maintainer }] }) =>
-      fetchMaintainer(organisation, maintainer),
+    ({ queryKey: [_, { organisation, id }] }) =>
+      fetchMaintainer(organisation, id),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 

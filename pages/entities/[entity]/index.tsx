@@ -23,8 +23,8 @@ const EntityPage: Page = () => {
         organisation: activeOrganisation?.id,
       },
     ],
-    ({ queryKey: [_, { organisation, entity }] }) =>
-      fetchEntity(organisation, entity),
+    ({ queryKey: [_, { organisation, hash }] }) =>
+      fetchEntity(organisation, hash),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
