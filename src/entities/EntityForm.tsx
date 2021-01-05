@@ -8,7 +8,7 @@ import { Input } from "../general/Input";
 
 import { formMessages } from "./messages";
 
-import { Appliance, createAppliance, updateAppliance } from ".";
+import { Entity, createEntity, updateEntity } from ".";
 
 import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
@@ -16,37 +16,34 @@ import messages from "src/general/messages";
 import { Organisation } from "src/organisations";
 
 interface Props {
-  appliance?: Appliance;
-  onSubmit?(appliance: Appliance): void;
+  entity?: Entity;
+  onSubmit?(entity: Entity): void;
   organisation: Organisation;
 }
 
-const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
-  const { mutate } = useMutation(
-    appliance ? updateAppliance : createAppliance,
-    {
-      onSuccess: () => queryClient.invalidateQueries("appliances"),
-    }
-  );
+const EntityForm = ({ entity, onSubmit, organisation }: Props) => {
+  const { mutate } = useMutation(entity ? updateEntity : createEntity, {
+    onSuccess: () => queryClient.invalidateQueries("entities"),
+  });
 
   return (
     <Formik
       initialValues={{
-        name: appliance?.name ?? "",
-        description: appliance?.description ?? "",
+        name: entity?.name ?? "",
+        description: entity?.description ?? "",
       }}
       onSubmit={(values, { setSubmitting }) =>
         mutate(
-          appliance
+          entity
             ? {
                 ...values,
                 organisation: organisation.id,
-                hash: appliance?.hash,
+                hash: entity?.hash,
               }
             : ({
                 ...values,
                 organisation: organisation.id,
-              } as Appliance),
+              } as Entity),
           {
             onSuccess: (response) => {
               setSubmitting(false);
@@ -65,9 +62,7 @@ const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
           </ReturnButton>
         }
         submitLabel={
-          <FormattedMessage
-            {...formMessages[appliance ? "update" : "create"]}
-          />
+          <FormattedMessage {...formMessages[entity ? "update" : "create"]} />
         }
       >
         <Field
@@ -86,6 +81,6 @@ const ApplianceForm = ({ appliance, onSubmit, organisation }: Props) => {
   );
 };
 
-ApplianceForm.displayName = "ApplianceForm";
+EntityForm.displayName = "EntityForm";
 
-export default ApplianceForm;
+export default EntityForm;

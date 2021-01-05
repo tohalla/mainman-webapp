@@ -19,11 +19,11 @@ export const titles = defineMessages({
   // title text for profile
   profile: "Profile",
 
-  // Appliances
-  // title text for appliance root page
-  appliances: "Appliances",
-  // title text for appliance creation page
-  newAppliance: "Create a new appliance",
+  // Entities
+  // title text for entity root page
+  entities: "Entities",
+  // title text for entity creation page
+  newEntity: "Create a new entity",
 
   // Maintainers
   // title text for maintainer root page
@@ -33,11 +33,11 @@ export const titles = defineMessages({
 });
 
 export const pageLinks = defineMessages({
-  // Appliances
-  // link text for navigating to appliances root page
-  appliances: "All appliances",
-  // link text for navigating to creating a new appliance
-  newAppliance: "Create a new appliance",
+  // Entities
+  // link text for navigating to entities root page
+  entities: "All entities",
+  // link text for navigating to creating a new entity
+  newEntity: "Create a new entity",
 
   // Maintainers
   // link text for navigating to maintainers root page

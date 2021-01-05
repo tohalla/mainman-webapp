@@ -17,8 +17,8 @@ const items = (): Page[] => [
     href: "/",
   },
   {
-    children: <FormattedMessage {...messages.appliances} />,
-    href: `/appliances`,
+    children: <FormattedMessage {...messages.entities} />,
+    href: `/entities`,
   },
   {
     children: <FormattedMessage {...messages.maintainers} />,

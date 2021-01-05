@@ -3,9 +3,9 @@ import { defineMessages } from "react-intl";
 export default defineMessages({
   // Navigation: navigation item overview (home)
   overview: "Overview",
-  // Navigation: navigation item appliances
-  appliances: "Appliances",
-  // Navigation: navigation item appliances
+  // Navigation: navigation item entities
+  entities: "Entities",
+  // Navigation: navigation item maintainers
   maintainers: "Maintainers",
 });
 

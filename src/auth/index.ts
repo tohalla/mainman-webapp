@@ -1,4 +1,4 @@
-import callApi, { getApiCall, SetHeader } from "../util/api";
+import callApi, { getApiCall } from "../util/api";
 
 export type Account = {
   id: number;

@@ -10,21 +10,21 @@ interface Props {
   organisation: Organisation;
 }
 
-const NoAppliances = ({ organisation }: Props) => {
+const NoEntities = ({ organisation }: Props) => {
   return (
     <FormattedMessage
       tagName="p"
-      {...messages.noAppliances}
+      {...messages.noEntities}
       values={{
         createLink: (
           <Link
             href={{
-              pathname: "/appliances/new",
+              pathname: "/entities/new",
               query: { organisation: organisation.id },
             }}
           >
             <a>
-              <FormattedMessage {...messages.createAppliace} />
+              <FormattedMessage {...messages.createEntity} />
             </a>
           </Link>
         ),
@@ -38,4 +38,4 @@ const NoAppliances = ({ organisation }: Props) => {
   );
 };
 
-export default NoAppliances;
+export default NoEntities;

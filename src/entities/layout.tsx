@@ -7,12 +7,12 @@ import { LayoutProps } from "src/Layout";
 export const layoutProps: Partial<LayoutProps> = {
   subPages: [
     {
-      children: <FormattedMessage {...pageLinks.appliances} />,
-      href: "/appliances",
+      children: <FormattedMessage {...pageLinks.entities} />,
+      href: "/entities",
     },
     {
-      children: <FormattedMessage {...pageLinks.newAppliance} />,
-      href: "/appliances/new",
+      children: <FormattedMessage {...pageLinks.newEntity} />,
+      href: "/entities/new",
     },
   ],
 };

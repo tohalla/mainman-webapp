@@ -4,13 +4,13 @@ import { FormattedMessage } from "react-intl";
 
 import { Page } from "../_app";
 
-import ApplianceForm from "src/appliances/ApplianceForm";
-import { layoutProps } from "src/appliances/layout";
+import EntityForm from "src/entities/EntityForm";
+import { layoutProps } from "src/entities/layout";
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import OrganisationContext from "src/organisations/OrganisationContext";
 
-const NewAppliancePage: Page = () => {
+const NewEntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { push } = useRouter();
 
@@ -19,10 +19,10 @@ const NewAppliancePage: Page = () => {
   }
 
   return (
-    <ApplianceForm
+    <EntityForm
       onSubmit={() =>
         push({
-          pathname: "/appliances",
+          pathname: "/entities",
           query: { organisation: activeOrganisation.id },
         })
       }
@@ -31,11 +31,11 @@ const NewAppliancePage: Page = () => {
   );
 };
 
-NewAppliancePage.displayName = "NewAppliancePage";
-NewAppliancePage.Layout = OrganisationContentLayout;
-NewAppliancePage.layoutProps = {
+NewEntityPage.displayName = "NewEntityPage";
+NewEntityPage.Layout = OrganisationContentLayout;
+NewEntityPage.layoutProps = {
   ...layoutProps,
-  title: <FormattedMessage {...titles.newAppliance} />,
+  title: <FormattedMessage {...titles.newEntity} />,
 };
 
-export default NewAppliancePage;
+export default NewEntityPage;
