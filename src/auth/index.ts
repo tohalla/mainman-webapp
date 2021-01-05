@@ -1,4 +1,4 @@
-import callApi, { getApiCall } from "../util/api";
+import callApi, { getApiCall, SetHeader } from "../util/api";
 
 export type Account = {
   id: number;
@@ -49,13 +49,10 @@ export const signOut = async () => {
   }
 };
 
-export const refreshSession = (headers?: RequestInit["headers"]) =>
-  getApiCall("/auth/refresh", { method: "POST", headers })({
-    responseType: null,
-  });
-
 export const fetchAccountWithHeaders = (headers?: RequestInit["headers"]) =>
-  getApiCall<Account, Account>("/auth", { headers })({ responseType: "json" });
+  getApiCall<Account, Account>("/auth", { headers })({
+    responseType: "json",
+  });
 
 export const fetchAccount = () =>
   getApiCall<Account, Account>("/auth")({ responseType: "json" });

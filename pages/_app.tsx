@@ -17,7 +17,7 @@ import {
 import { QueryClientProvider } from "react-query";
 
 import { ServerContext } from "server";
-import { fetchAccountWithHeaders, refreshSession } from "src/auth";
+import { fetchAccountWithHeaders } from "src/auth";
 import { queryClient } from "src/config/react-query";
 import ToastContainer from "src/general/ToastContainer";
 import DefaultLayout, {
@@ -25,7 +25,6 @@ import DefaultLayout, {
   Props as DefaultLayoutProps,
 } from "src/Layout";
 import theme from "src/theme";
-import { parseCookieHeader } from "src/util/cookie";
 import { onError } from "src/util/intl";
 import { redirect } from "src/util/routing";
 
@@ -86,21 +85,6 @@ App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
   await fetchAccountWithHeaders(ctx.req?.headers as RequestInit["headers"])
-    .catch(async (error: Response) => {
-      if (error.status === 401) {
-        const res = await refreshSession(
-          ctx.req?.headers as RequestInit["headers"]
-        );
-
-        if (res.headers.get("Set-Cookie")) {
-          return ctx.res?.setHeader(
-            "Set-Cookie",
-            parseCookieHeader(res.headers.get("Set-Cookie") ?? "")
-          );
-        }
-      }
-      throw error;
-    })
     .then(() =>
       redirect({
         ctx,

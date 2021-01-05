@@ -6,6 +6,10 @@ import { transformKeys } from "../transform";
 
 export type ApiMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
 export type QueryParamType = string | number | boolean | undefined;
+interface ApiCallOptions<K, R> {
+  key?: K;
+  responseType?: R;
+}
 
 const host = process.env.NODE_ENV === "development" ? "localhost" : "backend";
 const apiVer = "v1";
@@ -29,10 +33,7 @@ export const getApiCall = <
 ) => async <K extends keyof T | undefined, R extends "json" | "text" | null>({
   responseType = "json",
   key,
-}: {
-  key?: K;
-  responseType?: R;
-} = {}): Promise<R extends string ? U : Response> => {
+}: ApiCallOptions<K, R> = {}): Promise<R extends string ? U : Response> => {
   const res = await fetch(
     `${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`,
     {
