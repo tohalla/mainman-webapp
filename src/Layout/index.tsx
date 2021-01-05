@@ -83,6 +83,7 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
 
 const defaultProps: Partial<Props> = {
   ContentWrapper: DefaultContentWrapper,
+  layoutProps: {},
 };
 
 DefaultLayout.defaultProps = defaultProps;
