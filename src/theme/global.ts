@@ -44,10 +44,16 @@ export default css`
   }
 
   h1 {
-    font-size: 24px;
+    font-size: 1.6rem;
   }
-  h2, h3, h4, h5, h6 {
-    font-size: 16px;
+  h2 {
+    font-size: 1.4rem
+  }
+  h2 {
+    font-size: 1.3rem
+  }
+  h4, h5, h6 {
+    font-size: 1.2rem;
   }
 
   p {
