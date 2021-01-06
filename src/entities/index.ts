@@ -1,6 +1,7 @@
 import { getApiCall } from "../util/api";
 
 import { Timestamps } from "src/general";
+import { Maintainer } from "src/maintainers";
 
 export type Entity = Timestamps & {
   hash: string;
@@ -20,6 +21,11 @@ export const fetchEntities = (organisation: number) =>
   getApiCall<Entity, Record<string, Entity>>(
     `/organisations/${organisation}/entities`
   )(queryOpts);
+
+export const fetchEntityMaintainers = (entity: Entity) =>
+  getApiCall<Maintainer, Record<string, Maintainer>>(
+    `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`
+  )({ responseType: "json" });
 
 export const createEntity = ({
   organisation,

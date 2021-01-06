@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { Page } from "pages/_app";
 import { fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
+import Maintainers from "src/entities/maintainers";
 import Loadadble from "src/general/Loadadble";
 import LayoutContext from "src/Layout/LayoutContext";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
@@ -15,24 +16,27 @@ const EntityPage: Page = () => {
   const { setTitle } = useContext(LayoutContext);
   const { query } = useRouter();
   const { activeOrganisation } = useContext(OrganisationContext);
-  const { data } = useQuery(
-    [
-      "entities",
-      {
-        hash: getParam("entity", query),
-        organisation: activeOrganisation?.id,
-      },
-    ],
-    ({ queryKey: [_, { organisation, hash }] }) =>
-      fetchEntity(organisation, hash),
+  const { data: entity } = useQuery(
+    ["entities", getParam("entity", query)],
+    ({ queryKey: [_, hash] }) =>
+      activeOrganisation && fetchEntity(activeOrganisation.id, hash),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
   useEffect(() => {
-    setTitle(data?.name);
-  }, [data?.name]);
+    setTitle(entity?.name);
+  }, [entity]);
 
-  return <Loadadble>{data?.name}</Loadadble>;
+  if (!entity) {
+    return null;
+  }
+
+  return (
+    <Loadadble>
+      {entity.name}
+      <Maintainers entity={entity} />
+    </Loadadble>
+  );
 };
 
 EntityPage.displayName = "EntityPage";

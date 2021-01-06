@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import { FormattedMessage } from "react-intl";
 import { Column } from "react-table";
 
@@ -10,10 +10,10 @@ import messages from "./messages";
 import Table from "src/general/Table";
 
 interface Props {
-  maintainers: Record<string, Maintainer>;
+  maintainers?: Record<string, Maintainer>;
 }
 
-const MaintainerList = ({ maintainers }: Props) => {
+const MaintainerList: FC<Props> = ({ maintainers = {} }) => {
   const data = useMemo(() => Object.values(maintainers), [maintainers]);
   const columns = useMemo<Column<Maintainer>[]>(
     () => [

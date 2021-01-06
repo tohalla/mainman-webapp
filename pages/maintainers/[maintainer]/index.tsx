@@ -16,15 +16,9 @@ const MaintainerPage: Page = () => {
   const { query } = useRouter();
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data } = useQuery(
-    [
-      "maintainers",
-      {
-        id: getParam("maintainer", query),
-        organisation: activeOrganisation?.id,
-      },
-    ],
-    ({ queryKey: [_, { organisation, id }] }) =>
-      fetchMaintainer(organisation, id),
+    ["maintainers", getParam("maintainer", query)],
+    ({ queryKey: [_, id] }) =>
+      activeOrganisation && fetchMaintainer(activeOrganisation.id, id),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
