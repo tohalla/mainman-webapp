@@ -47,7 +47,7 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
   // reset to default
   useEffect(() => {
     setLayoutContextProps(layoutProps);
-  }, [asPath]);
+  }, [asPath.split("?")[0]]);
 
   return (
     <LayoutContext.Provider
