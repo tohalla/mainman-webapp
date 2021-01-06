@@ -7,6 +7,7 @@ import Loadadble from "src/general/Loadadble";
 import LayoutContext from "src/Layout/LayoutContext";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainer } from "src/maintainers";
+import Entities from "src/maintainers/entities";
 import { layoutProps } from "src/maintainers/layout";
 import OrganisationContext from "src/organisations/OrganisationContext";
 import { getParam } from "src/util/routing";
@@ -15,7 +16,7 @@ const MaintainerPage: Page = () => {
   const { setTitle } = useContext(LayoutContext);
   const { query } = useRouter();
   const { activeOrganisation } = useContext(OrganisationContext);
-  const { data } = useQuery(
+  const { data: maintainer } = useQuery(
     ["maintainers", getParam("maintainer", query)],
     ({ queryKey: [_, id] }) =>
       activeOrganisation && fetchMaintainer(activeOrganisation.id, id),
@@ -23,10 +24,19 @@ const MaintainerPage: Page = () => {
   );
 
   useEffect(() => {
-    setTitle(String(data?.id));
-  }, [data?.id]);
+    setTitle(String(maintainer?.id));
+  }, [maintainer?.id]);
 
-  return <Loadadble>{data?.id}</Loadadble>;
+  if (!maintainer) {
+    return null;
+  }
+
+  return (
+    <Loadadble>
+      {maintainer.id}
+      <Entities maintainer={maintainer} />
+    </Loadadble>
+  );
 };
 
 MaintainerPage.displayName = "MaintainerPage";

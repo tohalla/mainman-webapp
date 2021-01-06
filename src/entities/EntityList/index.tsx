@@ -10,10 +10,10 @@ import messages from "./messages";
 import Table from "src/general/Table";
 
 interface Props {
-  entities: Record<string, Entity>;
+  entities?: Record<string, Entity>;
 }
 
-const EntityList = ({ entities }: Props) => {
+const EntityList = ({ entities = {} }: Props) => {
   const data = useMemo(() => Object.values(entities), [entities]);
   const columns = useMemo<Column<Entity>[]>(
     () => [

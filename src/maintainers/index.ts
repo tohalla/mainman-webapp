@@ -1,5 +1,6 @@
 import { getApiCall } from "../util/api";
 
+import type { Entity } from "src/entities";
 import { Timestamps } from "src/general";
 
 export interface MaintainerDetails {
@@ -21,6 +22,11 @@ export const fetchMaintainer = (organisation: number, id: number) =>
 export const fetchMaintainers = (organisation: number) =>
   getApiCall<Maintainer, Record<string, Maintainer>>(
     `/organisations/${organisation}/maintainers`
+  )({ responseType: "json" });
+
+export const fetchMaintainersByEntity = (entity: Entity) =>
+  getApiCall<Maintainer, Record<string, Maintainer>>(
+    `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`
   )({ responseType: "json" });
 
 export const createMaintainer = ({
