@@ -37,8 +37,9 @@ const SubNavigation = ({ pages }: Props) => {
       alignSelf="stretch"
       backgroundColor="greyscale.9"
       flexDirection="row"
+      pb={2}
+      pt={3}
       px={4}
-      py={2}
       sx={{
         boxShadow: 1,
       }}
