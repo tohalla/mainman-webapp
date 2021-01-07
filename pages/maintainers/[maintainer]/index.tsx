@@ -24,7 +24,7 @@ const MaintainerPage: Page = () => {
   );
 
   useEffect(() => {
-    setTitle(String(maintainer?.id));
+    setTitle(maintainer?.id);
   }, [maintainer?.id]);
 
   if (!maintainer) {

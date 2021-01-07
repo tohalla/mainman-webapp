@@ -1,5 +1,6 @@
-import { RefObject, useLayoutEffect } from "react";
+import { RefObject } from "react";
 
+import useIsomorphicLayoutEffect from "./useIsomorphicLayoutEffect";
 import useRootNode from "./useRootNode";
 
 const useOnClickOutside = (
@@ -17,7 +18,7 @@ const useOnClickOutside = (
     }
   };
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!rootNode) {
       return;
     }

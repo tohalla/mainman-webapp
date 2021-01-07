@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { ReactFragment, useState, useEffect } from "react";
+import React, { ReactNode, useState } from "react";
 import { Flex, Box } from "rebass";
 
 import MainNavigation from "../general/Navigation/MainNavigation";
@@ -8,17 +8,18 @@ import LayoutContext from "./LayoutContext";
 
 import Loadable from "src/general/Loadadble";
 import { Page } from "src/general/Navigation/MainNavigation/Items";
+import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayoutEffect";
 
 export interface Props {
-  children: ReactFragment;
+  children: ReactNode;
   layoutProps: LayoutProps;
-  ContentWrapper(props: { children: ReactFragment } & LayoutProps): JSX.Element;
+  ContentWrapper(props: { children: ReactNode } & LayoutProps): JSX.Element;
 }
 
 export interface LayoutProps {
-  title?: ReactFragment;
-  description?: ReactFragment;
-  renderContent?(content: ReactFragment): ReactFragment;
+  title?: ReactNode;
+  description?: ReactNode;
+  renderContent?(content: ReactNode): ReactNode;
   options?: Record<string, boolean>;
   subPages?: Page[];
 }
@@ -28,24 +29,22 @@ export const DefaultContentWrapper: Props["ContentWrapper"] = ({
   renderContent,
   description,
   title,
-}) => {
-  return (
-    <>
-      <Box mb={5}>
-        {title && <h1>{title}</h1>}
-        {description && <p>{description}</p>}
-      </Box>
-      {renderContent?.(children) ?? children}
-    </>
-  );
-};
+}) => (
+  <>
+    <Box mb={5}>
+      {title && <h1>{title}</h1>}
+      {description && <p>{description}</p>}
+    </Box>
+    {renderContent?.(children) ?? children}
+  </>
+);
 
 const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
   const [layoutContextProps, setLayoutContextProps] = useState(layoutProps);
   const { asPath } = useRouter();
 
   // reset to default
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     setLayoutContextProps(layoutProps);
   }, [asPath.split("?")[0]]);
 
@@ -53,9 +52,7 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
     <LayoutContext.Provider
       value={{
         layoutProps: {
-          renderContent: (content: ReactFragment) => (
-            <Flex mt={4}>{content}</Flex>
-          ),
+          renderContent: (content) => <Flex mt={4}>{content}</Flex>,
           ...layoutContextProps,
         },
         setTitle: (title) =>
