@@ -42,24 +42,29 @@ const OrganisationContentLayout = ({
 }: Partial<Props>) => {
   const { query, asPath, replace, pathname } = useRouter();
 
-  const { data: organisations } = useQuery("organisations", fetchOrganisations);
+  const { data } = useQuery("organisations", fetchOrganisations);
   const [activeOrganisation, setActiveOrganisation] = useState<
     Organisation | undefined
   >();
 
   useEffect(() => {
-    if (activeOrganisation || !organisations) {
+    if (activeOrganisation || !data) {
       return;
     }
+    const organisations = Object.values(data);
     const organisation = getParam("organisation", query);
-    if (organisation && organisation in organisations) {
-      setActiveOrganisation(organisations[organisation]);
+    if (organisation && organisations.length > 1 && organisation in data) {
+      setActiveOrganisation(data[organisation]);
     } else {
-      setActiveOrganisation(Object.values(organisations)[0]);
+      setActiveOrganisation(Object.values(data)[0]);
     }
-  }, [organisations, activeOrganisation, query]);
+  }, [data, activeOrganisation, query]);
   // update path
   useEffect(() => {
+    // no need for update path if do not have access to multiple organisations
+    if (!data || Object.entries(data).length <= 1) {
+      return;
+    }
     const organisation = getParam("organisation", query);
     if (activeOrganisation && Number(organisation) !== activeOrganisation.id) {
       void replace(
@@ -70,7 +75,7 @@ const OrganisationContentLayout = ({
         { shallow: true }
       );
     }
-  }, [activeOrganisation, asPath, pathname]);
+  }, [activeOrganisation, asPath, pathname, data]);
 
   return (
     <OrganisationContext.Provider
