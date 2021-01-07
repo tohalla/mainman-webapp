@@ -122,5 +122,6 @@ module.exports = {
     "react/display-name": "off",
     "react/default-props-match-prop-types": "off",
     "@typescript-eslint/no-empty-interface": "off",
+    "consistent-return": "off",
   },
 };

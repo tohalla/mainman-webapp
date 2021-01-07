@@ -1,4 +1,5 @@
-import { RefObject, useEffect } from "react";
+import { RefObject, useLayoutEffect } from "react";
+
 import useRootNode from "./useRootNode";
 
 const useOnClickOutside = (
@@ -16,7 +17,7 @@ const useOnClickOutside = (
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!rootNode) {
       return;
     }
