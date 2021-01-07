@@ -13,36 +13,34 @@ interface Props {
   maintainers?: Record<string, Maintainer>;
 }
 
+const columns: Column<Maintainer>[] = [
+  {
+    Header: <FormattedMessage {...messages.idColumnHeader} />,
+    accessor: "id",
+    Cell: ({
+      row: {
+        original: { id },
+      },
+    }) => (
+      <Link href={`/maintainers/${id}`}>
+        <a>{id}</a>
+      </Link>
+    ),
+  },
+  {
+    id: "name",
+    accessor: ({ details }) => details?.name ?? "",
+    Header: <FormattedMessage {...messages.nameColumnHeader} />,
+  },
+  {
+    id: "email",
+    accessor: ({ details }) => details?.email ?? "",
+    Header: <FormattedMessage {...messages.emailColumnHeader} />,
+  },
+];
+
 const MaintainerList: FC<Props> = ({ maintainers = {} }) => {
   const data = useMemo(() => Object.values(maintainers), [maintainers]);
-  const columns = useMemo<Column<Maintainer>[]>(
-    () => [
-      {
-        Header: <FormattedMessage {...messages.idColumnHeader} />,
-        accessor: "id",
-        Cell: ({
-          row: {
-            original: { id },
-          },
-        }) => (
-          <Link href={`/maintainers/${id}`}>
-            <a>{id}</a>
-          </Link>
-        ),
-      },
-      {
-        id: "name",
-        accessor: ({ details }) => details?.name ?? "",
-        Header: <FormattedMessage {...messages.nameColumnHeader} />,
-      },
-      {
-        id: "email",
-        accessor: ({ details }) => details?.email ?? "",
-        Header: <FormattedMessage {...messages.emailColumnHeader} />,
-      },
-    ],
-    []
-  );
 
   return <Table columns={columns} data={data} sortBy={{ id: "name" }} />;
 };
