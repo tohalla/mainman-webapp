@@ -1,14 +1,21 @@
 import { snakeCase, camelCase } from "change-case";
 import { map } from "ramda";
 
+import { parseCookieHeader } from "../cookie";
 import { indexByProp } from "../misc";
 import { transformKeys } from "../transform";
 
 export type ApiMethods = "GET" | "POST" | "PUT" | "PATCH" | "UPDATE" | "DELETE";
 export type QueryParamType = string | number | boolean | undefined;
+export type SetHeader = (
+  name: string,
+  value: number | string | string[]
+) => void;
+
 interface ApiCallOptions<K, R> {
   key?: K;
   responseType?: R;
+  setHeader?: SetHeader;
 }
 
 const host = process.env.NODE_ENV === "development" ? "localhost" : "backend";
@@ -33,6 +40,7 @@ export const getApiCall = <
 ) => async <K extends keyof T | undefined, R extends "json" | "text" | null>({
   responseType = "json",
   key,
+  setHeader,
 }: ApiCallOptions<K, R> = {}): Promise<R extends string ? U : Response> => {
   const res = await fetch(
     `${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`,
@@ -48,6 +56,13 @@ export const getApiCall = <
       },
     }
   );
+
+  if (res.headers.has("Set-Cookie")) {
+    setHeader?.(
+      "Set-Cookie",
+      parseCookieHeader(res.headers.get("Set-Cookie") ?? "")
+    );
+  }
 
   if (!res.ok) {
     throw res;

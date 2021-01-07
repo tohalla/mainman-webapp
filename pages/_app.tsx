@@ -15,7 +15,6 @@ import {
   createIntlCache,
 } from "react-intl";
 import { QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 
 import { ServerContext } from "server";
 import { fetchAccountWithHeaders } from "src/auth";
@@ -42,7 +41,7 @@ const intlCache = createIntlCache();
 
 const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
   Component,
-  locale,
+  locale = "en",
   messages,
   router,
   pageProps,
@@ -67,7 +66,6 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
             <Layout layoutProps={Component.layoutProps}>
               <NextApp
                 Component={Component}
@@ -86,7 +84,10 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
 App.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {};
 
-  await fetchAccountWithHeaders(ctx.req?.headers as RequestInit["headers"])
+  await fetchAccountWithHeaders(
+    ctx.req?.headers as RequestInit["headers"],
+    (name, value) => ctx.res?.setHeader(name, value)
+  )
     .then(() =>
       redirect({
         ctx,
