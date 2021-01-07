@@ -7,6 +7,8 @@ export default defineMessages({
   entities: "Entities",
   // Navigation: navigation item maintainers
   maintainers: "Maintainers",
+  // Navigation: navigation item organisation
+  organisation: "Organisation",
 });
 
 export const accountMenuMessages = defineMessages({

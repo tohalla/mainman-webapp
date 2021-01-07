@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 
 import messages from "./messages";
 
-import { Organisation } from "src/organisations";
+import { Organisation } from "src/organisation";
 
 interface Props {
   organisation: Organisation;
@@ -29,7 +29,7 @@ const NoMaintainers = ({ organisation }: Props) => {
           </Link>
         ),
         organisationLink: (
-          <Link href={`/organisations/${organisation.id}`}>
+          <Link href={`/organisation/${organisation.id}`}>
             <a> {organisation.name}</a>
           </Link>
         ),

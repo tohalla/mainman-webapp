@@ -8,7 +8,7 @@ import EntityForm from "src/entities/EntityForm";
 import { layoutProps } from "src/entities/layout";
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
-import OrganisationContext from "src/organisations/OrganisationContext";
+import OrganisationContext from "src/organisation/OrganisationContext";
 
 const NewEntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);

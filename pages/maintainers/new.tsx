@@ -8,7 +8,7 @@ import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { layoutProps } from "src/maintainers/layout";
 import MaintainerForm from "src/maintainers/MaintainerForm";
-import OrganisationContext from "src/organisations/OrganisationContext";
+import OrganisationContext from "src/organisation/OrganisationContext";
 
 const NewMaintainerPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);

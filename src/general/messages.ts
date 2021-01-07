@@ -13,7 +13,7 @@ export const titles = defineMessages({
   // title text for overview
   overview: "Overview",
   // title text for organisation root page
-  organisations: "Organisations",
+  organisation: "Organisation",
   // title text for organisation creation page
   newOrganisation: "Create a new organisation",
   // title text for profile

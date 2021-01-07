@@ -9,7 +9,7 @@ import Maintainers from "src/entities/maintainers";
 import Loadadble from "src/general/Loadadble";
 import LayoutContext from "src/Layout/LayoutContext";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
-import OrganisationContext from "src/organisations/OrganisationContext";
+import OrganisationContext from "src/organisation/OrganisationContext";
 import { getParam } from "src/util/routing";
 
 const EntityPage: Page = () => {

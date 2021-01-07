@@ -7,10 +7,11 @@ import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useToggle from "../../../hooks/useToggle";
 import PlainButton from "../../Button/PlainButton";
 import SubNavigation from "../SubNavigation";
-import theme from "src/theme";
 
 import AccountMenu from "./AccountMenu";
 import Items, { Page } from "./Items";
+
+import theme from "src/theme";
 
 interface Props {
   subPages?: Page[];

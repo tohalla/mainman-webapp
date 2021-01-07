@@ -10,7 +10,7 @@ const NoOrganisations = () => (
     tagName="span"
     values={{
       link: (
-        <Link href="/organisations/new">
+        <Link href="/organisation/new">
           <a>
             <FormattedMessage {...messages.noOrganisationsCreateNew} />
           </a>

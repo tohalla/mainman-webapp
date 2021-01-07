@@ -9,7 +9,7 @@ import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainer } from "src/maintainers";
 import Entities from "src/maintainers/entities";
 import { layoutProps } from "src/maintainers/layout";
-import OrganisationContext from "src/organisations/OrganisationContext";
+import OrganisationContext from "src/organisation/OrganisationContext";
 import { getParam } from "src/util/routing";
 
 const MaintainerPage: Page = () => {

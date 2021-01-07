@@ -11,7 +11,7 @@ import NoEntities from "src/entities/NoEntities";
 import Loadable from "src/general/Loadadble";
 import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
-import OrganisationContext from "src/organisations/OrganisationContext";
+import OrganisationContext from "src/organisation/OrganisationContext";
 
 const EntitiesPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);

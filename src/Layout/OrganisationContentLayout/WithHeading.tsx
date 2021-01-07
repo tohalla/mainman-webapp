@@ -3,11 +3,12 @@ import { useQuery } from "react-query";
 import { Flex, Box } from "rebass";
 
 import { LayoutProps } from "..";
-import Loadable from "../../general/Loadadble";
-import { fetchOrganisations } from "../../organisations";
-import OrganisationSelect from "../../organisations/OrganisationSelect";
 
 import NoOrganisations from "./NoOrganisations";
+
+import Loadable from "src/general/Loadadble";
+import { fetchOrganisations } from "src/organisation";
+import OrganisationSelect from "src/organisation/OrganisationSelect";
 
 interface Props extends Pick<LayoutProps, "description" | "title"> {
   children: ReactNode;

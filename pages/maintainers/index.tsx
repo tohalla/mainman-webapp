@@ -11,7 +11,7 @@ import { fetchMaintainers } from "src/maintainers";
 import { layoutProps } from "src/maintainers/layout";
 import MaintainerList from "src/maintainers/MaintainerList";
 import NoMaintainers from "src/maintainers/NoMaintainers";
-import OrganisationContext from "src/organisations/OrganisationContext";
+import OrganisationContext from "src/organisation/OrganisationContext";
 
 const MaintainersPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);

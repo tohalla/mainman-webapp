@@ -13,7 +13,7 @@ const OrganisationsPage: Page = () => {
 OrganisationsPage.displayName = "OrganisationsPage";
 OrganisationsPage.Layout = OrganisationContentLayout;
 OrganisationsPage.layoutProps = {
-  title: <FormattedMessage {...titles.organisations} />,
+  title: <FormattedMessage {...titles.organisation} />,
 };
 
 export default OrganisationsPage;

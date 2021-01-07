@@ -7,8 +7,8 @@ import DefaultLayout, { Props, DefaultContentWrapper } from "..";
 
 import WithHeading from "./WithHeading";
 
-import { Organisation, fetchOrganisations } from "src/organisations";
-import OrganisationContext from "src/organisations/OrganisationContext";
+import { Organisation, fetchOrganisations } from "src/organisation";
+import OrganisationContext from "src/organisation/OrganisationContext";
 import { formatQuery } from "src/util/api";
 import { getParam } from "src/util/routing";
 

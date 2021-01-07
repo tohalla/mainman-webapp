@@ -13,7 +13,7 @@ import { Maintainer, createMaintainer, updateMaintainer } from ".";
 import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
-import { Organisation } from "src/organisations";
+import { Organisation } from "src/organisation";
 
 interface Props {
   maintainer?: Maintainer;

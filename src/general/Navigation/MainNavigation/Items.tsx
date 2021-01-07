@@ -24,6 +24,10 @@ const items = (): Page[] => [
     children: <FormattedMessage {...messages.maintainers} />,
     href: `/maintainers`,
   },
+  {
+    children: <FormattedMessage {...messages.organisation} />,
+    href: `/organisation`,
+  },
 ];
 
 interface Props {
