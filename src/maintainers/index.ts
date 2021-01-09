@@ -17,17 +17,18 @@ export type Maintainer = Timestamps & {
 export const fetchMaintainer = (organisation: number, id: number) =>
   getApiCall<Maintainer>(`/organisations/${organisation}/maintainers/${id}`)({
     responseType: "json",
+    key: "id",
   });
 
 export const fetchMaintainers = (organisation: number) =>
   getApiCall<Maintainer, Record<string, Maintainer>>(
     `/organisations/${organisation}/maintainers`
-  )({ responseType: "json" });
+  )({ key: "id", responseType: "json" });
 
 export const fetchMaintainersByEntity = (entity: Entity) =>
   getApiCall<Maintainer, Record<string, Maintainer>>(
     `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`
-  )({ responseType: "json" });
+  )({ key: "id", responseType: "json" });
 
 export const createMaintainer = ({
   organisation,
@@ -39,7 +40,7 @@ export const createMaintainer = ({
       method: "POST",
       body: payload,
     }
-  )({ responseType: "json" });
+  )({ key: "id", responseType: "json" });
 
 export const updateMaintainer = ({
   organisation,
@@ -52,4 +53,4 @@ export const updateMaintainer = ({
       method: "PATCH",
       body: payload,
     }
-  )({ responseType: "json" });
+  )({ key: "id", responseType: "json" });

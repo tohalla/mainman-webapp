@@ -13,7 +13,7 @@ export type SetHeader = (
 ) => void;
 
 interface ApiCallOptions<K, R> {
-  key?: K;
+  key: K | null;
   responseType?: R;
   setHeader?: SetHeader;
 }
@@ -27,7 +27,7 @@ export const apiURL =
     : `https://${host}/api/${apiVer}`;
 
 export const getApiCall = <
-  T extends { [key: string]: unknown },
+  T,
   U extends T | { [key: string]: T } = T,
   V = Partial<U>
 >(
@@ -37,11 +37,11 @@ export const getApiCall = <
     headers?: RequestInit["headers"];
     method?: ApiMethods;
   } = {}
-) => async <K extends keyof T | undefined, R extends "json" | "text" | null>({
+) => async <K extends keyof T, R extends "json" | "text" | null>({
   responseType = "json",
   key,
   setHeader,
-}: ApiCallOptions<K, R> = {}): Promise<R extends string ? U : Response> => {
+}: ApiCallOptions<K, R>): Promise<R extends string ? U : Response> => {
   const res = await fetch(
     `${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`,
     {
@@ -75,13 +75,13 @@ export const getApiCall = <
   const { data: payload } = await res[responseType]();
   return transformKeys<U>(camelCase)(
     ((key && Array.isArray(payload)
-      ? indexByProp<T>(key as NonNullable<K>)(payload)
+      ? indexByProp<T>(key)(payload)
       : payload) as unknown) as U
   ) as R extends string ? U : Response;
 };
 
 const callApi = (...args: Parameters<typeof getApiCall>) =>
-  getApiCall(...args)({ responseType: null });
+  getApiCall(...args)({ responseType: null, key: null });
 
 const formatQueryParams = (key: string) => (value: QueryParamType) =>
   `${key}=${String(value)}`;

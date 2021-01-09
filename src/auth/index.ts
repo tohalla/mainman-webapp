@@ -54,9 +54,10 @@ export const fetchAccountWithHeaders = (
   setHeader: SetHeader
 ) =>
   getApiCall<Account, Account>("/auth", { headers })({
+    key: "id",
     responseType: "json",
     setHeader,
   });
 
 export const fetchAccount = () =>
-  getApiCall<Account, Account>("/auth")({ responseType: "json" });
+  getApiCall<Account, Account>("/auth")({ key: "id", responseType: "json" });
