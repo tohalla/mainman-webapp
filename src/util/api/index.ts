@@ -47,7 +47,7 @@ export const getApiCall = <
     {
       method: config.method ?? "GET",
       body: config.body
-        ? JSON.stringify(transformKeys(snakeCase)(config.body))
+        ? JSON.stringify(transformKeys(snakeCase, config.body))
         : undefined,
       credentials: "include",
       headers: {
@@ -73,10 +73,9 @@ export const getApiCall = <
   }
 
   const { data: payload } = await res[responseType]();
-  return transformKeys<U>(camelCase)(
-    ((key && Array.isArray(payload)
-      ? indexByProp<T>(key)(payload)
-      : payload) as unknown) as U
+  return transformKeys<U>(
+    camelCase,
+    key && Array.isArray(payload) ? indexByProp<T>(key)(payload) : payload
   ) as R extends string ? U : Response;
 };
 
