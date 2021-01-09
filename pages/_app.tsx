@@ -19,6 +19,7 @@ import { QueryClientProvider } from "react-query";
 import { ServerContext } from "server";
 import { fetchAccountWithHeaders } from "src/auth";
 import { queryClient } from "src/config/react-query";
+import Loadable from "src/general/Loadadble";
 import ToastContainer from "src/general/ToastContainer";
 import DefaultLayout, {
   LayoutProps,
@@ -66,14 +67,16 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
-            <Layout layoutProps={Component.layoutProps}>
-              <NextApp
-                Component={Component}
-                pageProps={pageProps}
-                router={router}
-              />
-              <ToastContainer />
-            </Layout>
+            <Loadable>
+              <Layout layoutProps={Component.layoutProps}>
+                <NextApp
+                  Component={Component}
+                  pageProps={pageProps}
+                  router={router}
+                />
+                <ToastContainer />
+              </Layout>
+            </Loadable>
           </QueryClientProvider>
         </ThemeProvider>
       </RawIntlProvider>

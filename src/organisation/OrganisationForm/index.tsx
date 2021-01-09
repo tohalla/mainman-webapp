@@ -1,17 +1,22 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
-import Form from "../general/Form";
-import { Input } from "../general/Input";
+import {
+  Organisation,
+  createOrganisation,
+  updateOrganisation,
+  fetchPlans,
+} from "..";
+import { formMessages } from "../messages";
 
-import { formMessages } from "./messages";
-
-import { Organisation, createOrganisation, updateOrganisation } from ".";
+import PlanSelection from "./PlanSelection";
 
 import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
+import Form from "src/general/Form";
+import { Input } from "src/general/Input";
 import messages from "src/general/messages";
 
 interface Props {
@@ -26,21 +31,22 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
       onSuccess: () => queryClient.invalidateQueries("organisations"),
     }
   );
+  const { data: plansData } = useQuery("plans", fetchPlans);
+  const plans = Object.values(plansData ?? {});
 
   return (
     <Formik
       initialValues={{
         name: organisation?.name ?? "",
         organisationIdentifier: organisation?.organisationIdentifier ?? "",
+        locale: "en",
+        plan: plans?.[0],
       }}
-      onSubmit={(values, { setSubmitting }) =>
+      onSubmit={({ plan, ...values }, { setSubmitting }) =>
         mutate(
-          organisation
-            ? { id: organisation?.id, locale: "en", ...values }
-            : ({
-                ...values,
-                locale: "en",
-              } as Organisation),
+          Object.assign(values, organisation ? { id: organisation?.id } : {}, {
+            plan: plan.id,
+          }) as Organisation,
           {
             onSuccess: (response) => {
               setSubmitting(false);
@@ -77,6 +83,7 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
           }
           name="organisationIdentifier"
         />
+        <PlanSelection plans={plans} />
       </Form>
     </Formik>
   );

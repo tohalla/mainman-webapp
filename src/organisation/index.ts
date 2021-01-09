@@ -1,12 +1,27 @@
 import { getApiCall } from "../util/api";
 
-export type Organisation = {
+export interface Plan {
+  id: number;
+  name: string;
+  entities: number;
+  maintainers: number;
+  accounts: number;
+}
+
+export interface Organisation {
   id: number;
   name: string;
   organisationIdentifier?: string;
   locale: string;
   adminAccount: number;
-};
+  plan: number;
+}
+
+export const fetchPlans = () =>
+  getApiCall<Plan, Record<string, Plan>>(`/plans/`)({
+    responseType: "json",
+    key: "id",
+  });
 
 export const fetchOrganisation = (id: number) =>
   getApiCall<Organisation, Organisation>(`/organisations/${id}`)({

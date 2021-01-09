@@ -16,7 +16,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const WithSuspense = (props: Props) => {
+const Loadable = (props: Props) => {
   if (typeof window === "undefined") {
     return null;
   }
@@ -34,4 +34,4 @@ const WithSuspense = (props: Props) => {
   );
 };
 
-export default WithSuspense;
+export default Loadable;

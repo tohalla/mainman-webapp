@@ -1,6 +1,6 @@
 import { useCombobox, UseComboboxProps } from "downshift";
 import React, { ReactNode, useState } from "react";
-import { Box, BoxProps } from "rebass";
+import { BoxProps, Flex } from "rebass";
 
 import Menu from "./Menu";
 import Toggle from "./Toggle";
@@ -49,9 +49,8 @@ const Lookup = <T extends unknown>({
   useDidUpdate(() => onChange(selectedItem), [selectedItem]);
 
   return (
-    <Box
+    <Flex
       backgroundColor="greyscale.9"
-      display="flex"
       sx={{
         position: "relative",
         alignItems: "stretch",
@@ -61,7 +60,7 @@ const Lookup = <T extends unknown>({
       {...props}
       {...getComboboxProps()}
     >
-      <Box
+      <Flex
         as="input"
         display="flex"
         flex={1}
@@ -86,7 +85,7 @@ const Lookup = <T extends unknown>({
         renderItem={renderItem}
         sx={{ position: "absolute", top: "100%", left: 0, right: 0 }}
       />
-    </Box>
+    </Flex>
   );
 };
 

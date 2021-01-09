@@ -5,6 +5,7 @@ export const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       onError: console.error,
+      suspense: typeof window !== "undefined",
     },
     mutations: {},
   },
