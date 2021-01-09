@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
@@ -7,25 +6,21 @@ import { fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";
 import Loadadble from "src/general/Loadadble";
-import LayoutContext from "src/Layout/LayoutContext";
+import useParam from "src/hooks/useParam";
+import useTitle from "src/hooks/useTitle";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import OrganisationContext from "src/organisation/OrganisationContext";
-import { getParam } from "src/util/routing";
 
 const EntityPage: Page = () => {
-  const { setTitle } = useContext(LayoutContext);
-  const { query } = useRouter();
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data: entity } = useQuery(
-    ["entities", getParam("entity", query)],
+    ["entities", useParam("entity")],
     ({ queryKey: [_, hash] }) =>
       activeOrganisation && fetchEntity(activeOrganisation.id, hash),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
-  useEffect(() => {
-    setTitle(entity?.name);
-  }, [entity]);
+  useTitle(entity?.name);
 
   if (!entity) {
     return null;

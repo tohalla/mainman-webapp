@@ -1,31 +1,26 @@
-import { useRouter } from "next/router";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
 import Loadadble from "src/general/Loadadble";
-import LayoutContext from "src/Layout/LayoutContext";
+import useParam from "src/hooks/useParam";
+import useTitle from "src/hooks/useTitle";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainer } from "src/maintainers";
 import Entities from "src/maintainers/entities";
 import { layoutProps } from "src/maintainers/layout";
 import OrganisationContext from "src/organisation/OrganisationContext";
-import { getParam } from "src/util/routing";
 
 const MaintainerPage: Page = () => {
-  const { setTitle } = useContext(LayoutContext);
-  const { query } = useRouter();
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data: maintainer } = useQuery(
-    ["maintainers", getParam("maintainer", query)],
+    ["maintainers", useParam("maintainer")],
     ({ queryKey: [_, id] }) =>
       activeOrganisation && fetchMaintainer(activeOrganisation.id, id),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
-  useEffect(() => {
-    setTitle(maintainer?.id);
-  }, [maintainer?.id]);
+  useTitle(maintainer?.id);
 
   if (!maintainer) {
     return null;
