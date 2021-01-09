@@ -10,6 +10,8 @@ export default defineMessages({
   /* text to display when organisation has no entities and the user does not
    have rights to create them */
   noEntitiesRestricted: "There exists no entities for {organisationLink}.",
+  // link text for navigating to edit entity from [entity] page
+  editEntity: "Edit",
 });
 
 export const formMessages = defineMessages({
