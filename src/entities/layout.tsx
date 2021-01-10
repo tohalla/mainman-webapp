@@ -1,17 +1,23 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 
-import { pageLinks } from "src/general/messages";
 import { LayoutProps } from "src/Layout";
+
+export const messages = defineMessages({
+  // link text for navigating to entities root page
+  entities: "All entities",
+  // link text for navigating to creating a new entity
+  newEntity: "Create a new entity",
+});
 
 export const layoutProps: Partial<LayoutProps> = {
   subPages: [
     {
-      children: <FormattedMessage {...pageLinks.entities} />,
+      children: <FormattedMessage {...messages.entities} />,
       href: "/entities",
     },
     {
-      children: <FormattedMessage {...pageLinks.newEntity} />,
+      children: <FormattedMessage {...messages.newEntity} />,
       href: "/entities/new",
     },
   ],

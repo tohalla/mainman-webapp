@@ -6,6 +6,7 @@ import OrganisationForm from "../../src/organisation/OrganisationForm";
 import { Page } from "../_app";
 
 import { titles } from "src/general/messages";
+import { layoutProps } from "src/organisation/layout";
 
 const NewOrganisationPage: Page = () => {
   const { push } = useRouter();
@@ -14,6 +15,7 @@ const NewOrganisationPage: Page = () => {
 
 NewOrganisationPage.displayName = "NewOrganisationPage";
 NewOrganisationPage.layoutProps = {
+  ...layoutProps,
   title: <FormattedMessage {...titles.newOrganisation} />,
 };
 

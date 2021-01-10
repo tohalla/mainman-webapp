@@ -31,17 +31,3 @@ export const titles = defineMessages({
   // title text for maintainer creation page
   newMaintainer: "Create a new maintainer",
 });
-
-export const pageLinks = defineMessages({
-  // Entities
-  // link text for navigating to entities root page
-  entities: "All entities",
-  // link text for navigating to creating a new entity
-  newEntity: "Create a new entity",
-
-  // Maintainers
-  // link text for navigating to maintainers root page
-  maintainers: "All maintainers",
-  // link text for navigating to creating a new maintainer
-  newMaintainer: "Create a new maintainer",
-});

@@ -1,17 +1,23 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 
-import { pageLinks } from "src/general/messages";
 import { LayoutProps } from "src/Layout";
+
+export const messages = defineMessages({
+  // link text for navigating to maintainers root page
+  maintainers: "All maintainers",
+  // link text for navigating to creating a new maintainer
+  newMaintainer: "Create a new maintainer",
+});
 
 export const layoutProps: Partial<LayoutProps> = {
   subPages: [
     {
-      children: <FormattedMessage {...pageLinks.maintainers} />,
+      children: <FormattedMessage {...messages.maintainers} />,
       href: "/maintainers",
     },
     {
-      children: <FormattedMessage {...pageLinks.newMaintainer} />,
+      children: <FormattedMessage {...messages.newMaintainer} />,
       href: "/maintainers/new",
     },
   ],

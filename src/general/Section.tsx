@@ -8,8 +8,8 @@ interface Props {
 const Section = ({ children }: Props) => {
   return (
     <Flex
-      mt={[2, 5]}
       px={[2, 4]}
+      py={3}
       sx={{
         backgroundColor: "greyscale.9",
         boxShadow: 0,
