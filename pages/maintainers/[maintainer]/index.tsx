@@ -1,4 +1,6 @@
+import Link from "next/link";
 import React, { useContext } from "react";
+import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
@@ -9,6 +11,7 @@ import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainer } from "src/maintainers";
 import Entities from "src/maintainers/entities";
 import { layoutProps } from "src/maintainers/layout";
+import messages from "src/maintainers/messages";
 import OrganisationContext from "src/organisation/OrganisationContext";
 
 const MaintainerPage: Page = () => {
@@ -29,6 +32,11 @@ const MaintainerPage: Page = () => {
   return (
     <Loadadble>
       {maintainer.id}
+      <Link href={`/maintainers/${maintainer.id}/edit`}>
+        <a>
+          <FormattedMessage {...messages.editMaintainer} />
+        </a>
+      </Link>
       <Entities maintainer={maintainer} />
     </Loadadble>
   );

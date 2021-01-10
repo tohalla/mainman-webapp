@@ -11,6 +11,8 @@ export default defineMessages({
    have rights to create them */
   noMaintainersRestricted:
     "There exists no maintainers for {organisationLink}.",
+  // link text for navigating to edit maintainer from [maintainer] page
+  editMaintainer: "Edit",
 });
 
 export const formMessages = defineMessages({
