@@ -1,6 +1,6 @@
 import { useField } from "formik";
 import React, { FC, MouseEventHandler } from "react";
-import { Box } from "rebass";
+import { Flex } from "rebass";
 
 export type CardProps<T> = T & {
   onClick: MouseEventHandler;
@@ -10,26 +10,28 @@ interface Props<T> {
   Card: FC<CardProps<T>>;
   name: string;
   options?: T[];
+  getOptionIdentifier(option: T): string;
 }
 
 const CardOptions = <T extends { name: string }>({
   Card,
   name,
   options,
+  getOptionIdentifier,
 }: Props<T>) => {
   const [, meta, { setValue }] = useField<T>(name);
 
   return (
-    <Box>
+    <Flex flexDirection="row" flexWrap="wrap">
       {options?.map((option) => (
         <Card
           {...option}
-          key={option.name}
+          key={getOptionIdentifier(option)}
           isSelected={option === meta.value}
           onClick={() => setValue(option)}
         />
       ))}
-    </Box>
+    </Flex>
   );
 };
 
