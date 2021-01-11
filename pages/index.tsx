@@ -1,8 +1,12 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 
-import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
+
+const messages = defineMessages({
+  // title text for overview
+  title: "Overview",
+});
 
 const IndexPage = () => {
   return <div />;
@@ -11,7 +15,7 @@ const IndexPage = () => {
 IndexPage.displayName = "IndexPage";
 IndexPage.Layout = OrganisationContentLayout;
 IndexPage.layoutProps = {
-  title: <FormattedMessage {...titles.overview} />,
+  title: <FormattedMessage {...messages.title} />,
   options: {
     organisationSelect: false,
   },

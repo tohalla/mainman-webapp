@@ -1,7 +1,10 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 
-import { titles } from "src/general/messages";
+const messages = defineMessages({
+  // title text for profile
+  title: "Profile",
+});
 
 const ProfilePage = () => {
   return <div />;
@@ -9,7 +12,7 @@ const ProfilePage = () => {
 
 ProfilePage.displayName = "ProfilePage";
 ProfilePage.layoutProps = {
-  title: <FormattedMessage {...titles.profile} />,
+  title: <FormattedMessage {...messages.title} />,
 };
 
 export default ProfilePage;

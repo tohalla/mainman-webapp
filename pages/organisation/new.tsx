@@ -1,12 +1,16 @@
 import { useRouter } from "next/router";
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 
 import OrganisationForm from "../../src/organisation/OrganisationForm";
 import { Page } from "../_app";
 
-import { titles } from "src/general/messages";
 import { layoutProps } from "src/organisation/layout";
+
+const messages = defineMessages({
+  // title text for organisation creation page
+  title: "Create a new organisation",
+});
 
 const NewOrganisationPage: Page = () => {
   const { push } = useRouter();
@@ -16,7 +20,7 @@ const NewOrganisationPage: Page = () => {
 NewOrganisationPage.displayName = "NewOrganisationPage";
 NewOrganisationPage.layoutProps = {
   ...layoutProps,
-  title: <FormattedMessage {...titles.newOrganisation} />,
+  title: <FormattedMessage {...messages.title} />,
 };
 
 export default NewOrganisationPage;

@@ -1,17 +1,21 @@
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
 import { fetchEntity } from "src/entities";
 import EntityForm from "src/entities/EntityForm";
 import { layoutProps } from "src/entities/layout";
-import { titles } from "src/general/messages";
 import useTitle from "src/hooks/useTitle";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import OrganisationContext from "src/organisation/OrganisationContext";
 import { getParam } from "src/util/routing";
+
+const messages = defineMessages({
+  // link text for navigating to creating a new entity
+  title: "Create a new entity",
+});
 
 const EditEntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
@@ -46,7 +50,7 @@ EditEntityPage.displayName = "EditEntityPage";
 EditEntityPage.Layout = OrganisationContentLayout;
 EditEntityPage.layoutProps = {
   ...layoutProps,
-  title: <FormattedMessage {...titles.newEntity} />,
+  title: <FormattedMessage {...messages.title} />,
 };
 
 export default EditEntityPage;

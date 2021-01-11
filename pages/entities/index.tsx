@@ -1,6 +1,6 @@
 import { isEmpty } from "ramda";
 import React, { useContext } from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
@@ -9,9 +9,13 @@ import EntityList from "src/entities/EntityList";
 import { layoutProps } from "src/entities/layout";
 import NoEntities from "src/entities/NoEntities";
 import Loadable from "src/general/Loadadble";
-import { titles } from "src/general/messages";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import OrganisationContext from "src/organisation/OrganisationContext";
+
+const messages = defineMessages({
+  // title text for entity root page
+  title: "Entities",
+});
 
 const EntitiesPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
@@ -39,7 +43,7 @@ const EntitiesPage: Page = () => {
 EntitiesPage.displayName = "EntitiesPage";
 EntitiesPage.Layout = OrganisationContentLayout;
 EntitiesPage.layoutProps = {
-  title: <FormattedMessage {...titles.entities} />,
+  title: <FormattedMessage {...messages.title} />,
   ...layoutProps,
 };
 

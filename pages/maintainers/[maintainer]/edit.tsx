@@ -1,10 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
-import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
-import { titles } from "src/general/messages";
 import useTitle from "src/hooks/useTitle";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
 import { fetchMaintainer } from "src/maintainers";
@@ -44,9 +42,6 @@ const EditMaintainerPage: Page = () => {
 
 EditMaintainerPage.displayName = "EditMaintainerPage";
 EditMaintainerPage.Layout = OrganisationContentLayout;
-EditMaintainerPage.layoutProps = {
-  ...layoutProps,
-  title: <FormattedMessage {...titles.newMaintainer} />,
-};
+EditMaintainerPage.layoutProps = layoutProps;
 
 export default EditMaintainerPage;

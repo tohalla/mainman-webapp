@@ -8,26 +8,3 @@ export default defineMessages({
   // default text for cancel
   cancel: "Cancel",
 });
-
-export const titles = defineMessages({
-  // title text for overview
-  overview: "Overview",
-  // title text for organisation root page
-  organisation: "Organisation",
-  // title text for organisation creation page
-  newOrganisation: "Create a new organisation",
-  // title text for profile
-  profile: "Profile",
-
-  // Entities
-  // title text for entity root page
-  entities: "Entities",
-  // title text for entity creation page
-  newEntity: "Create a new entity",
-
-  // Maintainers
-  // title text for maintainer root page
-  maintainers: "Maintainers",
-  // title text for maintainer creation page
-  newMaintainer: "Create a new maintainer",
-});

@@ -1,5 +1,5 @@
 import { useTheme } from "emotion-theming";
-import React, { useRef, useState, useMemo, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 import { Flex } from "rebass";
 
