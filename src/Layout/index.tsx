@@ -66,8 +66,8 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
             as="main"
             flex={1}
             flexDirection="column"
-            mx={[2, 5]}
-            my={[2, 5]}
+            mx={[3, 5]}
+            my={[4, 5]}
             sx={{ h1: { color: "greyscale.2", m: 0 } }}
           >
             <ContentWrapper {...layoutContextProps}>{children}</ContentWrapper>

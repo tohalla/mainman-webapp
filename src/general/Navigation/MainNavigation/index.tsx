@@ -21,57 +21,51 @@ const MainNavigation = ({ subPages }: Props) => {
   const { breakpoints } = useTheme<typeof theme>();
   const containerEl = useRef<HTMLDivElement>(null);
   const [expand, toggleExpand, setExpand] = useToggle(false);
-  const [width, setWidth] = useState(
-    typeof window === "undefined" ? 0 : window.innerWidth
-  );
-  const mobileNav = useMemo(
-    () => width > 0 && width <= Number.parseInt(breakpoints[0], 10),
-    [width]
+  const [mobileNav, setMobileNav] = useState(
+    typeof window === "undefined"
+      ? 0
+      : window.innerWidth <= Number.parseInt(breakpoints[0], 10)
   );
   useOnClickOutside(containerEl, () => {
-    if (width <= Number.parseInt(breakpoints[0], 10)) {
+    if (mobileNav) {
       setExpand(false);
     }
   });
 
-  const height: undefined | number = useMemo(
-    () => containerEl.current?.clientHeight,
-    [containerEl.current]
-  );
-
   useEffect(() => {
-    const updateDimensions = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", updateDimensions);
-    updateDimensions();
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
+    const mobile = window.matchMedia(`(max-width: ${breakpoints[0]})`);
+
+    const onMobile = ({ matches }: MediaQueryListEvent) => {
+      setMobileNav(matches);
+    };
+    mobile.addEventListener("change", onMobile);
+
+    return () => mobile.removeEventListener("change", onMobile);
+  }, [breakpoints]);
 
   return (
     <>
       <Flex
         sx={{
-          position: ["relative", "dynamic"],
-          minHeight: height,
+          position: "relative",
         }}
       >
         <Flex
           ref={containerEl}
-          alignItems={["stretch", "center"]}
           backgroundColor="greyscale.1"
           color="text.light"
-          flexDirection={["column", "row"]}
-          justifyContent="space-between"
+          flexDirection="column"
           px={[0, 3]}
           sx={{
             boxShadow: 1,
-            position: height ? ["absolute", "dynamic"] : "dynamic",
+            position: "relative",
           }}
           width="100%"
         >
           {mobileNav && (
             <PlainButton
               alignSelf="flex-end"
-              flex="1"
+              color="text.light"
               onClick={toggleExpand}
               p={4}
             >
@@ -79,20 +73,47 @@ const MainNavigation = ({ subPages }: Props) => {
             </PlainButton>
           )}
           {(!mobileNav || expand) && (
-            <>
-              <Flex
-                alignItems={["stretch", "center"]}
-                flex={1}
-                flexDirection={["column", "row"]}
-              >
-                <Items onClick={toggleExpand} />
+            <Flex
+              alignItems={["stretch", "center"]}
+              backgroundColor="greyscale.1"
+              flex={1}
+              flexDirection={["column", "row"]}
+              justifyContent="space-between"
+              sx={{
+                zIndex: 1,
+                ...(mobileNav
+                  ? { position: "absolute", top: "100%", left: 0, right: 0 }
+                  : undefined),
+              }}
+            >
+              <Flex flexDirection="row">
+                <Flex
+                  alignItems={["stretch", "center"]}
+                  flex={1}
+                  flexDirection={["column", "row"]}
+                >
+                  <Items onClick={toggleExpand} />
+                </Flex>
+                {mobileNav && (
+                  <SubNavigation
+                    alignItems="stretch"
+                    backgroundColor="greyscale.2"
+                    color="text.light"
+                    flex={1}
+                    flexDirection="column"
+                    linkProps={{ color: "greyscale.7", py: 3, px: 4 }}
+                    pages={subPages}
+                    px={0}
+                    py={3}
+                  />
+                )}
               </Flex>
               <AccountMenu />
-            </>
+            </Flex>
           )}
         </Flex>
       </Flex>
-      {subPages && <SubNavigation pages={subPages} />}
+      {!mobileNav && <SubNavigation pages={subPages} />}
     </>
   );
 };

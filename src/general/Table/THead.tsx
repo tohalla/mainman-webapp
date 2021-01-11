@@ -59,7 +59,6 @@ const Header = <T extends Record<string, unknown>>({
         top: 0,
         touchAction: "none",
         transform: "translateX(50%)",
-        zIndex: 1,
       }}
       title=""
       width="15px"
