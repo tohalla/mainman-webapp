@@ -1,11 +1,12 @@
 export const transformKeys = <T>(
   fn: (s: string) => string,
   obj: T
-): unknown[] | Record<string, unknown> => {
+): unknown => {
   if (Array.isArray(obj)) {
     return obj.map((val) => transformKeys(fn, val));
   }
-  return Object.fromEntries(
-    Object.entries(obj).map(([key, val]) => [fn(key), val])
-  );
+  if (obj && typeof obj === "object") {
+    Object.entries(obj).map(([key, val]) => [fn(key), val]);
+  }
+  return obj;
 };
