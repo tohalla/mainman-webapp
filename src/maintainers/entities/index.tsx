@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
-import { Maintainer } from "..";
+import { Maintainer, maintainerEntitiesKey } from "..";
 
 import messages from "./messages";
 
@@ -15,7 +15,7 @@ interface Props {
 
 const Entities = ({ maintainer }: Props) => {
   const { data: entities } = useQuery(
-    ["maintainer", maintainer.id, "entities"],
+    maintainerEntitiesKey(maintainer.id),
     () => fetchEntitiesByMaintainer(maintainer)
   );
 

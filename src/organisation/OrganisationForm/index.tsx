@@ -1,19 +1,21 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import {
   Organisation,
   createOrganisation,
   updateOrganisation,
   fetchPlans,
+  organisationKey,
+  organisationsKey,
+  plansKey,
 } from "..";
 import { formMessages } from "../messages";
 
 import PlanSelection from "./PlanSelection";
 
-import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
 import Form from "src/general/Form";
 import { Input } from "src/general/Input";
@@ -25,13 +27,23 @@ interface Props {
 }
 
 const OrganisationForm = ({ organisation, onSubmit }: Props) => {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(
     organisation ? updateOrganisation : createOrganisation,
     {
-      onSuccess: () => queryClient.invalidateQueries("organisations"),
+      onSuccess: (data) => {
+        queryClient.setQueryData(organisationKey(data.id), data);
+        queryClient.setQueryData<Record<string, Organisation>>(
+          organisationsKey,
+          (prev) => ({
+            ...prev,
+            [data.id]: { ...prev?.[data.id], ...data },
+          })
+        );
+      },
     }
   );
-  const { data: plansData } = useQuery("plans", fetchPlans);
+  const { data: plansData } = useQuery(plansKey, fetchPlans);
   const plans = Object.values(plansData ?? {});
 
   return (

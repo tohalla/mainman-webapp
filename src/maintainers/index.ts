@@ -60,10 +60,27 @@ export const updateMaintainer = ({
 
 export const useMaintainers = (organisation?: Organisation) =>
   useQuery(
-    ["organisation", organisation?.id, "maintainers"],
+    organisationMaintainersKey(organisation?.id),
     ({ queryKey: [_, organisationId] }) => fetchMaintainers(organisationId),
     { enabled: typeof organisation !== "undefined" }
   );
 
 export const maintainerAsString = ({ details, id }: Maintainer) =>
   details?.name ?? details?.email ?? String(id);
+
+export const organisationMaintainersKey = (organisation?: number) => [
+  "organisation",
+  organisation,
+  "maintainers",
+];
+
+export const maintainerKey = (maintainer?: number) => [
+  "maintainers",
+  maintainer,
+];
+
+export const maintainerEntitiesKey = (maintainer?: number) => [
+  "maintainers",
+  maintainer,
+  "entities",
+];

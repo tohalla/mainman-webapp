@@ -4,7 +4,7 @@ import { defineMessages, FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
-import { fetchEntity } from "src/entities";
+import { entityKey, fetchEntity } from "src/entities";
 import EntityForm from "src/entities/EntityForm";
 import { layoutProps } from "src/entities/layout";
 import useTitle from "src/hooks/useTitle";
@@ -21,7 +21,7 @@ const EditEntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { push, query } = useRouter();
   const { data: entity } = useQuery(
-    ["entities", getParam("entity", query)],
+    entityKey(getParam("entity", query)),
     ({ queryKey: [_, hash] }) =>
       activeOrganisation && fetchEntity(activeOrganisation.id, hash),
     { enabled: typeof activeOrganisation !== "undefined" }

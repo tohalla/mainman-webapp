@@ -63,7 +63,21 @@ export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
 
 export const useEntities = (organisation?: Organisation) =>
   useQuery(
-    ["organisation", organisation?.id, "entities"],
+    organisationEntitiesKey(organisation?.id),
     ({ queryKey: [_, organisationId] }) => fetchEntities(organisationId),
     { enabled: typeof organisation !== "undefined" }
   );
+
+export const organisationEntitiesKey = (organisation?: number) => [
+  "organisation",
+  organisation,
+  "entities",
+];
+
+export const entityKey = (entity?: string) => ["entities", entity];
+
+export const entityMaintainersKey = (entity?: string) => [
+  "entities",
+  entity,
+  "maintainers",
+];

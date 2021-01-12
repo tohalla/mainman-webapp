@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { Page } from "pages/_app";
 import useTitle from "src/hooks/useTitle";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
-import { fetchMaintainer } from "src/maintainers";
+import { fetchMaintainer, maintainerKey } from "src/maintainers";
 import { layoutProps } from "src/maintainers/layout";
 import MaintainerForm from "src/maintainers/MaintainerForm";
 import OrganisationContext from "src/organisation/OrganisationContext";
@@ -15,7 +15,7 @@ const EditMaintainerPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { push, query } = useRouter();
   const { data: maintainer } = useQuery(
-    ["maintainers", getParam("maintainer", query)],
+    maintainerKey(getParam("maintainer", query)),
     ({ queryKey: [_, hash] }) =>
       activeOrganisation && fetchMaintainer(activeOrganisation.id, hash),
     { enabled: typeof activeOrganisation !== "undefined" }

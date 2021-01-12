@@ -8,13 +8,16 @@ import Select from "../general/Select";
 import messages from "./messages";
 import OrganisationContext from "./OrganisationContext";
 
-import { fetchOrganisations } from ".";
+import { fetchOrganisations, organisationsKey } from ".";
 
 const OrganisationSelect = () => {
   const { setActiveOrganisation, activeOrganisation } = useContext(
     OrganisationContext
   );
-  const { data: organisations } = useQuery("organisations", fetchOrganisations);
+  const { data: organisations } = useQuery(
+    organisationsKey,
+    fetchOrganisations
+  );
 
   return (
     <Loadable>

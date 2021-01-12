@@ -7,7 +7,7 @@ import { LayoutProps } from "..";
 import NoOrganisations from "./NoOrganisations";
 
 import Loadable from "src/general/Loadadble";
-import { fetchOrganisations } from "src/organisation";
+import { fetchOrganisations, organisationsKey } from "src/organisation";
 import OrganisationSelect from "src/organisation/OrganisationSelect";
 
 interface Props extends Pick<LayoutProps, "description" | "title"> {
@@ -15,7 +15,7 @@ interface Props extends Pick<LayoutProps, "description" | "title"> {
 }
 
 const WithHeading = ({ children, title, description }: Props) => {
-  const { data } = useQuery("organisations", fetchOrganisations, {
+  const { data } = useQuery(organisationsKey, fetchOrganisations, {
     staleTime: 60000,
     suspense: typeof window !== "undefined",
   });

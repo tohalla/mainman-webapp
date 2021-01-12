@@ -61,3 +61,5 @@ export const fetchAccountWithHeaders = (
 
 export const fetchAccount = () =>
   getApiCall<Account, Account>("/auth")({ key: "id", responseType: "json" });
+
+export const accountKey = "account";

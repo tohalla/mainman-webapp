@@ -1,16 +1,21 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import Form from "../general/Form";
 import { Input } from "../general/Input";
 
 import { formMessages } from "./messages";
 
-import { Entity, createEntity, updateEntity } from ".";
+import {
+  Entity,
+  createEntity,
+  updateEntity,
+  organisationEntitiesKey,
+  entityKey,
+} from ".";
 
-import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
 import { Organisation } from "src/organisation";
@@ -22,8 +27,18 @@ interface Props {
 }
 
 const EntityForm = ({ entity, onSubmit, organisation }: Props) => {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(entity ? updateEntity : createEntity, {
-    onSuccess: () => queryClient.invalidateQueries("entities"),
+    onSuccess: (data) => {
+      queryClient.setQueryData(entityKey(data.hash), data);
+      queryClient.setQueryData<Record<string, Entity>>(
+        organisationEntitiesKey(organisation.id),
+        (prev) => ({
+          ...prev,
+          [data.hash]: { ...prev?.[data.hash], ...data },
+        })
+      );
+    },
   });
 
   return (

@@ -7,7 +7,11 @@ import DefaultLayout, { Props, DefaultContentWrapper } from "..";
 
 import WithHeading from "./WithHeading";
 
-import { Organisation, fetchOrganisations } from "src/organisation";
+import {
+  Organisation,
+  fetchOrganisations,
+  organisationsKey,
+} from "src/organisation";
 import OrganisationContext from "src/organisation/OrganisationContext";
 import { formatQuery } from "src/util/api";
 import { getParam } from "src/util/routing";
@@ -42,7 +46,7 @@ const OrganisationContentLayout = ({
 }: Partial<Props>) => {
   const { query, asPath, replace, pathname } = useRouter();
 
-  const { data } = useQuery("organisations", fetchOrganisations);
+  const { data } = useQuery(organisationsKey, fetchOrganisations);
   const [activeOrganisation, setActiveOrganisation] = useState<
     Organisation | undefined
   >();

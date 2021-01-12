@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
-import { fetchEntity } from "src/entities";
+import { entityKey, fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";
 import messages from "src/entities/messages";
@@ -17,7 +17,7 @@ import OrganisationContext from "src/organisation/OrganisationContext";
 const EntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data: entity } = useQuery(
-    ["entities", useParam("entity")],
+    entityKey(useParam("entity")),
     ({ queryKey: [_, hash] }) =>
       activeOrganisation && fetchEntity(activeOrganisation.id, hash),
     { enabled: typeof activeOrganisation !== "undefined" }

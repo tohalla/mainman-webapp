@@ -4,14 +4,14 @@ import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 import { Box, Link as RebassLink } from "rebass";
 
-import { fetchAccount, signOut } from "../../../auth";
+import { accountKey, fetchAccount, signOut } from "../../../auth";
 import PlainButton from "../../Button/PlainButton";
 import Loadable from "../../Loadadble";
 
 import { accountMenuMessages } from "./messages";
 
 const AccountMenu = () => {
-  const { data: account } = useQuery("account", fetchAccount, {
+  const { data: account } = useQuery(accountKey, fetchAccount, {
     staleTime: 60000,
   });
 

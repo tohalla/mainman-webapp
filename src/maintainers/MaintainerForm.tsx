@@ -1,16 +1,21 @@
 import { Formik, Field } from "formik";
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import Form from "../general/Form";
 import { Input } from "../general/Input";
 
 import { formMessages } from "./messages";
 
-import { Maintainer, createMaintainer, updateMaintainer } from ".";
+import {
+  Maintainer,
+  createMaintainer,
+  updateMaintainer,
+  maintainerKey,
+  organisationMaintainersKey,
+} from ".";
 
-import { queryClient } from "src/config/react-query";
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
 import { Organisation } from "src/organisation";
@@ -22,10 +27,20 @@ interface Props {
 }
 
 const MaintainerForm = ({ maintainer, onSubmit, organisation }: Props) => {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(
     maintainer ? updateMaintainer : createMaintainer,
     {
-      onSuccess: () => queryClient.invalidateQueries("maintainers"),
+      onSuccess: (data) => {
+        queryClient.setQueryData(maintainerKey(data.id), data);
+        queryClient.setQueryData<Record<string, Maintainer>>(
+          organisationMaintainersKey(organisation.id),
+          (prev) => ({
+            ...prev,
+            [data.id]: { ...prev?.[data.id], ...data },
+          })
+        );
+      },
     }
   );
 

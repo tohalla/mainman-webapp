@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import { addMaintainer, Entity } from "..";
+import { addMaintainer, Entity, entityMaintainersKey } from "..";
 
 import messages from "./messages";
 
@@ -26,14 +26,14 @@ const Maintainers = ({ entity }: Props) => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data: maintainers } = useMaintainers(activeOrganisation);
   const { data: entityMaintainers } = useQuery(
-    ["entities", entity.hash, "maintainers"],
+    entityMaintainersKey(entity.hash),
     () => fetchMaintainersByEntity(entity)
   );
   const { mutate } = useMutation(
     (maintainer: Maintainer) => addMaintainer(entity, maintainer),
     {
       onSuccess: () =>
-        queryClient.invalidateQueries(["entities", entity.hash, "maintainers"]),
+        queryClient.invalidateQueries(entityMaintainersKey(entity.hash)),
     }
   );
 

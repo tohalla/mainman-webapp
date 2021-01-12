@@ -51,3 +51,12 @@ export const updateOrganisation = ({
     method: "PATCH",
     body: payload,
   })({ key: "id", responseType: "json" });
+
+export const organisationsKey = "organisations";
+
+export const organisationKey = (organisation?: number) => [
+  "organisations",
+  organisation,
+];
+
+export const plansKey = "plans";
