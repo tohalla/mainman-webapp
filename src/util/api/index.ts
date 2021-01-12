@@ -29,7 +29,7 @@ export const apiURL =
 export const getApiCall = <
   T,
   U extends T | { [key: string]: T } = T,
-  V = Partial<U>
+  V = unknown
 >(
   path: string,
   config: {

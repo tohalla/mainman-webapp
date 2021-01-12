@@ -1,19 +1,19 @@
 import { useCombobox, UseComboboxProps } from "downshift";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { BoxProps, Flex } from "rebass";
 
 import Menu from "./Menu";
 import Toggle from "./Toggle";
 
-import useDidUpdate from "src/hooks/useDidUpdate";
-
 interface Props<T>
-  extends Omit<BoxProps, "css" | "onChange">,
-    Pick<UseComboboxProps<T>, "itemToString" | "initialSelectedItem"> {
+  extends Omit<BoxProps, "css" | "onChange" | "value">,
+    Pick<UseComboboxProps<T>, "initialSelectedItem"> {
   items: T[];
   renderItem?(item: T): ReactNode;
-  onChange(item: T | null): void;
+  onChange(item?: T | null): void;
   filterPredicate(query: string): (item: T) => boolean;
+  itemToString(item: T): string;
+  value?: T | null;
 }
 
 const Lookup = <T extends unknown>({
@@ -24,6 +24,7 @@ const Lookup = <T extends unknown>({
   onChange,
   sx,
   filterPredicate,
+  value,
   ...props
 }: Props<T>) => {
   const [items, setItems] = useState(allItems);
@@ -34,19 +35,27 @@ const Lookup = <T extends unknown>({
     getMenuProps,
     getItemProps,
     getInputProps,
+    inputValue,
     getComboboxProps,
-    selectedItem,
   } = useCombobox<T>({
     items: allItems,
-    itemToString,
+    itemToString: (item) => (item ? itemToString(item) : ""),
     initialSelectedItem,
-    onInputValueChange: ({ inputValue }) =>
+    selectedItem: value,
+    onInputValueChange: (changes) =>
       setItems(
-        inputValue ? allItems.filter(filterPredicate(inputValue)) : allItems
+        changes.inputValue
+          ? allItems.filter(filterPredicate(changes.inputValue))
+          : allItems
       ),
+    onSelectedItemChange: (changes) => onChange(changes.selectedItem),
   });
 
-  useDidUpdate(() => onChange(selectedItem), [selectedItem]);
+  useEffect(() => {
+    setItems(
+      inputValue ? allItems.filter(filterPredicate(inputValue)) : allItems
+    );
+  }, [allItems]);
 
   return (
     <Flex
@@ -78,6 +87,7 @@ const Lookup = <T extends unknown>({
       />
       <Menu
         getItemProps={getItemProps}
+        getKey={itemToString}
         getMenuProps={getMenuProps}
         highlightedIndex={highlightedIndex}
         isOpen={isOpen}

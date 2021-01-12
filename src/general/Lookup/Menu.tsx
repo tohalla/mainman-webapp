@@ -9,6 +9,7 @@ interface Props<T>
   isOpen: boolean;
   items: T[];
   renderItem(item: T): ReactNode;
+  getKey(item: T): string;
 }
 
 interface ItemProps<T>
@@ -46,6 +47,7 @@ const Menu = <T extends unknown>({
   renderItem,
   highlightedIndex,
   sx,
+  getKey,
   ...props
 }: Props<T>) => (
   <Box
@@ -60,7 +62,7 @@ const Menu = <T extends unknown>({
   >
     {items.map((item, index) => (
       <Item
-        key={String(item)}
+        key={getKey(item)}
         getItemProps={getItemProps}
         index={index}
         isActive={highlightedIndex === index}

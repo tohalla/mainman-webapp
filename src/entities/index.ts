@@ -52,6 +52,15 @@ export const updateEntity = ({
     }
   )(queryOpts);
 
+export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
+  getApiCall<Entity, Entity>(
+    `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`,
+    {
+      method: "POST",
+      body: [maintainer.id],
+    }
+  )(queryOpts);
+
 export const useEntities = (organisation?: Organisation) =>
   useQuery(
     ["organisation", organisation?.id, "entities"],
