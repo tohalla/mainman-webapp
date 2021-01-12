@@ -1,10 +1,9 @@
 import { isEmpty } from "ramda";
 import React, { useContext } from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
-import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
-import { fetchEntities } from "src/entities";
+import { useEntities } from "src/entities";
 import EntityList from "src/entities/EntityList";
 import { layoutProps } from "src/entities/layout";
 import NoEntities from "src/entities/NoEntities";
@@ -19,11 +18,7 @@ const messages = defineMessages({
 
 const EntitiesPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
-  const { data: entities } = useQuery(
-    ["entities", { organisation: activeOrganisation?.id }],
-    ({ queryKey: [_, { organisation }] }) => fetchEntities(organisation),
-    { enabled: typeof activeOrganisation !== "undefined" }
-  );
+  const { data: entities } = useEntities(activeOrganisation);
 
   if (!activeOrganisation) {
     return null;

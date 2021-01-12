@@ -1,7 +1,10 @@
+import { useQuery } from "react-query";
+
 import { getApiCall } from "../util/api";
 
 import type { Timestamps } from "src/general";
 import type { Maintainer } from "src/maintainers";
+import { Organisation } from "src/organisation";
 
 export type Entity = Timestamps & {
   hash: string;
@@ -48,3 +51,10 @@ export const updateEntity = ({
       body: payload,
     }
   )(queryOpts);
+
+export const useEntities = (organisation?: Organisation) =>
+  useQuery(
+    ["organisation", organisation?.id, "entities"],
+    ({ queryKey: [_, organisationId] }) => fetchEntities(organisationId),
+    { enabled: typeof organisation !== "undefined" }
+  );

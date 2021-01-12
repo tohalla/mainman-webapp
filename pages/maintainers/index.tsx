@@ -1,12 +1,11 @@
 import { isEmpty } from "ramda";
 import React, { useContext } from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
-import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
 import Loadable from "src/general/Loadadble";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
-import { fetchMaintainers } from "src/maintainers";
+import { useMaintainers } from "src/maintainers";
 import { layoutProps } from "src/maintainers/layout";
 import MaintainerList from "src/maintainers/MaintainerList";
 import NoMaintainers from "src/maintainers/NoMaintainers";
@@ -19,11 +18,7 @@ const messages = defineMessages({
 
 const MaintainersPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
-  const { data: maintainers } = useQuery(
-    ["maintainers", { organisation: activeOrganisation?.id }],
-    ({ queryKey: [_, { organisation }] }) => fetchMaintainers(organisation),
-    { enabled: typeof activeOrganisation !== "undefined" }
-  );
+  const { data: maintainers } = useMaintainers(activeOrganisation);
 
   if (!activeOrganisation) {
     return null;

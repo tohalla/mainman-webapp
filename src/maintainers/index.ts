@@ -1,7 +1,10 @@
+import { useQuery } from "react-query";
+
 import { getApiCall } from "../util/api";
 
 import type { Entity } from "src/entities";
 import { Timestamps } from "src/general";
+import { Organisation } from "src/organisation";
 
 export interface MaintainerDetails {
   name?: string;
@@ -54,3 +57,13 @@ export const updateMaintainer = ({
       body: payload,
     }
   )({ key: "id", responseType: "json" });
+
+export const useMaintainers = (organisation?: Organisation) =>
+  useQuery(
+    ["organisation", organisation?.id, "maintainers"],
+    ({ queryKey: [_, organisationId] }) => fetchMaintainers(organisationId),
+    { enabled: typeof organisation !== "undefined" }
+  );
+
+export const maintainerAsString = ({ details, id }: Maintainer) =>
+  details?.name ?? details?.email ?? String(id);
