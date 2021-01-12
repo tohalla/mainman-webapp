@@ -36,6 +36,7 @@ const Lookup = <T extends unknown>({
     getItemProps,
     getInputProps,
     inputValue,
+    openMenu,
     getComboboxProps,
   } = useCombobox<T>({
     items: allItems,
@@ -73,6 +74,7 @@ const Lookup = <T extends unknown>({
         as="input"
         display="flex"
         flex={1}
+        onFocus={openMenu}
         px={3}
         py={2}
         sx={{ border: "none", outline: "unset" }}
