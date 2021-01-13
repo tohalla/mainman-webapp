@@ -33,6 +33,10 @@ const colors = {
     success: "#208844",
   },
 
+  border: {
+    neutral: greyscale[5],
+  },
+
   text: {
     default: greyscale[0],
     light: greyscale[greyscale.length - 2],

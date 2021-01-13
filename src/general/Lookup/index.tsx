@@ -88,6 +88,9 @@ const Lookup = <T extends unknown>({
           position: "relative",
           alignItems: "stretch",
           justifyContent: "space-between",
+          borderStyle: "solid",
+          borderWidth: "1px",
+          borderColor: "border.neutral",
         }}
         {...getComboboxProps()}
       >

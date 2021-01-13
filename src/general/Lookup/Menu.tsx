@@ -67,7 +67,7 @@ const Menu = <T extends unknown>({
     display={isOpen ? "flex" : "none"}
     mt={2}
     p={2}
-    sx={{ listStyle: "none", flexDirection: "column", ...sx }}
+    sx={{ listStyle: "none", flexDirection: "column", boxShadow: 1, ...sx }}
     {...props}
     {...getMenuProps()}
   >
