@@ -1,12 +1,13 @@
 import { useCombobox, UseComboboxProps } from "downshift";
 import React, { ReactNode, useEffect, useState } from "react";
-import { BoxProps, Flex } from "rebass";
 
 import Menu from "./Menu";
 import Toggle from "./Toggle";
 
+import { Flex, FlexKnownProps } from "rebass";
+
 interface Props<T>
-  extends Omit<BoxProps, "css" | "onChange" | "value">,
+  extends FlexKnownProps,
     Pick<UseComboboxProps<T>, "initialSelectedItem"> {
   items: T[];
   renderItem?(item: T): ReactNode;
@@ -14,6 +15,7 @@ interface Props<T>
   filterPredicate(query: string): (item: T) => boolean;
   itemToString(item: T): string;
   value?: T | null;
+  label: ReactNode;
 }
 
 const Lookup = <T extends unknown>({
@@ -24,7 +26,8 @@ const Lookup = <T extends unknown>({
   onChange,
   sx,
   filterPredicate,
-  value,
+  value = null,
+  label,
   ...props
 }: Props<T>) => {
   const [items, setItems] = useState(allItems);
@@ -38,6 +41,8 @@ const Lookup = <T extends unknown>({
     inputValue,
     openMenu,
     getComboboxProps,
+    selectItem,
+    getLabelProps,
   } = useCombobox<T>({
     items: allItems,
     itemToString: (item) => (item ? itemToString(item) : ""),
@@ -49,7 +54,9 @@ const Lookup = <T extends unknown>({
           ? allItems.filter(filterPredicate(changes.inputValue))
           : allItems
       ),
-    onSelectedItemChange: (changes) => onChange(changes.selectedItem),
+    onSelectedItemChange: (changes) => {
+      onChange(changes.selectedItem);
+    },
   });
 
   useEffect(() => {
@@ -60,43 +67,59 @@ const Lookup = <T extends unknown>({
 
   return (
     <Flex
-      backgroundColor="greyscale.9"
+      as="label"
+      flexDirection="column"
       sx={{
-        position: "relative",
-        alignItems: "stretch",
-        justifyContent: "space-between",
+        "> span:first-child": {
+          fontSize: 1,
+          opacity: 0.5,
+          marginBottom: 2,
+          userSelect: "none",
+        },
         ...sx,
       }}
       {...props}
-      {...getComboboxProps()}
+      {...getLabelProps()}
     >
+      <span>{label}</span>
       <Flex
-        as="input"
-        display="flex"
-        flex={1}
-        onFocus={openMenu}
-        px={3}
-        py={2}
-        sx={{ border: "none", outline: "unset" }}
-        {...getInputProps()}
-      />
-      <Toggle
-        display="flex"
-        isOpen={isOpen}
-        px={3}
-        sx={{ alignItems: "center" }}
-        {...getToggleButtonProps()}
-      />
-      <Menu
-        getItemProps={getItemProps}
-        getKey={itemToString}
-        getMenuProps={getMenuProps}
-        highlightedIndex={highlightedIndex}
-        isOpen={isOpen}
-        items={items}
-        renderItem={renderItem}
-        sx={{ position: "absolute", top: "100%", left: 0, right: 0 }}
-      />
+        backgroundColor="greyscale.9"
+        sx={{
+          position: "relative",
+          alignItems: "stretch",
+          justifyContent: "space-between",
+        }}
+        {...getComboboxProps()}
+      >
+        <Flex
+          as="input"
+          display="flex"
+          flex={1}
+          onFocus={openMenu}
+          px={3}
+          py={2}
+          sx={{ border: "none", outline: "unset" }}
+          {...getInputProps()}
+        />
+        <Toggle
+          display="flex"
+          isOpen={isOpen}
+          px={3}
+          sx={{ alignItems: "center" }}
+          {...getToggleButtonProps()}
+        />
+        <Menu
+          getItemProps={getItemProps}
+          getKey={itemToString}
+          getMenuProps={getMenuProps}
+          highlightedIndex={highlightedIndex}
+          isOpen={isOpen}
+          items={items}
+          renderItem={renderItem}
+          selectItem={selectItem}
+          sx={{ position: "absolute", top: "100%", left: 0, right: 0 }}
+        />
+      </Flex>
     </Flex>
   );
 };
