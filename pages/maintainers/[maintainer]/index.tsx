@@ -9,7 +9,11 @@ import Loadadble from "src/general/Loadadble";
 import useParam from "src/hooks/useParam";
 import useTitle from "src/hooks/useTitle";
 import OrganisationContentLayout from "src/Layout/OrganisationContentLayout";
-import { fetchMaintainer, maintainerKey } from "src/maintainers";
+import {
+  fetchMaintainer,
+  maintainerAsString,
+  maintainerKey,
+} from "src/maintainers";
 import Entities from "src/maintainers/entities";
 import { layoutProps } from "src/maintainers/layout";
 import messages from "src/maintainers/messages";
@@ -24,7 +28,8 @@ const MaintainerPage: Page = () => {
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
-  useTitle(maintainer?.id);
+  const maintainerString = maintainer && maintainerAsString(maintainer);
+  useTitle(maintainerString);
 
   if (!maintainer) {
     return null;
