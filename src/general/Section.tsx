@@ -9,12 +9,11 @@ interface Props {
 const Section = ({ children }: Props) => {
   return (
     <Flex
+      backgroundColor="greyscale.9"
+      flexDirection="column"
       px={[2, 4]}
       py={3}
-      sx={{
-        backgroundColor: "greyscale.9",
-        boxShadow: 0,
-      }}
+      sx={{ boxShadow: 0 }}
     >
       {children}
     </Flex>
