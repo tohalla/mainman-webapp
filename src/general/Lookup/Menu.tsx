@@ -4,8 +4,11 @@ import {
   UseComboboxState,
 } from "downshift";
 import React, { ReactNode } from "react";
+import { FormattedMessage } from "react-intl";
 
-import { Box, BoxKnownProps } from "rebass";
+import messages from "../messages";
+
+import { Box, BoxKnownProps, Flex } from "rebass";
 
 interface Props<T>
   extends BoxKnownProps,
@@ -71,17 +74,23 @@ const Menu = <T extends unknown>({
     {...props}
     {...getMenuProps()}
   >
-    {items.map((item, index) => (
-      <Item
-        key={getKey(item)}
-        getItemProps={getItemProps}
-        index={index}
-        isActive={highlightedIndex === index}
-        item={item}
-        render={renderItem}
-        selectItem={selectItem}
-      />
-    ))}
+    {items.length ? (
+      items.map((item, index) => (
+        <Item
+          key={getKey(item)}
+          getItemProps={getItemProps}
+          index={index}
+          isActive={highlightedIndex === index}
+          item={item}
+          render={renderItem}
+          selectItem={selectItem}
+        />
+      ))
+    ) : (
+      <Flex color="indicator.disabled" fontSize={1}>
+        <FormattedMessage {...messages.noEntries} />
+      </Flex>
+    )}
   </Box>
 );
 
