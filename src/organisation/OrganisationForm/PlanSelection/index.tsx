@@ -1,7 +1,7 @@
 import { prop } from "ramda";
 import React from "react";
-import { Flex } from "rebass";
 
+import { Flex } from "rebass";
 import CardOptions, { CardProps } from "src/general/CardOptions";
 import { Plan } from "src/organisation";
 

@@ -8,10 +8,11 @@ import {
   TableState,
   useFlexLayout,
 } from "react-table";
-import { Box, SxProps } from "rebass";
 
 import TBody from "./TBody";
 import THead from "./THead";
+
+import { Box, SxProps } from "rebass";
 
 interface Props<T extends Record<string, unknown>>
   extends Pick<

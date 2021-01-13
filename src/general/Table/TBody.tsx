@@ -5,6 +5,7 @@ import {
   Cell as CellType,
   Row as RowType,
 } from "react-table";
+
 import { Flex } from "rebass";
 
 const Row = <T extends Record<string, unknown>>({

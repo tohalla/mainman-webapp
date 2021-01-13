@@ -1,7 +1,6 @@
 import { useTheme } from "emotion-theming";
 import React, { useRef, useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-import { Flex } from "rebass";
 
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useToggle from "../../../hooks/useToggle";
@@ -11,6 +10,7 @@ import SubNavigation from "../SubNavigation";
 import AccountMenu from "./AccountMenu";
 import Items, { Page } from "./Items";
 
+import { Flex } from "rebass";
 import theme from "src/theme";
 
 interface Props {

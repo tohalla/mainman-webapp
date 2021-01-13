@@ -2,13 +2,14 @@ import Link from "next/link";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
-import { Box, Link as RebassLink } from "rebass";
 
 import { accountKey, fetchAccount, signOut } from "../../../auth";
 import PlainButton from "../../Button/PlainButton";
 import Loadable from "../../Loadadble";
 
 import { accountMenuMessages } from "./messages";
+
+import { Box, Link as RebassLink } from "rebass";
 
 const AccountMenu = () => {
   const { data: account } = useQuery(accountKey, fetchAccount, {

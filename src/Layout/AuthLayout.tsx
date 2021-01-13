@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, Flex } from "rebass";
 
 import { Props } from ".";
 
+import { Box, Flex } from "rebass";
 import Loadable from "src/general/Loadadble";
 
 const AuthLayout = ({ children }: Pick<Props, "children">) => (

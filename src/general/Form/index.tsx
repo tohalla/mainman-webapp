@@ -1,10 +1,11 @@
 import { useFormikContext } from "formik";
 import React, { Ref, forwardRef, ReactNode, FormEventHandler } from "react";
 import { FormattedMessage } from "react-intl";
-import { Box, BoxProps } from "rebass";
 
 import Button from "../Button";
 import messages from "../messages";
+
+import { Box, BoxProps } from "rebass";
 
 interface Props extends Omit<BoxProps, "css"> {
   action?: string;

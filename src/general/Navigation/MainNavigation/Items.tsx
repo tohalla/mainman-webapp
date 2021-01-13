@@ -2,9 +2,10 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { MouseEventHandler, ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
-import { Link as RebassLink } from "rebass";
 
 import messages from "./messages";
+
+import { Link as RebassLink } from "rebass";
 
 export interface Page {
   children: ReactNode;

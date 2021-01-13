@@ -6,6 +6,7 @@ import {
   TableCommonProps,
   ColumnInstance,
 } from "react-table";
+
 import { Flex } from "rebass";
 
 const HeaderGroup = <T extends Record<string, unknown>>({

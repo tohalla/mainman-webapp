@@ -54,6 +54,7 @@ const Maintainers = ({ entity }: Props) => {
             Object.values(entityMaintainers ?? {})
           )}
           itemToString={maintainerAsString}
+          label={<FormattedMessage {...messages.addMaintainerLabel} />}
           onChange={(maintainer) => {
             if (maintainer) {
               mutate(maintainer);

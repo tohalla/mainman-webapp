@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { Flex, FlexProps, Link as RebassLink, LinkProps } from "rebass";
 
 import { Page } from "./MainNavigation/Items";
+
+import { Flex, FlexProps, Link as RebassLink, LinkProps } from "rebass";
 
 interface Props extends Omit<FlexProps, "css"> {
   pages?: Omit<Page[], "isActive">;
