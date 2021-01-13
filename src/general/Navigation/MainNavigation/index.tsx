@@ -59,6 +59,10 @@ const MainNavigation = ({ subPages }: Props) => {
           sx={{
             boxShadow: 1,
             position: "relative",
+            a: {
+              textShadow: "text.light.2",
+              "&:hover": { textShadow: "none" },
+            },
           }}
           width="100%"
         >

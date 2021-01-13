@@ -44,6 +44,13 @@ const theme = {
       "inset 0 0 1px rgba(0, 0, 0, .7)",
       "inset 0 0 1px rgba(0, 0, 0, .4)",
     ],
+    text: {
+      light: [
+        "0 0 4px rgba(255, 255, 255, .8)",
+        "0 0 4px rgba(255, 255, 255, .6)",
+        "0 0 4px rgba(255, 255, 255, .4)",
+      ],
+    },
   },
 
   buttons: {
