@@ -16,6 +16,7 @@ import {
 } from "src/maintainers";
 import Entities from "src/maintainers/entities";
 import { layoutProps } from "src/maintainers/layout";
+import MaintainerDetails from "src/maintainers/MaintainerDetails";
 import messages from "src/maintainers/messages";
 import OrganisationContext from "src/organisation/OrganisationContext";
 
@@ -37,7 +38,7 @@ const MaintainerPage: Page = () => {
 
   return (
     <Loadadble>
-      {maintainer.id}
+      <MaintainerDetails {...maintainer.details} />
       <Flex mt="default">
         <Link href={`/maintainers/${maintainer.id}/edit`}>
           <a>

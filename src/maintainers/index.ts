@@ -7,6 +7,7 @@ import { Timestamps } from "src/general";
 import { Organisation } from "src/organisation";
 
 export interface MaintainerDetails {
+  [key: string]: unknown;
   name?: string;
   email?: string;
 }
