@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-import { getApiCall } from "../util/api";
+import callApi, { getApiCall } from "../util/api";
 
 import type { Timestamps } from "src/general";
 import type { Maintainer } from "src/maintainers";
@@ -60,6 +60,15 @@ export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
       body: [maintainer.id],
     }
   )(queryOpts);
+
+export const removeMaintainer = (entity: Entity, maintainer: Maintainer) =>
+  callApi(
+    `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`,
+    {
+      method: "DELETE",
+      body: [maintainer.id],
+    }
+  );
 
 export const useEntities = (organisation?: Organisation) =>
   useQuery(
