@@ -15,6 +15,7 @@ import {
   createIntlCache,
 } from "react-intl";
 import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import { ServerContext } from "server";
 import { fetchAccountWithHeaders } from "src/auth";
@@ -67,6 +68,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools />
             <Loadable>
               <Layout layoutProps={Component.layoutProps}>
                 <NextApp
