@@ -4,6 +4,7 @@ import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
+import { Flex } from "rebass";
 import { entityKey, fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";
@@ -32,11 +33,13 @@ const EntityPage: Page = () => {
   return (
     <Loadadble>
       {entity.name}
-      <Link href={`/entities/${entity.hash}/edit`}>
-        <a>
-          <FormattedMessage {...messages.editEntity} />
-        </a>
-      </Link>
+      <Flex mt="default">
+        <Link href={`/entities/${entity.hash}/edit`}>
+          <a>
+            <FormattedMessage {...messages.editEntity} />
+          </a>
+        </Link>
+      </Flex>
       <Maintainers entity={entity} />
     </Loadadble>
   );

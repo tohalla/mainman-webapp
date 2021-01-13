@@ -7,6 +7,7 @@ import { addMaintainer, Entity, entityMaintainersKey } from "..";
 
 import messages from "./messages";
 
+import { Box } from "rebass";
 import Lookup from "src/general/Lookup";
 import {
   fetchMaintainersByEntity,
@@ -41,29 +42,31 @@ const Maintainers = ({ entity }: Props) => {
     <>
       <FormattedMessage tagName="h2" {...messages.maintainersHeading} />
       <MaintainerList maintainers={entityMaintainers} />
-      {maintainers && (
-        <Lookup
-          filterPredicate={(query) => ({ details }: Maintainer) =>
-            Boolean(
-              (details?.email && details.email.includes(query)) ||
-                (details?.name && details.name.includes(query))
+      <Box mt="default">
+        {maintainers && (
+          <Lookup
+            filterPredicate={(query) => ({ details }: Maintainer) =>
+              Boolean(
+                (details?.email && details.email.includes(query)) ||
+                  (details?.name && details.name.includes(query))
+              )}
+            items={differenceWith(
+              eqProps("id"),
+              Object.values(maintainers),
+              Object.values(entityMaintainers ?? {})
             )}
-          items={differenceWith(
-            eqProps("id"),
-            Object.values(maintainers),
-            Object.values(entityMaintainers ?? {})
-          )}
-          itemToString={maintainerAsString}
-          label={<FormattedMessage {...messages.addMaintainerLabel} />}
-          onChange={(maintainer) => {
-            if (maintainer) {
-              mutate(maintainer);
-            }
-          }}
-          renderItem={maintainerAsString}
-          value={null}
-        />
-      )}
+            itemToString={maintainerAsString}
+            label={<FormattedMessage {...messages.addMaintainerLabel} />}
+            onChange={(maintainer) => {
+              if (maintainer) {
+                mutate(maintainer);
+              }
+            }}
+            renderItem={maintainerAsString}
+            value={null}
+          />
+        )}
+      </Box>
     </>
   );
 };

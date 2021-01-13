@@ -4,6 +4,7 @@ import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Page } from "pages/_app";
+import { Flex } from "rebass";
 import Loadadble from "src/general/Loadadble";
 import useParam from "src/hooks/useParam";
 import useTitle from "src/hooks/useTitle";
@@ -32,11 +33,13 @@ const MaintainerPage: Page = () => {
   return (
     <Loadadble>
       {maintainer.id}
-      <Link href={`/maintainers/${maintainer.id}/edit`}>
-        <a>
-          <FormattedMessage {...messages.editMaintainer} />
-        </a>
-      </Link>
+      <Flex mt="default">
+        <Link href={`/maintainers/${maintainer.id}/edit`}>
+          <a>
+            <FormattedMessage {...messages.editMaintainer} />
+          </a>
+        </Link>
+      </Flex>
       <Entities maintainer={maintainer} />
     </Loadadble>
   );
