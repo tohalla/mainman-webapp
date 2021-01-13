@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 import Button from "../Button";
 import messages from "../messages";
 
-import { Box, BoxProps } from "rebass";
+import { BoxProps, Flex } from "rebass";
 
 interface Props extends Omit<BoxProps, "css"> {
   action?: string;
@@ -21,13 +21,12 @@ const Form = forwardRef(
     const { isSubmitting, handleReset, handleSubmit } = useFormikContext();
 
     return (
-      <Box
+      <Flex
         ref={ref}
         as="form"
         onReset={handleReset}
         onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}
         sx={{
-          display: "flex",
           flex: 1,
           flexDirection: "column",
           "> div + div": { marginTop: 5 },
@@ -35,13 +34,18 @@ const Form = forwardRef(
         {...rest}
       >
         {children}
-        <Box sx={{ alignSelf: "flex-end" }}>
+        <Flex
+          alignItems={["flex-end", "center"]}
+          flexDirection={["column-reverse", "row"]}
+          justifyContent="center"
+          sx={{ alignSelf: "flex-end" }}
+        >
           {secondaryAction}
-          <Button loading={isSubmitting} ml={[3, 5]} type="submit">
+          <Button loading={isSubmitting} mb={[4, 0]} ml={[0, 5]} type="submit">
             {submitLabel}
           </Button>
-        </Box>
-      </Box>
+        </Flex>
+      </Flex>
     );
   }
 );
