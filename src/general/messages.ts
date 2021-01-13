@@ -7,4 +7,6 @@ export default defineMessages({
   submit: "Submit",
   // default text for cancel
   cancel: "Cancel",
+  // default text when no entries available
+  noEntries: "No entries available",
 });

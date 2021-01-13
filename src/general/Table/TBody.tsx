@@ -1,10 +1,14 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
 import {
   TableCommonProps,
   UseTableInstanceProps,
   Cell as CellType,
   Row as RowType,
+  TableOptions,
 } from "react-table";
+
+import messages from "../messages";
 
 import { Flex } from "rebass";
 
@@ -34,8 +38,10 @@ const TBody = <T extends Record<string, unknown>>({
   className,
   style,
   prepareRow,
+  columns,
 }: Pick<UseTableInstanceProps<T>, "rows" | "prepareRow"> &
-  TableCommonProps) => {
+  TableCommonProps &
+  Pick<TableOptions<T>, "columns">) => {
   return (
     <Flex
       as="tbody"
@@ -44,10 +50,24 @@ const TBody = <T extends Record<string, unknown>>({
       role={role}
       style={style}
     >
-      {rows.map((row) => {
-        prepareRow(row);
-        return <Row key={row.id} row={row} />;
-      })}
+      {rows.length > 0 ? (
+        rows.map((row) => {
+          prepareRow(row);
+          return <Row key={row.id} row={row} />;
+        })
+      ) : (
+        <Flex as="tr">
+          <Flex
+            alignItems="center"
+            as="td"
+            colSpan={columns.length}
+            flex={1}
+            justifyContent="center"
+          >
+            <FormattedMessage {...messages.noEntries} />
+          </Flex>
+        </Flex>
+      )}
     </Flex>
   );
 };

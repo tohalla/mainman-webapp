@@ -69,7 +69,12 @@ const Table = <T extends Record<string, unknown>>({
         }}
       >
         <THead headerGroups={headerGroups} />
-        <TBody {...getTableBodyProps()} prepareRow={prepareRow} rows={rows} />
+        <TBody
+          {...getTableBodyProps()}
+          columns={columns}
+          prepareRow={prepareRow}
+          rows={rows}
+        />
       </Box>
     </Box>
   );
