@@ -4,18 +4,18 @@ import { defineMessages, FormattedMessage } from "react-intl";
 import { layoutProps } from "src/profile/layout";
 
 const messages = defineMessages({
-  // title text for profile
-  title: "Profile",
+  // title text for Billing
+  title: "Billing",
 });
 
-const ProfilePage = () => {
+const BillingPage = () => {
   return <div />;
 };
 
-ProfilePage.displayName = "ProfilePage";
-ProfilePage.layoutProps = {
+BillingPage.displayName = "BillingPage";
+BillingPage.layoutProps = {
   title: <FormattedMessage {...messages.title} />,
   ...layoutProps,
 };
 
-export default ProfilePage;
+export default BillingPage;
