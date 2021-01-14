@@ -7,13 +7,11 @@ module.exports = {
   },
   extends: [
     "airbnb",
-    "airbnb/hooks",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier/@typescript-eslint",
@@ -41,7 +39,14 @@ module.exports = {
       typescript: {},
     },
   },
-  plugins: ["react", "@typescript-eslint", "prettier", "import", "emotion"],
+  plugins: [
+    "react",
+    "@typescript-eslint",
+    "react-hooks",
+    "prettier",
+    "import",
+    "emotion",
+  ],
   rules: {
     "react/jsx-curly-newline": "off",
     "react/jsx-wrap-multilines": [

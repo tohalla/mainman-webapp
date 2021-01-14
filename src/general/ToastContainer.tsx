@@ -4,51 +4,51 @@ import {
   ToastContainer as ToastifyToastContainer,
   Slide,
 } from "react-toastify";
-
-import { getSpace } from "src/theme";
-import { getColor } from "src/theme/colors";
-import styled from "src/theme/styled";
+import { Box } from "rebass";
 
 const ToastContainer = () => (
-  <Container
-    closeButton={({ closeToast }) => <FaTimes onClick={closeToast} />}
-    draggablePercent={40}
-    pauseOnFocusLoss={false}
-    position="top-right"
-    transition={Slide}
-  />
+  <Box
+    sx={{
+      ".Toastify__toast-container": {},
+      ".Toastify__toast": {
+        cursor: "default",
+        boxShadow: 0,
+        borderWidth: "0px",
+        borderStyle: "solid",
+        borderLeftWidth: "7px",
+        backgroundColor: "greyscale.9",
+        color: "greyscale.2",
+        pl: 3,
+        mb: 2,
+        minHeight: 0,
+      },
+      ".Toastify__toast--error": {
+        borderLeftColor: "indicator.error",
+      },
+      ".Toastify__toast--warning": {
+        borderLeftColor: "indicator.warning",
+      },
+      ".Toastify__toast--success": {
+        borderLeftColor: "indicator.success",
+      },
+      ".Toastify__toast-body": {
+        padding: 0,
+      },
+      ".Toastify__progress-bar": {
+        backgroundColor: "greyscale.5",
+        height: "2px",
+      },
+    }}
+  >
+    <ToastifyToastContainer
+      closeButton={({ closeToast }) => <FaTimes onClick={closeToast} />}
+      draggablePercent={40}
+      pauseOnFocusLoss={false}
+      position="top-right"
+      transition={Slide}
+    />
+  </Box>
 );
-
-const Container = styled(ToastifyToastContainer)`
-  .Toastify__toast-container {
-  }
-  .Toastify__toast {
-    cursor: default;
-    border: 1px solid ${getColor(["greyscale", 4])};
-    border-left-width: 7px;
-    background: ${getColor(["greyscale", 9])};
-    color: ${getColor(["greyscale", 2])};
-    padding-left: ${getSpace(3)};
-    margin: 0 0 ${getSpace(2)} 0;
-    min-height: 0;
-  }
-  .Toastify__toast--error {
-    border-left-color: ${getColor(["indicator", "error"])};
-  }
-  .Toastify__toast--warning {
-    border-left-color: ${getColor(["indicator", "warning"])};
-  }
-  .Toastify__toast--success {
-    border-left-color: ${getColor(["indicator", "success"])};
-  }
-  .Toastify__toast-body {
-    padding: 0;
-  }
-  .Toastify__progress-bar {
-    background: ${getColor(["greyscale", 5])};
-    height: 2px;
-  }
-`;
 
 ToastContainer.displayName = "ToastContainer";
 

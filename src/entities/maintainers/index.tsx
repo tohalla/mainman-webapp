@@ -1,5 +1,5 @@
 import { differenceWith, dissoc, eqProps } from "ramda";
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { FormattedMessage } from "react-intl";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { CellProps } from "react-table";
@@ -65,18 +65,21 @@ const Maintainers = ({ entity }: Props) => {
     }
   );
 
-  const columns = [
-    ...defaultColumns,
-    {
-      id: "actions",
-      Header: <FormattedMessage {...messages.colActions} />,
-      Cell: ({ row: { original } }: CellProps<Maintainer>) => (
-        <PlainButton onClick={() => remove(original)}>
-          <FormattedMessage {...messages.actionRemoveMaintainer} />
-        </PlainButton>
-      ),
-    },
-  ];
+  const columns = useMemo(
+    () => [
+      ...defaultColumns,
+      {
+        id: "actions",
+        Header: <FormattedMessage {...messages.colActions} />,
+        Cell: ({ row: { original } }: CellProps<Maintainer>) => (
+          <PlainButton onClick={() => remove(original)}>
+            <FormattedMessage {...messages.actionRemoveMaintainer} />
+          </PlainButton>
+        ),
+      },
+    ],
+    [remove]
+  );
 
   return (
     <>

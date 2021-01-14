@@ -29,7 +29,7 @@ const Form = forwardRef(
         sx={{
           flex: 1,
           flexDirection: "column",
-          "> div + div": { marginTop: 5 },
+          "> div,label + div,label": { marginTop: 5 },
         }}
         {...rest}
       >

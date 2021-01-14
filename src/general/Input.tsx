@@ -1,22 +1,18 @@
 import { useField, FieldProps, FieldMetaProps } from "formik";
-import { path } from "ramda";
-import React, { HTMLProps, ReactNode, useState } from "react";
+import React, { FocusEvent, HTMLProps, ReactNode, useState } from "react";
 
-import styled from "../theme/styled";
-
-import { getSpace } from "src/theme";
+import { Box, Flex } from "rebass";
 
 interface Props<T>
-  extends Pick<
-      HTMLProps<HTMLInputElement>,
-      "type" | "onBlur" | "onFocus" | "required"
-    >,
+  extends Pick<HTMLProps<HTMLInputElement>, "type" | "required">,
     Required<Pick<HTMLProps<HTMLInputElement>, "onChange" | "name">> {
   disabled: boolean;
   formik?: Pick<FieldProps<T>, "field" | "meta">;
   label: ReactNode;
   value?: T;
   meta?: FieldMetaProps<T>;
+  onBlur?(e: FocusEvent): void;
+  onFocus?(e: FocusEvent): void;
 }
 
 export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
@@ -34,85 +30,78 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
   const [hasFocus, setHasFocus] = useState(false);
   const inputProps = formik ?? { field: { value } };
 
+  const labelAbove =
+    inputProps.field.value === 0 || hasFocus || Boolean(inputProps.field.value);
+
   return (
-    <InputContainer
+    <Flex
+      as="label"
       disabled={disabled}
-      hasFocus={hasFocus}
-      labelAbove={
-        inputProps.field.value === 0 ||
-        hasFocus ||
-        Boolean(inputProps.field.value)
-      }
+      p={2}
+      mt={3}
+      htmlFor={name}
+      sx={{
+        position: "relative",
+        borderBottomStyle: "solid",
+        borderBottomWidth: "3px",
+        borderBottomColor: "greyscale.6",
+        ...(hasFocus ? { borderBottomColor: "greyscale.4" } : undefined),
+      }}
     >
-      <label htmlFor={name}>
-        <span>{label}</span>
-        <input
-          disabled={disabled}
-          id={name}
-          name={name}
-          onBlur={(event) => {
-            setHasFocus(false);
-            if (typeof onBlur === "function") {
-              onBlur(event);
-            }
-          }}
-          onChange={onChange}
-          onFocus={(event) => {
-            setHasFocus(true);
-            if (typeof onFocus === "function") {
-              onFocus(event);
-            }
-          }}
-          required={required}
-          type={type}
-          {...inputProps.field}
-        />
-      </label>
-    </InputContainer>
+      <Box
+        opacity={0.5}
+        sx={{
+          position: "absolute",
+          userSelect: "none",
+          ...(labelAbove
+            ? {
+                transform: "scale(0.7) translateY(-1.5rem)",
+                transformOrigin: "top left",
+                transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
+              }
+            : undefined),
+        }}
+      >
+        {label}
+      </Box>
+      <Box
+        as="input"
+        disabled={disabled}
+        id={name}
+        name={name}
+        onBlur={(event) => {
+          setHasFocus(false);
+          if (typeof onBlur === "function") {
+            onBlur(event);
+          }
+        }}
+        onChange={onChange}
+        onFocus={(event) => {
+          setHasFocus(true);
+          if (typeof onFocus === "function") {
+            onFocus(event);
+          }
+        }}
+        required={required}
+        type={type}
+        flex={1}
+        sx={{
+          background: "none",
+          border: "none",
+          outline: "none",
+          "&:invalid": {
+            boxShadow: "none",
+          },
+        }}
+        {...inputProps.field}
+      />
+    </Flex>
   );
 };
 
 Input.defaultProps = {
   disabled: false,
 };
-
-const InputContainer = styled.div<{
-  disabled: boolean;
-  labelAbove: boolean;
-  hasFocus: boolean;
-}>`
-  position: relative;
-  margin-top: ${getSpace(3)};
-  label {
-    display: flex;
-    ${({ theme, disabled }) =>
-      disabled && `background ${theme.colors.greyscale[7]}`};
-    padding: ${path(["theme", "space", 2])};
-    ${({ hasFocus, theme }) =>
-      `border-bottom: 3px solid ${theme.colors.greyscale[hasFocus ? 4 : 6]}`};
-    > span {
-      opacity: 0.5;
-      position: absolute;
-      user-select: none;
-      ${({ labelAbove }) =>
-        labelAbove &&
-        `
-      transform: scale(0.7) translateY(-1.5rem);
-      transform-origin: top left;
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-  `}
-    }
-    input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      &:invalid {
-        box-shadow: none;
-      }
-    }
-  }
-`;
 
 const InputWithFormik = <T extends HTMLProps<HTMLInputElement>["value"]>(
   props: Props<T> & { formik: FieldProps<T> }

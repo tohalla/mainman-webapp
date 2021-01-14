@@ -1,20 +1,11 @@
 import React, { ReactNode, Suspense } from "react";
-
-import styled from "../../theme/styled";
+import { Flex } from "rebass";
 
 import Loader from "./Loader";
 
 interface Props {
   children: ReactNode;
 }
-
-const Container = styled.div`
-  display: flex;
-  align-self: stretch;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-`;
 
 const Loadable = (props: Props) => {
   if (typeof window === "undefined") {
@@ -24,9 +15,14 @@ const Loadable = (props: Props) => {
   return (
     <Suspense
       fallback={
-        <Container>
+        <Flex
+          flex="1"
+          alignSelf="stretch"
+          alignItems="center"
+          justifyContent="center"
+        >
           <Loader />
-        </Container>
+        </Flex>
       }
     >
       {props.children}
