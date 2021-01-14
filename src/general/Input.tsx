@@ -1,4 +1,4 @@
-import { useField, FieldProps, FieldMetaProps } from "formik";
+import { FieldProps, FieldMetaProps } from "formik";
 import React, { FocusEvent, HTMLProps, ReactNode, useState } from "react";
 
 import { Box, Flex } from "rebass";
@@ -103,18 +103,6 @@ Input.defaultProps = {
   disabled: false,
 };
 
-const InputWithFormik = <T extends HTMLProps<HTMLInputElement>["value"]>(
-  props: Props<T> & { formik: FieldProps<T> }
-) => {
-  const [field, meta] = useField<T>(props.name);
-  const fieldProps: Pick<FieldProps<T>, "field" | "meta"> = { field, meta };
-
-  return <Input {...props} formik={fieldProps} />;
-};
-
-InputWithFormik.defaultProps = Input.defaultProps;
-
 Input.displayName = "Input";
-InputWithFormik.displayName = "InputWithFormik";
 
-export default InputWithFormik;
+export default Input;
