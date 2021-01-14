@@ -23,8 +23,8 @@ const apiVer = "v1";
 
 export const apiURL =
   process.env.NODE_ENV === "development"
-    ? `${process.env.API_PROTOCOL ?? "http"}://${host}:8080/api/${apiVer}`
-    : `https://${host}/api/${apiVer}`;
+    ? `${process.env.API_PROTOCOL ?? "http"}://${host}:8080`
+    : `https://${host}`;
 
 export const getApiCall = <
   T,
@@ -43,7 +43,7 @@ export const getApiCall = <
   setHeader,
 }: ApiCallOptions<K, R>): Promise<R extends string ? U : Response> => {
   const res = await fetch(
-    `${apiURL}${path.endsWith("/") ? path.slice(0, -1) : path}`,
+    `${apiURL}/api/${apiVer}${path.endsWith("/") ? path.slice(0, -1) : path}`,
     {
       method: config.method ?? "GET",
       body: config.body

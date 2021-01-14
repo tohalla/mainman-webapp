@@ -18,7 +18,7 @@ import PlanSelection from "./PlanSelection";
 
 import ReturnButton from "src/general/Button/ReturnButton";
 import Form from "src/general/Form";
-import { Input } from "src/general/Input";
+import Input from "src/general/Input";
 import messages from "src/general/messages";
 
 interface Props {

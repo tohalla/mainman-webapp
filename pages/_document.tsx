@@ -1,3 +1,4 @@
+import sha256 from "crypto-js/sha256";
 import { Global } from "@emotion/core";
 import { extractCritical } from "emotion-server";
 import NextDocument, {
@@ -11,6 +12,7 @@ import React from "react";
 
 import { ServerContext, LocaleProps } from "../server";
 import global from "../src/theme/global";
+import { apiURL } from "src/util/api";
 
 export default class Document extends NextDocument<LocaleProps> {
   static async getInitialProps(ctx: DocumentContext & ServerContext) {
@@ -42,7 +44,16 @@ export default class Document extends NextDocument<LocaleProps> {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content={`style-src 'self' 'unsafe-inline'; script-src${
+              process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"
+            } ${sha256(
+              NextScript.getInlineScriptSource(this.props)
+            )} 'unsafe-inline' 'self' https://js.stripe.com; font-src 'self' data:; frame-src https://js.stripe.com https://hooks.stripe.com; img-src 'self' data:; default-src 'self' ${apiURL};`}
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
