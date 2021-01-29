@@ -1,8 +1,8 @@
 import React, { forwardRef } from "react";
 
-import { Box, BoxProps } from "rebass";
+import { Input, InputProps } from "theme-ui";
 
-interface Props extends Omit<BoxProps, "css"> {
+interface Props extends InputProps {
   isOpen: boolean;
 }
 
@@ -20,9 +20,9 @@ const Icon = ({ isOpen }: Pick<Props, "isOpen">) => (
 );
 
 const Toggle = forwardRef(({ isOpen, ...props }: Props, ref) => (
-  <Box {...props} ref={ref}>
+  <Input {...props} ref={ref as any}>
     <Icon isOpen={isOpen} />
-  </Box>
+  </Input>
 ));
 
 export default Toggle;

@@ -20,6 +20,36 @@ const sizes = [
 ];
 
 const theme = {
+  styles: {
+    root: {
+      backgroundColor: "greyscale.8",
+      fontFamily: "Roboto, sans-serif",
+      fontStyle: "normal",
+      fontWeight: 400,
+      height: "100%",
+      a: {
+        color: "greyscale.2",
+        "&:hover": {
+          color: "accent.neutral",
+        },
+      },
+    },
+
+    h1: {
+      fontSize: "1.6rem",
+    },
+    h2: {
+      fontSize: "1.4rem",
+    },
+    "h4, h5, h6": {
+      fontSize: "1.2rem",
+    },
+
+    p: {
+      mt: 0,
+    },
+  },
+
   breakpoints,
   fontSizes,
   space,
@@ -50,6 +80,13 @@ const theme = {
         "0 0 4px rgba(255, 255, 255, .6)",
         "0 0 4px rgba(255, 255, 255, .4)",
       ],
+    },
+  },
+
+  links: {
+    color: "greyscale.2",
+    "&:hover": {
+      color: "accent.neutral",
     },
   },
 

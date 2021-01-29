@@ -1,6 +1,5 @@
 import React from "react";
-
-import { Box } from "rebass";
+import { Box } from "theme-ui";
 
 interface Props {
   fill: string;
@@ -9,7 +8,7 @@ interface Props {
 }
 
 const Loader = ({ fill, opacity, height }: Props) => (
-  <Box height={height} width={height}>
+  <Box sx={{ height, width: height }}>
     <svg
       fill={fill}
       height="32"

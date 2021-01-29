@@ -1,6 +1,5 @@
 import React, { DetailedHTMLProps, SelectHTMLAttributes } from "react";
-
-import { Box, Flex } from "rebass";
+import { Label, Flex } from "theme-ui";
 
 interface Props
   extends DetailedHTMLProps<
@@ -12,10 +11,10 @@ interface Props
 }
 
 const Select = ({ children, name, label, ...props }: Props) => (
-  <Flex alignItems="center">
-    <Box as="label" htmlFor={name} mr={4}>
+  <Flex sx={{ alignItems: "center" }}>
+    <Label htmlFor={name} mr={4}>
       {label}
-    </Box>
+    </Label>
     <select name={name} {...props}>
       {children}
     </select>

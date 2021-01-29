@@ -2,9 +2,9 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
+import { Flex } from "theme-ui";
 
 import { Page } from "pages/_app";
-import { Flex } from "rebass";
 import { entityKey, fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";

@@ -1,13 +1,12 @@
 import { useFormikContext } from "formik";
 import React, { Ref, forwardRef, ReactNode, FormEventHandler } from "react";
 import { FormattedMessage } from "react-intl";
+import { FlexProps, Flex } from "theme-ui";
 
 import Button from "../Button";
 import messages from "../messages";
 
-import { BoxProps, Flex } from "rebass";
-
-interface Props extends Omit<BoxProps, "css"> {
+interface Props extends FlexProps {
   action?: string;
   submitLabel?: ReactNode;
   secondaryAction?: ReactNode;
@@ -22,7 +21,7 @@ const Form = forwardRef(
 
     return (
       <Flex
-        ref={ref}
+        ref={ref as any}
         as="form"
         onReset={handleReset}
         onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}
@@ -35,10 +34,12 @@ const Form = forwardRef(
       >
         {children}
         <Flex
-          alignItems={["flex-end", "center"]}
-          flexDirection={["column-reverse", "row"]}
-          justifyContent="center"
-          sx={{ alignSelf: "flex-end" }}
+          sx={{
+            alignSelf: "flex-end",
+            justifyContent: "center",
+            alignItems: ["flex-end", "center"],
+            flexDirection: ["column-reverse", "row"],
+          }}
         >
           {secondaryAction}
           <Button loading={isSubmitting} mb={[4, 0]} ml={[0, 5]} type="submit">

@@ -1,7 +1,7 @@
 import { prop } from "ramda";
 import React from "react";
+import { Flex } from "theme-ui";
 
-import { Flex } from "rebass";
 import CardOptions, { CardProps } from "src/general/CardOptions";
 import { Plan } from "src/organisation";
 
@@ -19,18 +19,16 @@ const PlanCard = ({
 }: CardProps<Plan>) => (
   <Flex
     backgroundColor="greyscale.9"
-    flexDirection="column"
     mr={3}
     onClick={onClick}
-    sx={{ boxShadow: 1 }}
-    width="130px"
+    sx={{ width: "130px", boxShadow: 1, flexDirection: "column" }}
   >
     <Flex
-      alignItems="center"
       color="text.light"
-      justifyContent="center"
       py={2}
       sx={{
+        justifyContent: "center",
+        alignItems: "center",
         userSelect: "none",
         ...(isSelected
           ? {
@@ -42,7 +40,7 @@ const PlanCard = ({
     >
       {name}
     </Flex>
-    <Flex flexDirection="column" px={3} py={2}>
+    <Flex sx={{ flexDirection: "column" }} px={3} py={2}>
       <div>{accounts}</div>
       <div>{entities}</div>
       <div>{maintainers}</div>

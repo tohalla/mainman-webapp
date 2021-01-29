@@ -3,6 +3,7 @@ import React, { useContext, useMemo } from "react";
 import { FormattedMessage } from "react-intl";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { CellProps } from "react-table";
+import { Box } from "theme-ui";
 
 import {
   addMaintainer,
@@ -13,7 +14,6 @@ import {
 
 import messages from "./messages";
 
-import { Box } from "rebass";
 import PlainButton from "src/general/Button/PlainButton";
 import Lookup from "src/general/Lookup";
 import {

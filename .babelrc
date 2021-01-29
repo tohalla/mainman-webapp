@@ -1,4 +1,4 @@
 {
   "presets": ["next/babel"],
-  "plugins": ["emotion", "react-intl-auto"]
+  "plugins": ["@emotion", "react-intl-auto"]
 }

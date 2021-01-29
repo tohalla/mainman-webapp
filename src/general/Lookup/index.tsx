@@ -1,13 +1,12 @@
 import { useCombobox, UseComboboxProps } from "downshift";
 import React, { ReactNode, useEffect, useState } from "react";
+import { Flex, FlexProps } from "theme-ui";
 
 import Menu from "./Menu";
 import Toggle from "./Toggle";
 
-import { Flex, FlexKnownProps } from "rebass";
-
 interface Props<T>
-  extends FlexKnownProps,
+  extends Omit<FlexProps, "onChange">,
     Pick<UseComboboxProps<T>, "initialSelectedItem"> {
   items: T[];
   renderItem?(item: T): ReactNode;

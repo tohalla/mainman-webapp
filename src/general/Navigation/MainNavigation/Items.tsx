@@ -2,10 +2,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { MouseEventHandler, ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
+import { Link as ThemeUILink } from "theme-ui";
 
 import messages from "./messages";
-
-import { Link as RebassLink } from "rebass";
 
 export interface Page {
   children: ReactNode;
@@ -69,19 +68,19 @@ const PageLink = ({
   onClick,
 }: Page & { isActive: boolean } & Pick<Props, "onClick">) => (
   <Link href={href}>
-    <RebassLink
+    <ThemeUILink
       color={`greyscale.${isActive ? 9 : 8}`}
-      fontSize={2}
       onClick={onClick}
       px={4}
       py={4}
       sx={{
+        fontSize: 2,
         textDecoration: isActive ? "underline" : undefined,
         ":hover": { color: isActive ? "greyscale.9" : undefined },
       }}
     >
       {children}
-    </RebassLink>
+    </ThemeUILink>
   </Link>
 );
 

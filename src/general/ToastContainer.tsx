@@ -4,7 +4,7 @@ import {
   ToastContainer as ToastifyToastContainer,
   Slide,
 } from "react-toastify";
-import { Box } from "rebass";
+import { Box } from "theme-ui";
 
 const ToastContainer = () => (
   <Box

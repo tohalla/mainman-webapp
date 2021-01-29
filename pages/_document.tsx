@@ -1,6 +1,6 @@
 import sha256 from "crypto-js/sha256";
 import { Global } from "@emotion/core";
-import { extractCritical } from "emotion-server";
+import { extractCritical } from "@emotion/server";
 import NextDocument, {
   Head,
   Main,

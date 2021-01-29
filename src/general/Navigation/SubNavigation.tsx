@@ -1,19 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { Flex, FlexProps, Link as ThemeUILink, LinkProps } from "theme-ui";
 
 import { Page } from "./MainNavigation/Items";
 
-import { Flex, FlexProps, Link as RebassLink, LinkProps } from "rebass";
-
-interface Props extends Omit<FlexProps, "css"> {
+interface Props extends FlexProps {
   pages?: Omit<Page[], "isActive">;
-  linkProps?: Omit<LinkProps, "css">;
+  linkProps?: LinkProps;
 }
 
-interface SubPageLinkProps
-  extends Page,
-    Omit<LinkProps, "css" | "children" | "href"> {
+interface SubPageLinkProps extends Page, Omit<LinkProps, "children" | "href"> {
   isActive: boolean;
 }
 
@@ -25,18 +22,18 @@ const SubPageLink = ({
   ...props
 }: SubPageLinkProps) => (
   <Link href={href}>
-    <RebassLink
-      fontSize={2}
+    <ThemeUILink
       px={3}
       py={2}
       sx={{
+        fontSize: 2,
         textDecoration: isActive ? "underline" : undefined,
         ...sx,
       }}
       {...props}
     >
       {children}
-    </RebassLink>
+    </ThemeUILink>
   </Link>
 );
 
@@ -49,12 +46,12 @@ const SubNavigation = ({ pages, sx, linkProps, ...props }: Props) => {
 
   return (
     <Flex
-      alignSelf="stretch"
       backgroundColor="greyscale.9"
-      flexDirection="row"
       pt={2}
       px={4}
       sx={{
+        flexDirection: "row",
+        alignSelf: "stretch",
         boxShadow: 1,
         ...sx,
       }}

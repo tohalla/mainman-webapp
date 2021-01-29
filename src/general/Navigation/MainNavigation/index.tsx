@@ -1,6 +1,6 @@
-import { useTheme } from "emotion-theming";
 import React, { useRef, useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
+import { useThemeUI, Flex } from "theme-ui";
 
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useToggle from "../../../hooks/useToggle";
@@ -10,21 +10,20 @@ import SubNavigation from "../SubNavigation";
 import AccountMenu from "./AccountMenu";
 import Items, { Page } from "./Items";
 
-import { Flex } from "rebass";
-import theme from "src/theme";
-
 interface Props {
   subPages?: Page[];
 }
 
 const MainNavigation = ({ subPages }: Props) => {
-  const { breakpoints } = useTheme<typeof theme>();
+  const {
+    theme: { breakpoints },
+  } = useThemeUI();
   const containerEl = useRef<HTMLDivElement>(null);
   const [expand, toggleExpand, setExpand] = useToggle(false);
   const [mobileNav, setMobileNav] = useState(
     typeof window === "undefined"
       ? 0
-      : window.innerWidth <= Number.parseInt(breakpoints[0], 10)
+      : window.innerWidth <= Number.parseInt(String(breakpoints?.[0]), 10)
   );
   useOnClickOutside(containerEl, () => {
     if (mobileNav) {
@@ -33,7 +32,9 @@ const MainNavigation = ({ subPages }: Props) => {
   });
 
   useEffect(() => {
-    const mobile = window.matchMedia(`(max-width: ${breakpoints[0]})`);
+    const mobile = window.matchMedia(
+      `(max-width: ${String(breakpoints?.[0])})`
+    );
 
     const onMobile = ({ matches }: MediaQueryListEvent) => {
       setMobileNav(matches);
@@ -54,21 +55,21 @@ const MainNavigation = ({ subPages }: Props) => {
           ref={containerEl}
           backgroundColor="greyscale.1"
           color="text.light"
-          flexDirection="column"
           px={[0, 3]}
           sx={{
+            flexDirection: "column",
             boxShadow: 1,
             position: "relative",
+            width: "100%",
             a: {
               textShadow: "text.light.2",
               "&:hover": { textShadow: "none" },
             },
           }}
-          width="100%"
         >
           {mobileNav && (
             <PlainButton
-              alignSelf="flex-end"
+              sx={{ alignSelf: "flex-end" }}
               color="text.light"
               onClick={toggleExpand}
               p={4}
@@ -78,37 +79,41 @@ const MainNavigation = ({ subPages }: Props) => {
           )}
           {(!mobileNav || expand) && (
             <Flex
-              alignItems={["stretch", "center"]}
               backgroundColor="greyscale.1"
-              flex={1}
-              flexDirection={["column", "row"]}
-              justifyContent="space-between"
               sx={{
+                flex: 1,
+                flexDirection: ["column", "row"],
+                justifyContent: "space-between",
+                alignItems: ["stretch", "center"],
                 zIndex: 1,
                 ...(mobileNav
                   ? { position: "absolute", top: "100%", left: 0, right: 0 }
                   : undefined),
               }}
             >
-              <Flex flexDirection="row">
+              <Flex sx={{ flexDirection: "row" }}>
                 <Flex
-                  alignItems={["stretch", "center"]}
-                  flex={1}
-                  flexDirection={["column", "row"]}
+                  sx={{
+                    alignItems: ["stretch", "center"],
+                    flex: 1,
+                    flexDirection: ["column", "row"],
+                  }}
                 >
                   <Items onClick={toggleExpand} />
                 </Flex>
                 {mobileNav && (
                   <SubNavigation
-                    alignItems="stretch"
                     backgroundColor="greyscale.2"
                     color="text.light"
-                    flex={1}
-                    flexDirection="column"
                     linkProps={{ color: "greyscale.7", py: 3, px: 4 }}
                     pages={subPages}
                     px={0}
                     py={3}
+                    sx={{
+                      alignItems: "stretch",
+                      flex: 1,
+                      flexDirection: "column",
+                    }}
                   />
                 )}
               </Flex>

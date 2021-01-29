@@ -1,7 +1,6 @@
 import { FieldProps, FieldMetaProps } from "formik";
 import React, { FocusEvent, HTMLProps, ReactNode, useState } from "react";
-
-import { Box, Flex } from "rebass";
+import { Box, Input as ThemeUIInput, Label } from "theme-ui";
 
 interface Props<T>
   extends Pick<HTMLProps<HTMLInputElement>, "type" | "required">,
@@ -34,13 +33,12 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
     inputProps.field.value === 0 || hasFocus || Boolean(inputProps.field.value);
 
   return (
-    <Flex
-      as="label"
-      disabled={disabled}
+    <Label
       p={2}
       mt={3}
       htmlFor={name}
       sx={{
+        display: "flex",
         position: "relative",
         borderBottomStyle: "solid",
         borderBottomWidth: "3px",
@@ -64,8 +62,7 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
       >
         {label}
       </Box>
-      <Box
-        as="input"
+      <ThemeUIInput
         disabled={disabled}
         id={name}
         name={name}
@@ -84,8 +81,8 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
         }}
         required={required}
         type={type}
-        flex={1}
         sx={{
+          flex: 1,
           background: "none",
           border: "none",
           outline: "none",
@@ -95,7 +92,7 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
         }}
         {...inputProps.field}
       />
-    </Flex>
+    </Label>
   );
 };
 

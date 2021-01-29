@@ -5,13 +5,12 @@ import {
 } from "downshift";
 import React, { ReactNode } from "react";
 import { FormattedMessage } from "react-intl";
+import { Box, BoxProps, Flex } from "theme-ui";
 
 import messages from "../messages";
 
-import { Box, BoxKnownProps, Flex } from "rebass";
-
 interface Props<T>
-  extends BoxKnownProps,
+  extends BoxProps,
     Pick<UseComboboxPropGetters<T>, "getMenuProps" | "getItemProps">,
     Pick<UseComboboxState<T>, "highlightedIndex">,
     Pick<UseComboboxActions<T>, "selectItem"> {
@@ -22,7 +21,7 @@ interface Props<T>
 }
 
 interface ItemProps<T>
-  extends BoxKnownProps,
+  extends BoxProps,
     Pick<Props<T>, "getItemProps" | "selectItem"> {
   isActive: boolean;
   index: number;
@@ -87,7 +86,7 @@ const Menu = <T extends unknown>({
         />
       ))
     ) : (
-      <Flex color="indicator.disabled" fontSize={1}>
+      <Flex color="indicator.disabled" sx={{ fontSize: 1 }}>
         <FormattedMessage {...messages.noEntries} />
       </Flex>
     )}

@@ -1,11 +1,11 @@
 import React, { useMemo, ReactNode } from "react";
 import { useQuery } from "react-query";
+import { Flex, Box } from "theme-ui";
 
 import { LayoutProps } from "..";
 
 import NoOrganisations from "./NoOrganisations";
 
-import { Flex, Box } from "rebass";
 import Loadable from "src/general/Loadadble";
 import { fetchOrganisations, organisationsKey } from "src/organisation";
 import OrganisationSelect from "src/organisation/OrganisationSelect";
@@ -38,10 +38,12 @@ const WithHeading = ({ children, title, description }: Props) => {
       ) : (
         <>
           <Flex
-            alignItems="center"
-            flex={0}
-            flexDirection="row"
-            justifyContent="space-between"
+            sx={{
+              alignItems: "center",
+              flex: 0,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
             mb={5}
           >
             {title ? <h1>{title}</h1> : <span />}

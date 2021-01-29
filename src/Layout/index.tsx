@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
 import React, { ReactNode, useState } from "react";
+import { Flex, Box } from "theme-ui";
 
 import MainNavigation from "../general/Navigation/MainNavigation";
 
 import LayoutContext from "./LayoutContext";
 
-import { Flex, Box } from "rebass";
 import Loadable from "src/general/Loadadble";
 import { Page } from "src/general/Navigation/MainNavigation/Items";
 import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayoutEffect";
@@ -60,15 +60,17 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
       }}
     >
       <Loadable>
-        <Flex flex={1} flexDirection="column">
+        <Flex sx={{ flex: 1, flexDirection: "column" }}>
           <MainNavigation subPages={layoutProps.subPages} />
           <Flex
             as="main"
-            flex={1}
-            flexDirection="column"
             mx={[3, 5]}
             my={[4, 5]}
-            sx={{ h1: { color: "greyscale.2", m: 0 } }}
+            sx={{
+              flex: 1,
+              flexDirection: "column",
+              h1: { color: "greyscale.2", m: 0 },
+            }}
           >
             <ContentWrapper {...layoutContextProps}>{children}</ContentWrapper>
           </Flex>

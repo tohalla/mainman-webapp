@@ -1,5 +1,5 @@
 import React, { ReactNode, Suspense } from "react";
-import { Flex } from "rebass";
+import { Flex } from "theme-ui";
 
 import Loader from "./Loader";
 
@@ -16,10 +16,12 @@ const Loadable = (props: Props) => {
     <Suspense
       fallback={
         <Flex
-          flex="1"
-          alignSelf="stretch"
-          alignItems="center"
-          justifyContent="center"
+          sx={{
+            flex: 1,
+            alignSelf: "stretch",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
           <Loader />
         </Flex>

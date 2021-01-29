@@ -1,9 +1,8 @@
 import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
+import { Box } from "theme-ui";
 
 import { MaintainerDetails as Details } from ".";
-
-import { Box } from "rebass";
 
 const messages = defineMessages({
   // label for maintainer name
@@ -15,9 +14,9 @@ const messages = defineMessages({
 const MaintainerDetails = ({ name, email, ...details }: Details) => {
   return (
     <Box
-      alignSelf="flex-start"
-      display="grid"
       sx={{
+        display: "grid",
+        alignSelf: "flex-start",
         gridTemplateColumns: "auto auto",
         gridAutoColumns: "auto",
         columnGap: 5,

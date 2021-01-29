@@ -1,8 +1,7 @@
 import React from "react";
+import { Button, ButtonProps } from "theme-ui";
 
-import { Button, ButtonProps } from "rebass";
-
-const PlainButton = (props: Omit<ButtonProps, "css">) => {
+const PlainButton = (props: ButtonProps) => {
   return <Button variant="plain" {...props} />;
 };
 

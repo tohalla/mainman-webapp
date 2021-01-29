@@ -6,8 +6,7 @@ import {
   TableCommonProps,
   ColumnInstance,
 } from "react-table";
-
-import { Flex } from "rebass";
+import { Flex } from "theme-ui";
 
 const HeaderGroup = <T extends Record<string, unknown>>({
   headerGroup,
@@ -32,37 +31,39 @@ const Header = <T extends Record<string, unknown>>({
   column: ColumnInstance<T>;
 } & TableCommonProps) => (
   <Flex
-    alignItems="stretch"
     as="th"
-    justifyContent="space-between"
     sx={{
+      alignItems: "stretch",
+      justifyContent: "space-between",
       position: "relative",
       userSelect: "none",
     }}
     {...props}
   >
     <Flex
-      alignItems="center"
-      flex="1"
-      justifyContent="space-between"
-      overflow="hidden"
+      sx={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "space-between",
+        overflow: "hidden",
+      }}
     >
       {column.render("Header")}
       {column.isSorted && (column.isSortedDesc ? <FaSortDown /> : <FaSortUp />)}
     </Flex>
     <Flex
-      alignSelf="stretch"
       onClick={(event) => event.stopPropagation()}
       sx={{
+        alignSelf: "stretch",
         bottom: 0,
         position: "absolute",
         right: 0,
         top: 0,
         touchAction: "none",
         transform: "translateX(50%)",
+        width: "15px",
       }}
       title=""
-      width="15px"
       {...column.getResizerProps()}
     />
   </Flex>

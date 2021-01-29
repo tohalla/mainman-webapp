@@ -2,9 +2,8 @@ import "isomorphic-unfetch";
 import "normalize.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { CacheProvider } from "@emotion/core";
-import { cache } from "emotion";
-import { ThemeProvider } from "emotion-theming";
+import { ThemeProvider } from "theme-ui";
+import { CacheProvider } from "@emotion/react";
 import { NextComponentType } from "next";
 import NextApp, { AppContext, AppProps } from "next/app";
 import React, { useMemo } from "react";
@@ -29,6 +28,7 @@ import DefaultLayout, {
 import theme from "src/theme";
 import { onError } from "src/util/intl";
 import { redirect } from "src/util/routing";
+import createCache from "@emotion/cache";
 
 type Context = AppContext & {
   ctx: ServerContext;
@@ -40,6 +40,7 @@ export type Page = {
 type Props = AppProps & IntlConfig & { Component: Page };
 
 const intlCache = createIntlCache();
+const emotionCache = createCache({ key: "mainman" });
 
 const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
   Component,
@@ -64,7 +65,7 @@ const App: NextComponentType<Context, Record<string, unknown>, Props> = ({
   const Layout = Component.Layout ?? DefaultLayout;
 
   return (
-    <CacheProvider value={cache}>
+    <CacheProvider value={emotionCache}>
       <RawIntlProvider value={intl}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>

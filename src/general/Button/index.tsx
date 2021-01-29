@@ -1,14 +1,13 @@
-import { keyframes, css } from "@emotion/core";
+import { css, keyframes } from "@emotion/core";
 import React from "react";
+import { Button as ThemeUIButton, ButtonProps } from "theme-ui";
 
-import { ButtonProps, Button as RebassButton } from "rebass";
-
-interface Props extends Omit<ButtonProps, "css"> {
+interface Props extends ButtonProps {
   loading?: boolean;
 }
 
 const Button = ({ loading, children, ...props }: Props) => (
-  <RebassButton
+  <ThemeUIButton
     {...props}
     // NOTE: need to cast due to lacking type support
     css={
@@ -18,7 +17,7 @@ const Button = ({ loading, children, ...props }: Props) => (
   >
     {loading && <div className="indicator" />}
     <span>{children}</span>
-  </RebassButton>
+  </ThemeUIButton>
 );
 
 const loading = keyframes`

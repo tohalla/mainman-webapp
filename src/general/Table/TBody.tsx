@@ -7,10 +7,9 @@ import {
   Row as RowType,
   TableOptions,
 } from "react-table";
+import { Flex } from "theme-ui";
 
 import messages from "../messages";
-
-import { Flex } from "rebass";
 
 const Row = <T extends Record<string, unknown>>({
   row,
@@ -27,7 +26,7 @@ const Cell = <T extends Record<string, unknown>>({
   cell,
   ...props
 }: TableCommonProps & { cell: CellType<T> }) => (
-  <Flex as="td" {...props} overflow="hidden">
+  <Flex as="td" {...props} sx={{ overflow: "hidden" }}>
     {cell.render("Cell")}
   </Flex>
 );
@@ -38,7 +37,6 @@ const TBody = <T extends Record<string, unknown>>({
   className,
   style,
   prepareRow,
-  columns,
 }: Pick<UseTableInstanceProps<T>, "rows" | "prepareRow"> &
   TableCommonProps &
   Pick<TableOptions<T>, "columns">) => {
@@ -46,9 +44,9 @@ const TBody = <T extends Record<string, unknown>>({
     <Flex
       as="tbody"
       className={className}
-      flexDirection="column"
       role={role}
       style={style}
+      sx={{ flexDirection: "column" }}
     >
       {rows.length > 0 ? (
         rows.map((row) => {
@@ -58,11 +56,13 @@ const TBody = <T extends Record<string, unknown>>({
       ) : (
         <Flex as="tr">
           <Flex
-            alignItems="center"
             as="td"
-            colSpan={columns.length}
-            flex={1}
-            justifyContent="center"
+            sx={{
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+              columnSpan: "all",
+            }}
           >
             <FormattedMessage {...messages.noEntries} />
           </Flex>

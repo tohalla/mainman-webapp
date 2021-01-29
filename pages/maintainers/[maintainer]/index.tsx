@@ -2,9 +2,9 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
+import { Flex } from "theme-ui";
 
 import { Page } from "pages/_app";
-import { Flex } from "rebass";
 import Loadadble from "src/general/Loadadble";
 import useParam from "src/hooks/useParam";
 import useTitle from "src/hooks/useTitle";

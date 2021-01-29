@@ -9,7 +9,7 @@ import Loadable from "../../Loadadble";
 
 import { accountMenuMessages } from "./messages";
 
-import { Box, Link as RebassLink } from "rebass";
+import { Box, Link as ThemeUILink } from "theme-ui";
 
 const AccountMenu = () => {
   const { data: account } = useQuery(accountKey, fetchAccount, {
@@ -17,14 +17,16 @@ const AccountMenu = () => {
   });
 
   return (
-    <Box alignSelf={["flex-end", "auto"]} px={4} py={[4, 0]}>
+    <Box sx={{ alignSelf: ["flex-end", "auto"] }} px={4} py={[4, 0]}>
       <Loadable>
         <FormattedMessage
           {...accountMenuMessages.greeting}
           values={{
             account: (
               <Link href="/profile">
-                <RebassLink color="text.light">{account?.firstName}</RebassLink>
+                <ThemeUILink color="text.light">
+                  {account?.firstName}
+                </ThemeUILink>
               </Link>
             ),
           }}

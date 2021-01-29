@@ -1,7 +1,6 @@
 import { useField } from "formik";
 import React, { FC, MouseEventHandler } from "react";
-
-import { Flex } from "rebass";
+import { Flex } from "theme-ui";
 
 export type CardProps<T> = T & {
   onClick: MouseEventHandler;
@@ -23,7 +22,7 @@ const CardOptions = <T extends { name: string }>({
   const [, meta, { setValue }] = useField<T>(name);
 
   return (
-    <Flex flexDirection="row" flexWrap="wrap">
+    <Flex sx={{ flexDirection: "row", flexWrap: "wrap" }}>
       {options?.map((option) => (
         <Card
           {...option}
