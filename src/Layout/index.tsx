@@ -69,6 +69,7 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
             sx={{
               flex: 1,
               flexDirection: "column",
+              alignItems: "flex-start",
               h1: { color: "greyscale.2", m: 0 },
             }}
           >
