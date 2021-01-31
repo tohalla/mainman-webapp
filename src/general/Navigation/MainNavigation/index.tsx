@@ -63,6 +63,7 @@ const MainNavigation = ({ subPages }: Props) => {
             width: "100%",
             a: {
               textShadow: "text.light.2",
+              userSelect: "none",
               "&:hover": { textShadow: "none" },
             },
           }}

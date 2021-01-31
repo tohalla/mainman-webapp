@@ -53,6 +53,9 @@ const SubNavigation = ({ pages, sx, linkProps, ...props }: Props) => {
         flexDirection: "row",
         alignSelf: "stretch",
         boxShadow: 1,
+        a: {
+          userSelect: "none",
+        },
         ...sx,
       }}
       {...props}
