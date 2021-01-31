@@ -2,8 +2,10 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { Field, Formik } from "formik";
 import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
+import { useMutation, useQueryClient } from "react-query";
+import { createPaymentMethod } from "src/billing";
 
-import Form from "src/general/Form";
+import Form, { FormProps } from "src/general/Form";
 import Input from "src/general/Input";
 
 const messages = defineMessages({
@@ -11,9 +13,13 @@ const messages = defineMessages({
   name: "Name in the card",
 });
 
-const CreateCard = () => {
+const CardForm = (props: FormProps) => {
+  const queryClient = useQueryClient();
   const elements = useElements();
   const stripe = useStripe();
+  const { mutate } = useMutation(createPaymentMethod, {
+    onSuccess: () => queryClient.invalidateQueries("paymentMethods"),
+  });
 
   return (
     <Formik
@@ -28,14 +34,20 @@ const CreateCard = () => {
           return;
         }
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { paymentMethod } = await stripe.createPaymentMethod({
           type: "card",
           card,
           billing_details,
         });
+        if (!card) {
+          return;
+        }
+        if (paymentMethod) {
+          mutate(paymentMethod, { onSuccess: () => setSubmitting(false) });
+        }
       }}
     >
-      <Form>
+      <Form {...props} sx={{ minWidth: 7 }}>
         <Field
           as={Input}
           label={<FormattedMessage {...messages.name} />}
@@ -47,6 +59,6 @@ const CreateCard = () => {
   );
 };
 
-CreateCard.displayName = "CreateCard";
+CardForm.displayName = "CreateCard";
 
-export default CreateCard;
+export default CardForm;
