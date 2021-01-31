@@ -6,7 +6,7 @@ import { FlexProps, Flex } from "theme-ui";
 import Button from "../Button";
 import messages from "../messages";
 
-interface Props extends FlexProps {
+export interface FormProps extends Omit<FlexProps, "ref"> {
   action?: string;
   submitLabel?: ReactNode;
   secondaryAction?: ReactNode;
@@ -14,7 +14,7 @@ interface Props extends FlexProps {
 
 const Form = forwardRef(
   (
-    { action, children, secondaryAction, submitLabel, ...rest }: Props,
+    { action, children, secondaryAction, submitLabel, sx, ...rest }: FormProps,
     ref: Ref<HTMLFormElement>
   ) => {
     const { isSubmitting, handleReset, handleSubmit } = useFormikContext();
@@ -29,6 +29,7 @@ const Form = forwardRef(
           flex: 1,
           flexDirection: "column",
           "> div,label + div,label": { marginTop: 5 },
+          ...sx,
         }}
         {...rest}
       >
