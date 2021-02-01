@@ -85,6 +85,16 @@ const theme: Theme = {
 
   links: {},
 
+  cards: {
+    primary: {
+      backgroundColor: "greyscale.9",
+      px: 4,
+      py: 3,
+      boxShadow: 1,
+      flexDirection: "column",
+    },
+  },
+
   buttons: {
     primary: {
       color: "greyscale.9",

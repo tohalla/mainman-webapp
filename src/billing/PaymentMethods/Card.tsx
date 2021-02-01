@@ -7,7 +7,7 @@ import {
   FaCcVisa,
   FaCreditCard,
 } from "react-icons/fa";
-import { Box, Flex } from "theme-ui";
+import { Box, Flex, Card as ThemeUICard } from "theme-ui";
 
 interface Props {
   card: PaymentMethod.Card;
@@ -22,12 +22,7 @@ const cardIcons: Record<string, JSX.Element> = {
 
 const Card = ({ card }: Props) => {
   return (
-    <Flex
-      backgroundColor="greyscale.9"
-      px={4}
-      py={3}
-      sx={{ boxShadow: 1, flexDirection: "column" }}
-    >
+    <ThemeUICard>
       <Box mb={4} sx={{ fontSize: 1 }}>
         **** **** **** {card.last4}
       </Box>
@@ -37,7 +32,7 @@ const Card = ({ card }: Props) => {
           {cardIcons[card.brand] ?? <FaCreditCard />}
         </Box>
       </Flex>
-    </Flex>
+    </ThemeUICard>
   );
 };
 
