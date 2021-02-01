@@ -18,6 +18,7 @@ const sizes = [
   "256px",
   "384px",
   "512px",
+  "768px",
 ];
 
 const theme: Theme = {

@@ -81,6 +81,7 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
             {...formMessages[organisation ? "update" : "create"]}
           />
         }
+        sx={{ width: ["auto", 9] }}
       >
         <Field
           as={Input}

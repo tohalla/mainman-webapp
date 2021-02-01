@@ -29,7 +29,7 @@ const Form = forwardRef<HTMLDivElement, FormProps>(
           flex: 1,
           flexDirection: "column",
           "> div,label + div,label": { marginTop: 5 },
-          width: 8,
+          width: ["auto", 8],
           ...sx,
         }}
         {...rest}
