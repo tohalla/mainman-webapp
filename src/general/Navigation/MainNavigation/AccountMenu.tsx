@@ -23,14 +23,14 @@ const AccountMenu = () => {
           values={{
             account: (
               <Link href="/profile">
-                <ThemeUILink color="text.light">
+                <ThemeUILink color="textInvert">
                   {account?.firstName}
                 </ThemeUILink>
               </Link>
             ),
           }}
         />
-        <PlainButton color="text.light" ml={5} onClick={signOut}>
+        <PlainButton color="textInvert" ml={5} onClick={signOut}>
           <FormattedMessage {...accountMenuMessages.signOut} />
         </PlainButton>
       </Loadable>

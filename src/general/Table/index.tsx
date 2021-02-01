@@ -8,7 +8,7 @@ import {
   TableState,
   useFlexLayout,
 } from "react-table";
-import { Box, SxProps } from "theme-ui";
+import { Box, SxProp } from "theme-ui";
 
 import TBody from "./TBody";
 import THead from "./THead";
@@ -18,7 +18,7 @@ interface Props<T extends Record<string, unknown>>
       TableOptions<T>,
       "sortBy" | "data" | "columns" | "defaultColumn"
     >,
-    SxProps {
+    SxProp {
   sortBy: SortingRule<T> | SortingRule<T>[];
 }
 
@@ -60,7 +60,7 @@ const Table = <T extends Record<string, unknown>>({
         backgroundColor: "greyscale.9",
         borderCollapse: "collapse",
         boxShadow: "outline.0",
-        thead: { backgroundColor: "primary.neutral", color: "text.light" },
+        thead: { backgroundColor: "primary", color: "textInvert" },
         td: { px: 3, py: 2, boxShadow: "outline.1" },
         th: { p: 3, boxShadow: "outline.2" },
         ...sx,

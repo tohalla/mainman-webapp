@@ -1,4 +1,5 @@
 import { path } from "ramda";
+import { ColorModesScale } from "theme-ui";
 
 const greyscale = [
   "#000000",
@@ -13,33 +14,20 @@ const greyscale = [
   "#ffffff",
 ];
 
-const colors = {
+const colors: ColorModesScale = {
   greyscale,
 
-  primary: {
-    dark: "#34495e",
-    light: "#577C9E",
-    neutral: "#415C76",
-  },
-  accent: {
-    dark: "#d05e00",
-    light: "#ff831d",
-    neutral: "#ff7400",
-  },
+  accent: "#ff7400",
+  primary: "#415C76",
+  primaryDark: "#34495e",
+  text: greyscale[0],
+  textInvert: greyscale[greyscale.length - 2],
+
   indicator: {
     warning: "#ff831d",
     disabled: "#a9a9a9",
     error: "#cc3300",
     success: "#208844",
-  },
-
-  border: {
-    neutral: greyscale[5],
-  },
-
-  text: {
-    default: greyscale[0],
-    light: greyscale[greyscale.length - 2],
   },
 };
 

@@ -24,7 +24,7 @@ const PlanCard = ({
     sx={{ width: "130px", boxShadow: 1, flexDirection: "column" }}
   >
     <Flex
-      color="text.light"
+      color="textInvert"
       py={2}
       sx={{
         justifyContent: "center",
@@ -33,7 +33,7 @@ const PlanCard = ({
         ...(isSelected
           ? {
               fontWeight: "bold",
-              backgroundColor: "primary.light",
+              backgroundColor: "primary",
             }
           : { backgroundColor: "greyscale.2" }),
       }}

@@ -54,7 +54,7 @@ const MainNavigation = ({ subPages }: Props) => {
         <Flex
           ref={containerEl}
           backgroundColor="greyscale.1"
-          color="text.light"
+          color="textInvert"
           px={[0, 3]}
           sx={{
             flexDirection: "column",
@@ -70,7 +70,7 @@ const MainNavigation = ({ subPages }: Props) => {
         >
           {mobileNav && (
             <PlainButton
-              color="text.light"
+              color="textInvert"
               onClick={toggleExpand}
               p={4}
               sx={{ alignSelf: "flex-end" }}
@@ -105,7 +105,7 @@ const MainNavigation = ({ subPages }: Props) => {
                 {mobileNav && (
                   <SubNavigation
                     backgroundColor="greyscale.2"
-                    color="text.light"
+                    color="textInvert"
                     linkProps={{ color: "greyscale.7", py: 3, px: 4 }}
                     pages={subPages}
                     px={0}

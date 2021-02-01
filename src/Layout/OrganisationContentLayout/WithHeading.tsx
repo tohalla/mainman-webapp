@@ -1,6 +1,6 @@
 import React, { useMemo, ReactNode } from "react";
 import { useQuery } from "react-query";
-import { Flex, Box } from "theme-ui";
+import { Flex, Text } from "theme-ui";
 
 import { LayoutProps } from "..";
 
@@ -48,9 +48,9 @@ const WithHeading = ({ children, title, description }: Props) => {
           >
             {title ? <h1>{title}</h1> : <span />}
             {view === "multiple" && (
-              <Box variant="subdued">
+              <Text variant="subdued">
                 <OrganisationSelect />
-              </Box>
+              </Text>
             )}
           </Flex>
           {description && <p>{description}</p>}

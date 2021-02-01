@@ -1,4 +1,5 @@
 import { path } from "ramda";
+import { Theme } from "theme-ui";
 
 import colors from "./colors";
 
@@ -19,7 +20,7 @@ const sizes = [
   "512px",
 ];
 
-const theme = {
+const theme: Theme = {
   styles: {
     root: {
       backgroundColor: "greyscale.8",
@@ -30,7 +31,7 @@ const theme = {
       a: {
         color: "greyscale.2",
         "&:hover": {
-          color: "accent.neutral",
+          color: "accent",
         },
       },
     },
@@ -60,13 +61,12 @@ const theme = {
 
   colors,
 
-  link: { cursor: "pointer" },
-
-  variants: {
+  text: {
     subdued: {
-      color: colors.greyscale[3],
+      color: "greyscale.3",
     },
   },
+
   shadows: {
     ...["0 2px 4px rgba(0, 0, 0, .1)", "0 3px 6px rgba(0, 0, 0, .1)"],
     outline: [
@@ -83,23 +83,18 @@ const theme = {
     },
   },
 
-  links: {
-    color: "greyscale.2",
-    "&:hover": {
-      color: "accent.neutral",
-    },
-  },
+  links: {},
 
   buttons: {
     primary: {
-      color: colors.greyscale[9],
-      bg: colors.primary.neutral,
+      color: "greyscale.9",
+      bg: "primary",
       borderRadius: 0,
       "&:hover": {
-        bg: colors.primary.dark,
+        bg: "primaryDark",
       },
       ":disabled": {
-        bg: colors.greyscale[4],
+        bg: "greyscale.4",
       },
       display: "inline-flex",
       px: 4,
@@ -107,13 +102,13 @@ const theme = {
     },
     plain: {
       borderRadius: 0,
-      color: colors.text.default,
+      color: "text",
       p: 0,
       bg: "transparent",
       display: "inline-flex",
       textDecoration: "underline",
       "&:hover": {
-        color: colors.accent.neutral,
+        color: "accent",
       },
     },
   },
