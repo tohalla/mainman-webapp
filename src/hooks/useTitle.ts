@@ -1,11 +1,13 @@
-import { ReactNode, useContext, useEffect } from "react";
+import { ReactNode, useContext } from "react";
+
+import useIsomorphicLayoutEffect from "./useIsomorphicLayoutEffect";
 
 import LayoutContext from "src/Layout/LayoutContext";
 
 const useTitle = (title: ReactNode) => {
   const { setTitle } = useContext(LayoutContext);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     setTitle(title);
   }, [title]);
 };
