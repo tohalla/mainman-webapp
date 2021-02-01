@@ -1,6 +1,6 @@
 import { prop } from "ramda";
 import React from "react";
-import { defineMessages, FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage, FormattedNumber } from "react-intl";
 import { Card, Flex, Grid } from "theme-ui";
 
 import CardOptions, { CardProps } from "src/general/CardOptions";
@@ -17,6 +17,8 @@ const messages = defineMessages({
   entityLimit: "Entities",
   // text for plan maintainer limit
   maintainerLimit: "Maintainers",
+  // text for plan monthly price
+  monthlyPrice: "{value} / month",
 });
 
 const PlanCard = ({
@@ -53,6 +55,23 @@ const PlanCard = ({
       <FormattedMessage {...messages.maintainerLimit} />
       <div>{maintainers}</div>
     </Grid>
+    <Flex
+      backgroundColor="greyscale.8"
+      px={4}
+      py={2}
+      mt={3}
+      sx={{
+        justifyContent: "center",
+        fontSize: 1,
+      }}
+    >
+      <FormattedMessage
+        {...messages.monthlyPrice}
+        values={{
+          value: <FormattedNumber currency="usd" style="currency" value={0} />,
+        }}
+      />
+    </Flex>
   </Card>
 );
 

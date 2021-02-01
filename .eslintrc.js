@@ -128,5 +128,11 @@ module.exports = {
     "react/default-props-match-prop-types": "off",
     "@typescript-eslint/no-empty-interface": "off",
     "consistent-return": "off",
+    "react/style-prop-object": [
+      true,
+      {
+        allow: ["FormattedPrice"],
+      },
+    ],
   },
 };
