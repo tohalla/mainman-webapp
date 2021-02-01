@@ -11,11 +11,16 @@ interface Props extends Omit<GridProps, "ref"> {
 const PaymentMethods = ({ paymentMethods, sx, ...props }: Props) => {
   return (
     <Grid
-      sx={{ gridTemplateColumns: "1fr 1fr 1fr", columnGap: 4, sx }}
+      sx={{
+        gridTemplateColumns: "repeat(auto-fill, minmax(auto, 192px))",
+        columnGap: 4,
+        alignSelf: "stretch",
+        ...sx,
+      }}
       {...props}
     >
       {Object.values(paymentMethods).map(
-        ({ card }) => card && <Card card={card} />
+        ({ id, card }) => card && <Card key={id} card={card} />
       )}
     </Grid>
   );

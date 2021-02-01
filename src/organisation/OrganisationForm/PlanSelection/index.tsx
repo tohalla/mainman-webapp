@@ -1,6 +1,6 @@
 import { prop } from "ramda";
 import React from "react";
-import { Flex } from "theme-ui";
+import { Card, Flex } from "theme-ui";
 
 import CardOptions, { CardProps } from "src/general/CardOptions";
 import { Plan } from "src/organisation";
@@ -17,12 +17,7 @@ const PlanCard = ({
   isSelected,
   onClick,
 }: CardProps<Plan>) => (
-  <Flex
-    backgroundColor="greyscale.9"
-    mr={3}
-    onClick={onClick}
-    sx={{ width: "130px", boxShadow: 1, flexDirection: "column" }}
-  >
+  <Card backgroundColor="greyscale.9" onClick={onClick} p={0}>
     <Flex
       color="textInvert"
       py={2}
@@ -45,7 +40,7 @@ const PlanCard = ({
       <div>{entities}</div>
       <div>{maintainers}</div>
     </Flex>
-  </Flex>
+  </Card>
 );
 
 const PlanSelection = ({ plans }: Props) => (
@@ -54,6 +49,10 @@ const PlanSelection = ({ plans }: Props) => (
     getOptionIdentifier={prop("name")}
     name="plan"
     options={plans}
+    sx={{
+      alignSelf: "stretch",
+      gridTemplateColumns: "repeat(auto-fill, minmax(auto, 128px))",
+    }}
   />
 );
 
