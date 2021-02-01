@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
+import { Box, Link as ThemeUILink } from "theme-ui";
 
 import { accountKey, fetchAccount, signOut } from "../../../auth";
 import PlainButton from "../../Button/PlainButton";
@@ -9,15 +10,13 @@ import Loadable from "../../Loadadble";
 
 import { accountMenuMessages } from "./messages";
 
-import { Box, Link as ThemeUILink } from "theme-ui";
-
 const AccountMenu = () => {
   const { data: account } = useQuery(accountKey, fetchAccount, {
     staleTime: 60000,
   });
 
   return (
-    <Box sx={{ alignSelf: ["flex-end", "auto"] }} px={4} py={[4, 0]}>
+    <Box px={4} py={[4, 0]} sx={{ alignSelf: ["flex-end", "auto"] }}>
       <Loadable>
         <FormattedMessage
           {...accountMenuMessages.greeting}

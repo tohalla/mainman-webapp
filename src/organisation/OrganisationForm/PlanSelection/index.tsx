@@ -40,7 +40,7 @@ const PlanCard = ({
     >
       {name}
     </Flex>
-    <Flex sx={{ flexDirection: "column" }} px={3} py={2}>
+    <Flex px={3} py={2} sx={{ flexDirection: "column" }}>
       <div>{accounts}</div>
       <div>{entities}</div>
       <div>{maintainers}</div>

@@ -38,13 +38,13 @@ const WithHeading = ({ children, title, description }: Props) => {
       ) : (
         <>
           <Flex
+            mb={5}
             sx={{
               alignItems: "center",
               flex: 0,
               flexDirection: "row",
               justifyContent: "space-between",
             }}
-            mb={5}
           >
             {title ? <h1>{title}</h1> : <span />}
             {view === "multiple" && (

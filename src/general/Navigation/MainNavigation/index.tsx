@@ -70,10 +70,10 @@ const MainNavigation = ({ subPages }: Props) => {
         >
           {mobileNav && (
             <PlainButton
-              sx={{ alignSelf: "flex-end" }}
               color="text.light"
               onClick={toggleExpand}
               p={4}
+              sx={{ alignSelf: "flex-end" }}
             >
               <FaBars />
             </PlainButton>

@@ -3,8 +3,8 @@ import { Field, Formik } from "formik";
 import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useMutation, useQueryClient } from "react-query";
-import { createPaymentMethod } from "src/billing";
 
+import { createPaymentMethod } from "src/billing";
 import Form, { FormProps } from "src/general/Form";
 import Input from "src/general/Input";
 
@@ -24,7 +24,7 @@ const CardForm = (props: FormProps) => {
   return (
     <Formik
       initialValues={{ name: "" }}
-      onSubmit={async (billing_details, { setSubmitting }) => {
+      onSubmit={async (billingDetails, { setSubmitting }) => {
         if (!stripe || !elements) {
           return;
         }
@@ -37,7 +37,7 @@ const CardForm = (props: FormProps) => {
         const { paymentMethod } = await stripe.createPaymentMethod({
           type: "card",
           card,
-          billing_details,
+          billing_details: billingDetails,
         });
         if (!card) {
           return;

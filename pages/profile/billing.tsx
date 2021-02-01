@@ -1,17 +1,17 @@
-import React, { useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
+import { isEmpty } from "ramda";
+import React, { useState } from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
-import Button from "src/general/Button";
-import CardForm from "src/stripe/CardForm";
+import { fetchPaymentMethods } from "src/billing";
 import PaymentMethods from "src/billing/PaymentMethods";
+import Button from "src/general/Button";
 import PlainButton from "src/general/Button/PlainButton";
 import generalMessages from "src/general/messages";
-import stripe from "src/stripe";
-import { fetchPaymentMethods } from "src/billing";
 import { layoutProps } from "src/profile/layout";
-import { isEmpty } from "ramda";
+import stripe from "src/stripe";
+import CardForm from "src/stripe/CardForm";
 
 const messages = defineMessages({
   // title text for Billing
@@ -30,7 +30,7 @@ const BillingPage = () => {
   return (
     <Elements stripe={stripe}>
       {paymentMethods && !isEmpty(paymentMethods) && (
-        <PaymentMethods paymentMethods={paymentMethods} mb="default" />
+        <PaymentMethods mb="default" paymentMethods={paymentMethods} />
       )}
       {showCardForm ? (
         <CardForm

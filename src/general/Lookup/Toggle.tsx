@@ -1,5 +1,4 @@
 import React, { forwardRef } from "react";
-
 import { Input, InputProps } from "theme-ui";
 
 interface Props extends InputProps {
@@ -19,10 +18,12 @@ const Icon = ({ isOpen }: Pick<Props, "isOpen">) => (
   </svg>
 );
 
-const Toggle = forwardRef(({ isOpen, ...props }: Props, ref) => (
-  <Input {...props} ref={ref as any}>
-    <Icon isOpen={isOpen} />
-  </Input>
-));
+const Toggle = forwardRef<HTMLInputElement, Props>(
+  ({ isOpen, ...props }: Props, ref) => (
+    <Input {...props} ref={ref}>
+      <Icon isOpen={isOpen} />
+    </Input>
+  )
+);
 
 export default Toggle;

@@ -1,4 +1,4 @@
-import { css, keyframes } from "@emotion/core";
+import { keyframes, css } from "@emotion/react";
 import React from "react";
 import { Button as ThemeUIButton, ButtonProps } from "theme-ui";
 

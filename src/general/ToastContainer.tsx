@@ -1,10 +1,18 @@
-import React from "react";
+import React, { FC, MouseEventHandler } from "react";
 import { FaTimes } from "react-icons/fa";
 import {
   ToastContainer as ToastifyToastContainer,
   Slide,
 } from "react-toastify";
 import { Box } from "theme-ui";
+
+interface CloseButtonProps {
+  closeToast: MouseEventHandler;
+}
+
+const CloseButton: FC<CloseButtonProps> = ({ closeToast }) => (
+  <FaTimes onClick={closeToast} />
+);
 
 const ToastContainer = () => (
   <Box
@@ -41,7 +49,7 @@ const ToastContainer = () => (
     }}
   >
     <ToastifyToastContainer
-      closeButton={({ closeToast }) => <FaTimes onClick={closeToast} />}
+      closeButton={CloseButton}
       draggablePercent={40}
       pauseOnFocusLoss={false}
       position="top-right"

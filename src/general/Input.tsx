@@ -14,7 +14,7 @@ interface Props<T>
   onFocus?(e: FocusEvent): void;
 }
 
-export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
+const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
   disabled,
   formik,
   label,
@@ -34,9 +34,9 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
 
   return (
     <Label
-      p={2}
-      mt={3}
       htmlFor={name}
+      mt={3}
+      p={2}
       sx={{
         display: "flex",
         position: "relative",
@@ -80,7 +80,6 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
           }
         }}
         required={required}
-        type={type}
         sx={{
           flex: 1,
           background: "none",
@@ -90,6 +89,7 @@ export const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
             boxShadow: "none",
           },
         }}
+        type={type}
         {...inputProps.field}
       />
     </Label>

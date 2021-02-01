@@ -45,7 +45,7 @@ module.exports = {
     "react-hooks",
     "prettier",
     "import",
-    "emotion",
+    "@emotion",
   ],
   rules: {
     "react/jsx-curly-newline": "off",

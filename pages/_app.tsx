@@ -2,7 +2,7 @@ import "isomorphic-unfetch";
 import "normalize.css";
 import "react-toastify/dist/ReactToastify.css";
 
-import { ThemeProvider } from "theme-ui";
+import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { NextComponentType } from "next";
 import NextApp, { AppContext, AppProps } from "next/app";
@@ -15,6 +15,7 @@ import {
 } from "react-intl";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { ThemeProvider } from "theme-ui";
 
 import { ServerContext } from "server";
 import { fetchAccountWithHeaders } from "src/auth";
@@ -28,7 +29,6 @@ import DefaultLayout, {
 import theme from "src/theme";
 import { onError } from "src/util/intl";
 import { redirect } from "src/util/routing";
-import createCache from "@emotion/cache";
 
 type Context = AppContext & {
   ctx: ServerContext;

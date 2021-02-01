@@ -12,16 +12,16 @@ export interface FormProps extends Omit<FlexProps, "ref"> {
   secondaryAction?: ReactNode;
 }
 
-const Form = forwardRef(
+const Form = forwardRef<HTMLDivElement, FormProps>(
   (
     { action, children, secondaryAction, submitLabel, sx, ...rest }: FormProps,
-    ref: Ref<HTMLFormElement>
+    ref: Ref<HTMLDivElement>
   ) => {
     const { isSubmitting, handleReset, handleSubmit } = useFormikContext();
 
     return (
       <Flex
-        ref={ref as any}
+        ref={ref}
         as="form"
         onReset={handleReset}
         onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}

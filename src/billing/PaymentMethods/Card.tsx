@@ -23,9 +23,9 @@ const cardIcons: Record<string, JSX.Element> = {
 const Card = ({ card }: Props) => {
   return (
     <Flex
+      backgroundColor="greyscale.9"
       px={4}
       py={3}
-      backgroundColor="greyscale.9"
       sx={{ boxShadow: 1, flexDirection: "column" }}
     >
       <Box mb={4} sx={{ fontSize: 1 }}>
