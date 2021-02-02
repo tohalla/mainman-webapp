@@ -35,20 +35,19 @@ const theme: Theme = {
           color: "accent",
         },
       },
-    },
+      p: {
+        mt: 0,
+      },
 
-    h1: {
-      fontSize: "1.6rem",
-    },
-    h2: {
-      fontSize: "1.4rem",
-    },
-    "h4, h5, h6": {
-      fontSize: "1.2rem",
-    },
-
-    p: {
-      mt: 0,
+      h1: {
+        fontSize: "1.8rem",
+      },
+      h2: {
+        fontSize: "1.5rem",
+      },
+      "h4, h5, h6": {
+        fontSize: "1.2rem",
+      },
     },
   },
 
