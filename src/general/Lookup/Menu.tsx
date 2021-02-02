@@ -66,10 +66,15 @@ const Menu = <T extends unknown>({
   <Box
     as="ul"
     backgroundColor="greyscale.9"
-    display={isOpen ? "flex" : "none"}
     mt={2}
     p={2}
-    sx={{ listStyle: "none", flexDirection: "column", boxShadow: 1, ...sx }}
+    sx={{
+      display: isOpen ? "flex" : "none",
+      listStyle: "none",
+      flexDirection: "column",
+      boxShadow: 1,
+      ...sx,
+    }}
     {...props}
     {...getMenuProps()}
   >

@@ -67,8 +67,8 @@ const Lookup = <T extends unknown>({
   return (
     <Flex
       as="label"
-      flexDirection="column"
       sx={{
+        flexDirection: "column",
         "> span:first-child": {
           fontSize: 1,
           opacity: 0.5,
@@ -96,11 +96,10 @@ const Lookup = <T extends unknown>({
         <Flex
           as="input"
           display="flex"
-          flex={1}
           onFocus={openMenu}
           px={3}
           py={2}
-          sx={{ border: "none", outline: "unset" }}
+          sx={{ flex: 1, border: "none", outline: "unset" }}
           {...getInputProps()}
         />
         <Toggle

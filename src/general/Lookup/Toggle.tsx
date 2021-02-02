@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { Input, InputProps } from "theme-ui";
+import { Flex, InputProps } from "theme-ui";
 
 interface Props extends InputProps {
   isOpen: boolean;
@@ -18,11 +18,11 @@ const Icon = ({ isOpen }: Pick<Props, "isOpen">) => (
   </svg>
 );
 
-const Toggle = forwardRef<HTMLInputElement, Props>(
+const Toggle = forwardRef<HTMLDivElement, Props>(
   ({ isOpen, ...props }: Props, ref) => (
-    <Input {...props} ref={ref}>
+    <Flex {...props} ref={ref}>
       <Icon isOpen={isOpen} />
-    </Input>
+    </Flex>
   )
 );
 
