@@ -29,6 +29,10 @@ const colors: ColorModesScale = {
     error: "#cc3300",
     success: "#208844",
   },
+
+  border: {
+    neutral: greyscale[5],
+  },
 };
 
 export type Colors = typeof colors;
