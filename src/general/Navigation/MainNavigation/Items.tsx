@@ -67,7 +67,7 @@ const PageLink = ({
   isActive,
   onClick,
 }: Page & { isActive: boolean } & Pick<Props, "onClick">) => (
-  <Link href={href}>
+  <Link href={href} passHref>
     <ThemeUILink
       color={`greyscale.${isActive ? 9 : 8}`}
       onClick={onClick}

@@ -21,7 +21,7 @@ const SubPageLink = ({
   sx,
   ...props
 }: SubPageLinkProps) => (
-  <Link href={href}>
+  <Link href={href} passHref>
     <ThemeUILink
       px={3}
       py={2}
