@@ -129,7 +129,7 @@ module.exports = {
     "@typescript-eslint/no-empty-interface": "off",
     "consistent-return": "off",
     "react/style-prop-object": [
-      true,
+      "error",
       {
         allow: ["FormattedPrice"],
       },

@@ -75,8 +75,8 @@ const PageLink = ({
       py={4}
       sx={{
         fontSize: 2,
-        textDecoration: isActive ? "underline" : undefined,
-        ":hover": { color: isActive ? "greyscale.9" : undefined },
+        textDecoration: isActive ? "underline" : "none",
+        ":hover": { color: isActive ? "greyscale.9" : "none" },
       }}
     >
       {children}
