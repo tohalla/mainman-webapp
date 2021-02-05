@@ -11,7 +11,8 @@ import { Flex } from "theme-ui";
 
 import messages from "../messages";
 
-const Row = <T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/ban-types
+const Row = <T extends object>({
   row,
 }: TableCommonProps & { row: RowType<T> }) => (
   <Flex as="tr">
@@ -22,7 +23,8 @@ const Row = <T extends Record<string, unknown>>({
   </Flex>
 );
 
-const Cell = <T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/ban-types
+const Cell = <T extends object>({
   cell,
   ...props
 }: TableCommonProps & { cell: CellType<T> }) => (
@@ -31,7 +33,8 @@ const Cell = <T extends Record<string, unknown>>({
   </Flex>
 );
 
-const TBody = <T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/ban-types
+const TBody = <T extends object>({
   rows,
   role,
   className,

@@ -8,7 +8,8 @@ import {
 } from "react-table";
 import { Flex } from "theme-ui";
 
-const HeaderGroup = <T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/ban-types
+const HeaderGroup = <T extends object>({
   headerGroup,
   ...props
 }: TableCommonProps & {
@@ -24,7 +25,8 @@ const HeaderGroup = <T extends Record<string, unknown>>({
   </Flex>
 );
 
-const Header = <T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/ban-types
+const Header = <T extends object>({
   column,
   ...props
 }: {
@@ -69,7 +71,8 @@ const Header = <T extends Record<string, unknown>>({
   </Flex>
 );
 
-const THead = <T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/ban-types
+const THead = <T extends object>({
   headerGroups,
 }: Pick<UseTableInstanceProps<T>, "headerGroups">) => (
   <Flex as="thead">

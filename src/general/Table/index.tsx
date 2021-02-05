@@ -13,7 +13,8 @@ import { Box, SxProp } from "theme-ui";
 import TBody from "./TBody";
 import THead from "./THead";
 
-interface Props<T extends Record<string, unknown>>
+// eslint-disable-next-line @typescript-eslint/ban-types
+interface Props<T extends object>
   extends Pick<
       TableOptions<T>,
       "sortBy" | "data" | "columns" | "defaultColumn"
@@ -22,7 +23,8 @@ interface Props<T extends Record<string, unknown>>
   sortBy: SortingRule<T> | SortingRule<T>[];
 }
 
-const Table = <T extends Record<string, unknown>>({
+// eslint-disable-next-line @typescript-eslint/ban-types
+const Table = <T extends object>({
   columns,
   data,
   defaultColumn,
