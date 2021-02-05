@@ -22,8 +22,8 @@ const EditEntityPage: Page = () => {
   const { push, query } = useRouter();
   const { data: entity } = useQuery(
     entityKey(getParam("entity", query)),
-    ({ queryKey: [_, hash] }) =>
-      activeOrganisation && fetchEntity(activeOrganisation.id, hash),
+    ({ queryKey: [_, uuid] }) =>
+      activeOrganisation && fetchEntity(activeOrganisation.id, uuid),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
@@ -37,7 +37,7 @@ const EditEntityPage: Page = () => {
       entity={entity}
       onSubmit={() =>
         push({
-          pathname: `/entities/${entity.hash}`,
+          pathname: `/entities/${entity.uuid}`,
           query: { organisation: entity.organisation },
         })
       }

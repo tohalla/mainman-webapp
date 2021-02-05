@@ -35,14 +35,14 @@ const Maintainers = ({ entity }: Props) => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data: maintainers } = useMaintainers(activeOrganisation);
   const { data: entityMaintainers } = useQuery(
-    entityMaintainersKey(entity.hash),
+    entityMaintainersKey(entity.uuid),
     () => fetchMaintainersByEntity(entity)
   );
   const { mutate: add } = useMutation(
     (maintainer: Maintainer) => addMaintainer(entity, maintainer),
     {
       onSuccess: (_, maintainer) => {
-        void queryClient.invalidateQueries(entityMaintainersKey(entity.hash));
+        void queryClient.invalidateQueries(entityMaintainersKey(entity.uuid));
         void queryClient.invalidateQueries(
           maintainerEntitiesKey(maintainer.id)
         );
@@ -54,12 +54,12 @@ const Maintainers = ({ entity }: Props) => {
     {
       onSuccess: (_, maintainer) => {
         queryClient.setQueryData(
-          entityMaintainersKey(entity.hash),
+          entityMaintainersKey(entity.uuid),
           dissoc(String(maintainer.id))
         );
         queryClient.setQueryData(
           maintainerEntitiesKey(maintainer.id),
-          dissoc(entity.hash)
+          dissoc(entity.uuid)
         );
       },
     }

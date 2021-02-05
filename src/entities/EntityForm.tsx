@@ -30,12 +30,12 @@ const EntityForm = ({ entity, onSubmit, organisation }: Props) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(entity ? updateEntity : createEntity, {
     onSuccess: (data) => {
-      queryClient.setQueryData(entityKey(data.hash), data);
+      queryClient.setQueryData(entityKey(data.uuid), data);
       queryClient.setQueryData<Record<string, Entity>>(
         organisationEntitiesKey(organisation.id),
         (prev) => ({
           ...prev,
-          [data.hash]: { ...prev?.[data.hash], ...data },
+          [data.uuid]: { ...prev?.[data.uuid], ...data },
         })
       );
     },
@@ -53,7 +53,7 @@ const EntityForm = ({ entity, onSubmit, organisation }: Props) => {
             ? {
                 ...values,
                 organisation: organisation.id,
-                hash: entity?.hash,
+                uuid: entity?.uuid,
               }
             : ({
                 ...values,

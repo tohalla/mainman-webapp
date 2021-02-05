@@ -16,8 +16,8 @@ const EditMaintainerPage: Page = () => {
   const { push, query } = useRouter();
   const { data: maintainer } = useQuery(
     maintainerKey(getParam("maintainer", query)),
-    ({ queryKey: [_, hash] }) =>
-      activeOrganisation && fetchMaintainer(activeOrganisation.id, hash),
+    ({ queryKey: [_, uuid] }) =>
+      activeOrganisation && fetchMaintainer(activeOrganisation.id, uuid),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 

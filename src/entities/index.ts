@@ -6,17 +6,22 @@ import type { Timestamps } from "src/general";
 import type { Maintainer } from "src/maintainers";
 import { Organisation } from "src/organisation";
 
-export type Entity = Timestamps & {
-  hash: string;
+export interface Entity extends Timestamps {
+  uuid: string;
   name: string;
   description?: string;
   organisation: number;
-};
+}
 
-const queryOpts = { key: "hash" as const, responseType: "json" as const };
+export interface MaintenanceTrigger {
+  uuid: string;
+  entity: string;
+}
 
-export const fetchEntity = (organisation: number, hash: string) =>
-  getApiCall<Entity>(`/organisations/${organisation}/entities/${hash}`)(
+const queryOpts = { key: "uuid" as const, responseType: "json" as const };
+
+export const fetchEntity = (organisation: number, uuid: string) =>
+  getApiCall<Entity>(`/organisations/${organisation}/entities/${uuid}`)(
     queryOpts
   );
 
@@ -28,12 +33,12 @@ export const fetchEntities = (organisation: number) =>
 export const fetchEntitiesByMaintainer = (maintainer: Maintainer) =>
   getApiCall<Entity, Record<string, Entity>>(
     `/organisations/${maintainer.organisation}/maintainers/${maintainer.id}/entities`
-  )({ responseType: "json", key: "hash" });
+  )({ responseType: "json", key: "uuid" });
 
 export const createEntity = ({
   organisation,
   ...payload
-}: Omit<Entity, "hash" | keyof Timestamps>) =>
+}: Omit<Entity, "uuid" | keyof Timestamps>) =>
   getApiCall<Entity, Entity>(`/organisations/${organisation}/entities`, {
     method: "POST",
     body: payload,
@@ -41,11 +46,11 @@ export const createEntity = ({
 
 export const updateEntity = ({
   organisation,
-  hash,
+  uuid,
   ...payload
 }: Omit<Entity, keyof Timestamps>) =>
   getApiCall<Entity, Entity>(
-    `/organisations/${organisation}/entities/${hash}`,
+    `/organisations/${organisation}/entities/${uuid}`,
     {
       method: "PATCH",
       body: payload,
@@ -54,16 +59,22 @@ export const updateEntity = ({
 
 export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
   getApiCall<Entity, Entity>(
-    `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`,
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintainers`,
     {
       method: "POST",
       body: [maintainer.id],
     }
   )(queryOpts);
 
+export const createTrigger = (entity: Entity) =>
+  getApiCall<MaintenanceTrigger>(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers`,
+    { method: "POST" }
+  )(queryOpts);
+
 export const removeMaintainer = (entity: Entity, maintainer: Maintainer) =>
   callApi(
-    `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`,
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintainers`,
     {
       method: "DELETE",
       body: [maintainer.id],

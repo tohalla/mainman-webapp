@@ -19,10 +19,10 @@ const columns: Column<Entity>[] = [
     accessor: "name",
     Cell: ({
       row: {
-        original: { hash, name },
+        original: { uuid, name },
       },
     }) => (
-      <Link href={`/entities/${hash}`}>
+      <Link href={`/entities/${uuid}`}>
         <a>{name}</a>
       </Link>
     ),

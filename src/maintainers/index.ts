@@ -31,13 +31,13 @@ export const fetchMaintainers = (organisation: number) =>
 
 export const fetchMaintainersByEntity = (entity: Entity) =>
   getApiCall<Maintainer, Record<string, Maintainer>>(
-    `/organisations/${entity.organisation}/entities/${entity.hash}/maintainers`
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintainers`
   )({ key: "id", responseType: "json" });
 
 export const createMaintainer = ({
   organisation,
   ...payload
-}: Omit<Maintainer, "hash" | keyof Timestamps>) =>
+}: Omit<Maintainer, "uuid" | keyof Timestamps>) =>
   getApiCall<Maintainer, Maintainer>(
     `/organisations/${organisation}/maintainers`,
     {

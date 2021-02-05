@@ -19,8 +19,8 @@ const EntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { data: entity } = useQuery(
     entityKey(useParam("entity")),
-    ({ queryKey: [_, hash] }) =>
-      activeOrganisation && fetchEntity(activeOrganisation.id, hash),
+    ({ queryKey: [_, uuid] }) =>
+      activeOrganisation && fetchEntity(activeOrganisation.id, uuid),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 
@@ -34,7 +34,7 @@ const EntityPage: Page = () => {
     <Loadadble>
       {entity.name}
       <Flex mt="default">
-        <Link href={`/entities/${entity.hash}/edit`}>
+        <Link href={`/entities/${entity.uuid}/edit`}>
           <a>
             <FormattedMessage {...messages.editEntity} />
           </a>
