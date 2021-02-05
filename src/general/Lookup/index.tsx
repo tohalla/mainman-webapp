@@ -69,7 +69,7 @@ const Lookup = <T extends unknown>({
       as="label"
       sx={{
         flexDirection: "column",
-        "> span:first-child": {
+        "> span:first-of-type": {
           fontSize: 1,
           opacity: 0.5,
           marginBottom: 2,

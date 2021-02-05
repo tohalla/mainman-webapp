@@ -83,7 +83,6 @@ const Maintainers = ({ entity }: Props) => {
 
   return (
     <>
-      <FormattedMessage tagName="h2" {...messages.maintainersHeading} />
       <MaintainerList columns={columns} maintainers={entityMaintainers} />
       <Box mt="default">
         {maintainers && (

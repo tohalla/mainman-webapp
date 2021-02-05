@@ -1,10 +1,7 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 
 import { Maintainer, maintainerEntitiesKey } from "..";
-
-import messages from "./messages";
 
 import { fetchEntitiesByMaintainer } from "src/entities";
 import EntityList from "src/entities/EntityList";
@@ -21,7 +18,6 @@ const Entities = ({ maintainer }: Props) => {
 
   return (
     <>
-      <FormattedMessage tagName="h2" {...messages.entitiesHeadings} />
       <EntityList entities={entities} />
     </>
   );

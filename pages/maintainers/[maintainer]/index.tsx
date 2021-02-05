@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React, { useContext } from "react";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
 import { Flex } from "theme-ui";
 
@@ -17,8 +17,13 @@ import {
 import Entities from "src/maintainers/entities";
 import { layoutProps } from "src/maintainers/layout";
 import MaintainerDetails from "src/maintainers/MaintainerDetails";
-import messages from "src/maintainers/messages";
+import maintainerMessages from "src/maintainers/messages";
 import OrganisationContext from "src/organisation/OrganisationContext";
+
+const messages = defineMessages({
+  // heading for entity listing of a maintainer
+  entitiesTitle: "Entities",
+});
 
 const MaintainerPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
@@ -42,10 +47,11 @@ const MaintainerPage: Page = () => {
       <Flex mt="default">
         <Link href={`/maintainers/${maintainer.id}/edit`}>
           <a>
-            <FormattedMessage {...messages.editMaintainer} />
+            <FormattedMessage {...maintainerMessages.editMaintainer} />
           </a>
         </Link>
       </Flex>
+      <FormattedMessage {...messages.entitiesTitle} tagName="h2" />
       <Entities maintainer={maintainer} />
     </Loadadble>
   );

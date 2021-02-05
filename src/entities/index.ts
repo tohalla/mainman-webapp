@@ -57,30 +57,6 @@ export const updateEntity = ({
     }
   )(queryOpts);
 
-export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
-  getApiCall<Entity, Entity>(
-    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintainers`,
-    {
-      method: "POST",
-      body: [maintainer.id],
-    }
-  )(queryOpts);
-
-export const createTrigger = (entity: Entity) =>
-  getApiCall<MaintenanceTrigger>(
-    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers`,
-    { method: "POST" }
-  )(queryOpts);
-
-export const removeMaintainer = (entity: Entity, maintainer: Maintainer) =>
-  callApi(
-    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintainers`,
-    {
-      method: "DELETE",
-      body: [maintainer.id],
-    }
-  );
-
 export const useEntities = (organisation?: Organisation) =>
   useQuery(
     organisationEntitiesKey(organisation?.id),
@@ -95,6 +71,44 @@ export const organisationEntitiesKey = (organisation?: number) => [
 ];
 
 export const entityKey = (entity?: string) => ["entities", entity];
+
+// maintenance
+
+export const fetchMaintenanceTriggers = (entity: Entity) =>
+  getApiCall<MaintenanceTrigger, Record<string, MaintenanceTrigger>>(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers`,
+    { method: "GET" }
+  )(queryOpts);
+
+export const createMaintenanceTrigger = (entity: Entity) =>
+  getApiCall<MaintenanceTrigger>(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers`,
+    { method: "POST" }
+  )(queryOpts);
+
+export const maintenanceTriggersKey = (entity?: string) => [
+  "entities",
+  entity,
+  "maintenance-triggers",
+];
+
+export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
+  getApiCall<Entity, Entity>(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintainers`,
+    {
+      method: "POST",
+      body: [maintainer.id],
+    }
+  )(queryOpts);
+
+export const removeMaintainer = (entity: Entity, maintainer: Maintainer) =>
+  callApi(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintainers`,
+    {
+      method: "DELETE",
+      body: [maintainer.id],
+    }
+  );
 
 export const entityMaintainersKey = (entity?: string) => [
   "entities",
