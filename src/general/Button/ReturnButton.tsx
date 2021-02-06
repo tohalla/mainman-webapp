@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 
 import messages from "../messages";
 
-import PlainButton from "./PlainButton";
+import Button from ".";
 
 interface Props {
   children: ReactNode;
@@ -13,7 +13,11 @@ interface Props {
 const ReturnButton = ({ children }: Props) => {
   const { back } = useRouter();
 
-  return <PlainButton onClick={back}>{children}</PlainButton>;
+  return (
+    <Button onClick={back} variant="plain">
+      {children}
+    </Button>
+  );
 };
 
 ReturnButton.defaultProps = {

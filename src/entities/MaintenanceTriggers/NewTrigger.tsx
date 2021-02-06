@@ -9,7 +9,7 @@ import {
   maintenanceTriggersKey,
 } from "..";
 
-import PlainButton from "src/general/Button/PlainButton";
+import Button from "src/general/Button";
 
 interface Props {
   entity: Entity;
@@ -32,9 +32,9 @@ const NewTrigger = ({ entity }: Props) => {
   });
 
   return (
-    <PlainButton onClick={() => mutate(entity)}>
+    <Button onClick={() => mutate(entity)} variant="plain">
       <FormattedMessage {...messages.createNew} />
-    </PlainButton>
+    </Button>
   );
 };
 

@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
+import Button from "src/general/Button";
 import { useThemeUI, Flex } from "theme-ui";
 
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useToggle from "../../../hooks/useToggle";
-import PlainButton from "../../Button/PlainButton";
 import SubNavigation from "../SubNavigation";
 
 import AccountMenu from "./AccountMenu";
@@ -69,14 +69,15 @@ const MainNavigation = ({ subPages }: Props) => {
           }}
         >
           {mobileNav && (
-            <PlainButton
+            <Button
               color="textInvert"
               onClick={toggleExpand}
               p={4}
               sx={{ alignSelf: "flex-end" }}
+              variant="plain"
             >
               <FaBars />
-            </PlainButton>
+            </Button>
           )}
           {(!mobileNav || expand) && (
             <Flex

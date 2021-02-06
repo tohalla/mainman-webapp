@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { Box, Link as ThemeUILink } from "theme-ui";
 
 import { accountKey, fetchAccount, signOut } from "../../../auth";
-import PlainButton from "../../Button/PlainButton";
+import Button from "../../Button";
 import Loadable from "../../Loadadble";
 
 import { accountMenuMessages } from "./messages";
@@ -30,9 +30,9 @@ const AccountMenu = () => {
             ),
           }}
         />
-        <PlainButton color="textInvert" ml={5} onClick={signOut}>
+        <Button color="textInvert" ml={5} onClick={signOut} variant="plain">
           <FormattedMessage {...accountMenuMessages.signOut} />
-        </PlainButton>
+        </Button>
       </Loadable>
     </Box>
   );

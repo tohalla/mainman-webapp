@@ -7,7 +7,6 @@ import { useQuery } from "react-query";
 import { fetchPaymentMethods } from "src/billing";
 import PaymentMethods from "src/billing/PaymentMethods";
 import Button from "src/general/Button";
-import PlainButton from "src/general/Button/PlainButton";
 import generalMessages from "src/general/messages";
 import { layoutProps } from "src/profile/layout";
 import stripe from "src/stripe";
@@ -35,9 +34,9 @@ const BillingPage = () => {
       {showCardForm ? (
         <CardForm
           secondaryAction={
-            <PlainButton onClick={() => setShowCardForm(false)}>
+            <Button onClick={() => setShowCardForm(false)} variant="plain">
               <FormattedMessage {...generalMessages.cancel} />
-            </PlainButton>
+            </Button>
           }
         />
       ) : (

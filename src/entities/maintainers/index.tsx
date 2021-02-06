@@ -14,7 +14,7 @@ import {
 
 import messages from "./messages";
 
-import PlainButton from "src/general/Button/PlainButton";
+import Button from "src/general/Button";
 import Lookup from "src/general/Lookup";
 import {
   fetchMaintainersByEntity,
@@ -72,9 +72,9 @@ const Maintainers = ({ entity }: Props) => {
         id: "actions",
         Header: <FormattedMessage {...messages.colActions} />,
         Cell: ({ row: { original } }: CellProps<Maintainer>) => (
-          <PlainButton onClick={() => remove(original)}>
+          <Button onClick={() => remove(original)} variant="plain">
             <FormattedMessage {...messages.actionRemoveMaintainer} />
-          </PlainButton>
+          </Button>
         ),
       },
     ],
