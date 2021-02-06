@@ -22,12 +22,10 @@ const messages = defineMessages({
 });
 
 const PlanCard = ({
-  name,
-  entities,
-  accounts,
-  maintainers,
   isSelected,
   onClick,
+  value: { name, entities, accounts, maintainers, stripePrice },
+  sx,
 }: CardProps<Plan>) => (
   <Card backgroundColor="greyscale.9" onClick={onClick} p={0}>
     <Flex
@@ -43,6 +41,7 @@ const PlanCard = ({
               backgroundColor: "greyscale.1",
             }
           : { backgroundColor: "greyscale.3" }),
+        ...sx,
       }}
     >
       {name}
@@ -57,9 +56,9 @@ const PlanCard = ({
     </Grid>
     <Flex
       backgroundColor="greyscale.8"
+      mt={3}
       px={4}
       py={2}
-      mt={3}
       sx={{
         justifyContent: "center",
         fontSize: 1,
@@ -68,7 +67,13 @@ const PlanCard = ({
       <FormattedMessage
         {...messages.monthlyPrice}
         values={{
-          value: <FormattedNumber currency="usd" style="currency" value={0} />,
+          value: (
+            <FormattedNumber
+              currency={stripePrice?.currency ?? "eur"}
+              style="currency"
+              value={(stripePrice?.unitAmount ?? 0) / 100}
+            />
+          ),
         }}
       />
     </Flex>

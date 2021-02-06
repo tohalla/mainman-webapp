@@ -6,6 +6,10 @@ export interface Plan {
   entities: number;
   maintainers: number;
   accounts: number;
+  stripePrice?: {
+    unitAmount: number;
+    currency: string;
+  };
 }
 
 export interface Organisation {

@@ -131,7 +131,7 @@ module.exports = {
     "react/style-prop-object": [
       "error",
       {
-        allow: ["FormattedPrice"],
+        allow: ["FormattedNumber"],
       },
     ],
   },

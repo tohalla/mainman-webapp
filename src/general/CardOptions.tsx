@@ -1,11 +1,12 @@
 import { useField } from "formik";
 import React, { FC, MouseEventHandler } from "react";
-import { Grid, GridProps } from "theme-ui";
+import { Grid, GridProps, SxProp } from "theme-ui";
 
-export type CardProps<T> = T & {
+export interface CardProps<T> extends SxProp {
   onClick: MouseEventHandler;
   isSelected: boolean;
-};
+  value: T;
+}
 
 interface Props<T> extends GridProps {
   Card: FC<CardProps<T>>;
@@ -35,11 +36,10 @@ const CardOptions = <T extends { name: string }>({
     >
       {options?.map((option) => (
         <Card
-          {...option}
           key={getOptionIdentifier(option)}
           isSelected={option === meta.value}
           onClick={() => setValue(option)}
-          sx={{ width: 5 }}
+          value={option}
         />
       ))}
     </Grid>
