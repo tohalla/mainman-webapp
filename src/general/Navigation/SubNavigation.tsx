@@ -27,7 +27,7 @@ const SubPageLink = ({
       py={2}
       sx={{
         fontSize: 2,
-        textDecoration: isActive ? "underline" : undefined,
+        textDecoration: isActive ? "underline" : "none",
         ...sx,
       }}
       {...props}
