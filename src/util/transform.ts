@@ -9,7 +9,7 @@ export const transformKeys = <T>(
   }
   if (isObject(obj)) {
     return Object.fromEntries(
-      Object.entries(obj).map(([key, val]) => [fn(key), val])
+      Object.entries(obj).map(([key, val]) => [fn(key), transformKeys(fn, val)])
     );
   }
   return obj;
