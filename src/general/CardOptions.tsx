@@ -1,8 +1,8 @@
 import { useField } from "formik";
 import React, { FC, MouseEventHandler } from "react";
-import { Grid, GridProps, SxProp } from "theme-ui";
+import { Grid, GridProps, CardProps as ThemeUICardPRops } from "theme-ui";
 
-export interface CardProps<T> extends SxProp {
+export interface CardProps<T> extends ThemeUICardPRops {
   onClick: MouseEventHandler;
   isSelected: boolean;
   value: T;
@@ -39,6 +39,12 @@ const CardOptions = <T extends { name: string }>({
           key={getOptionIdentifier(option)}
           isSelected={option === meta.value}
           onClick={() => setValue(option)}
+          onKeyPress={({ key }) => {
+            if (key === "Enter") {
+              setValue(option);
+            }
+          }}
+          tabIndex={0}
           value={option}
         />
       ))}
