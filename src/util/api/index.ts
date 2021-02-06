@@ -77,7 +77,7 @@ export const getApiCall = <
     (input) =>
       // need for custom opts as e.g. uuids are used as keys
       camelCase(input, {
-        splitRegexp: /[a-z]_[a-zA-Z0-9]/g,
+        splitRegexp: /([a-z])_([a-zA-Z0-9])/g,
         stripRegexp: /[^A-Z0-9-]/gi,
       }),
     key && Array.isArray(payload) ? indexByProp<T>(key)(payload) : payload
