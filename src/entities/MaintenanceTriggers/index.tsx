@@ -1,9 +1,11 @@
+import { isEmpty } from "ramda";
 import React from "react";
 import { useQuery } from "react-query";
-import { Flex } from "theme-ui";
+import { Flex, Grid } from "theme-ui";
 
 import { Entity, fetchMaintenanceTriggers, maintenanceTriggersKey } from "..";
 
+import MaintenanceTrigger from "./MaintenanceTrigger";
 import NewTrigger from "./NewTrigger";
 
 interface Props {
@@ -17,12 +19,16 @@ const MaintenanceTriggers = ({ entity }: Props) => {
 
   return (
     <Flex sx={{ flexDirection: "column" }}>
-      {data && (
-        <ul>
-          {Object.values(data).map(({ uuid }) => (
-            <li key={uuid}>{uuid}</li>
+      {data && !isEmpty(data) && (
+        <Grid mb="default" sx={{ gridTemplateColumns: "1fr auto" }}>
+          {Object.values(data).map((trigger) => (
+            <MaintenanceTrigger
+              key={trigger.uuid}
+              entity={entity}
+              maintenanceTrigger={trigger}
+            />
           ))}
-        </ul>
+        </Grid>
       )}
       <NewTrigger entity={entity} />
     </Flex>

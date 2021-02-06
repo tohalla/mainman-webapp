@@ -86,6 +86,18 @@ export const createMaintenanceTrigger = (entity: Entity) =>
     { method: "POST" }
   )(queryOpts);
 
+export const deleteMaintenanceTrigger = ({
+  entity,
+  maintenanceTrigger: { uuid },
+}: {
+  entity: Entity;
+  maintenanceTrigger: MaintenanceTrigger;
+}) =>
+  callApi(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers/${uuid}`,
+    { method: "DELETE" }
+  );
+
 export const maintenanceTriggersKey = (entity?: string) => [
   "entities",
   entity,
