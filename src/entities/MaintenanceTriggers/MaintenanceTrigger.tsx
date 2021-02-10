@@ -11,6 +11,7 @@ import {
 } from "..";
 
 import Button from "src/general/Button";
+import SelectOnClick from "src/general/SelectOnClick";
 
 interface Props {
   maintenanceTrigger: Trigger;
@@ -35,7 +36,7 @@ const MaintenanceTrigger = ({ entity, maintenanceTrigger }: Props) => {
 
   return (
     <>
-      <span>{maintenanceTrigger.uuid}</span>
+      <SelectOnClick>{maintenanceTrigger.uuid}</SelectOnClick>
       <Button
         onClick={() => mutate({ entity, maintenanceTrigger })}
         variant="plain"
