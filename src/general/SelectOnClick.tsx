@@ -1,7 +1,7 @@
-import React, { MouseEvent, KeyboardEvent } from "react";
+import React, { MouseEvent, KeyboardEvent, ReactNode } from "react";
 
 interface Props {
-  children: string;
+  children: ReactNode;
 }
 
 const SelectOnClick = ({ children }: Props) => {
