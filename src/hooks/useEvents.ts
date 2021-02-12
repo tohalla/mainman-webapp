@@ -16,22 +16,37 @@ export const getEventSource = () => {
   return eventSource;
 };
 
+interface Listener {
+  onMessage: (event: MessageEvent) => void;
+}
+
 const useEvents = ({
   onMessage,
-}: {
-  onMessage: (event: MessageEvent) => void;
-}) =>
+  ...listeners
+}: Partial<Listener> & Record<string, Listener>) =>
   useEffect(() => {
     const source = getEventSource();
     if (typeof source === "undefined") {
       return;
     }
 
-    source.addEventListener("message", onMessage);
+    if (onMessage) {
+      source.addEventListener("message", onMessage);
+    }
+    Object.entries(listeners).forEach(([name, listener]) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      source.addEventListener(name as any, listener.onMessage);
+    });
 
     return () => {
-      source.removeEventListener("message", onMessage);
+      if (onMessage) {
+        source.removeEventListener("message", onMessage);
+      }
+      Object.entries(listeners).forEach(([name, listener]) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        source.removeEventListener(name as any, listener.onMessage);
+      });
     };
-  }, [onMessage]);
+  }, [onMessage, listeners]);
 
 export default useEvents;
