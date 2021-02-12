@@ -19,7 +19,7 @@ interface ApiCallOptions<K, R> {
 }
 
 const host = process.env.NODE_ENV === "development" ? "localhost" : "backend";
-const apiVer = "v1";
+export const apiVer = "v1";
 
 export const apiURL =
   process.env.NODE_ENV === "development"
