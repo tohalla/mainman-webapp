@@ -16,7 +16,7 @@ const Button = ({ loading, children, ...props }: Props) => (
     disabled={loading}
   >
     {loading && <div className="indicator" />}
-    <span>{children}</span>
+    {children}
   </ThemeUIButton>
 );
 

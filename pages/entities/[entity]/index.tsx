@@ -9,6 +9,7 @@ import { entityKey, fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";
 import MaintenanceTriggers from "src/entities/MaintenanceTriggers";
+import CollapsibleSection from "src/general/CollapsibleSection";
 import Loadadble from "src/general/Loadadble";
 import useParam from "src/hooks/useParam";
 import useTitle from "src/hooks/useTitle";
@@ -52,10 +53,16 @@ const EntityPage: Page = () => {
         </Link>
       </Flex>
       <FormattedMessage {...messages.maintenanceTitle} tagName="h2" />
-      <FormattedMessage {...messages.triggersTitle} tagName="h3" />
-      <MaintenanceTriggers entity={entity} />
-      <FormattedMessage {...messages.maintainersTitle} tagName="h3" />
-      <Maintainers entity={entity} />
+      <CollapsibleSection
+        title={<FormattedMessage {...messages.triggersTitle} tagName="h3" />}
+      >
+        <MaintenanceTriggers entity={entity} />
+      </CollapsibleSection>
+      <CollapsibleSection
+        title={<FormattedMessage {...messages.maintainersTitle} tagName="h3" />}
+      >
+        <Maintainers entity={entity} />
+      </CollapsibleSection>
     </Loadadble>
   );
 };
