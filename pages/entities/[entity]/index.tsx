@@ -8,6 +8,7 @@ import { Page } from "pages/_app";
 import { entityKey, fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";
+import MaintenanceRequests from "src/entities/MaintenanceRequests";
 import MaintenanceTriggers from "src/entities/MaintenanceTriggers";
 import CollapsibleSection from "src/general/CollapsibleSection";
 import Loadadble from "src/general/Loadadble";
@@ -53,6 +54,7 @@ const EntityPage: Page = () => {
         </Link>
       </Flex>
       <FormattedMessage {...messages.maintenanceTitle} tagName="h2" />
+      <MaintenanceRequests entity={entity} />
       <CollapsibleSection
         title={<FormattedMessage {...messages.triggersTitle} tagName="h3" />}
       >

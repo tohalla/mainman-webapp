@@ -18,6 +18,14 @@ export interface MaintenanceTrigger {
   entity: string;
 }
 
+export interface MaintenanceRequest {
+  createdAt: string;
+  createdBy?: number;
+  description?: number;
+  id: number;
+  maintenanceTrigger?: string;
+}
+
 const queryOpts = { key: "uuid" as const, responseType: "json" as const };
 
 export const fetchEntity = (organisation: number, uuid: string) =>
@@ -80,6 +88,12 @@ export const fetchMaintenanceTriggers = (entity: Entity) =>
     { method: "GET" }
   )(queryOpts);
 
+export const fetchMaintenanceRequests = (entity: Entity) =>
+  getApiCall<MaintenanceRequest, Record<string, MaintenanceRequest>>(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-requests`,
+    { method: "GET" }
+  )({ responseType: "json", key: "id" });
+
 export const createMaintenanceTrigger = (entity: Entity) =>
   getApiCall<MaintenanceTrigger>(
     `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers`,
@@ -98,7 +112,13 @@ export const deleteMaintenanceTrigger = ({
     { method: "DELETE" }
   );
 
-export const maintenanceTriggersKey = (entity?: string) => [
+export const maintenanceRequestsKey = (entity: string) => [
+  "entities",
+  entity,
+  "maintenance-requests",
+];
+
+export const maintenanceTriggersKey = (entity: string) => [
   "entities",
   entity,
   "maintenance-triggers",
