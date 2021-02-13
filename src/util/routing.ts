@@ -27,6 +27,9 @@ export const redirect = ({
   void Router.replace(location).catch();
 };
 
+export const isProtectedRoute = (route: string) =>
+  !/^(?:auth)\/.*/g.test(route);
+
 export const getParam = curry((key: string, query: BaseRouter["query"]):
   | string
   | undefined =>
