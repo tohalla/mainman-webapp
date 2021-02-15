@@ -1,13 +1,13 @@
 import callApi, { getApiCall, SetHeader } from "../util/api";
 
-export type Account = {
+export interface Account {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
   locale: string;
   previouslyReviewedVersion?: string;
-};
+}
 
 export const authenticate = async (credentials: {
   email: string;
