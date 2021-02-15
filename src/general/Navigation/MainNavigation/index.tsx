@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-import Button from "src/general/Button";
 import { useThemeUI, Flex } from "theme-ui";
 
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
@@ -9,6 +8,8 @@ import SubNavigation from "../SubNavigation";
 
 import AccountMenu from "./AccountMenu";
 import Items, { Page } from "./Items";
+
+import Button from "src/general/Button";
 
 interface Props {
   subPages?: Page[];

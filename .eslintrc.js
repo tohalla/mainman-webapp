@@ -49,18 +49,6 @@ module.exports = {
   ],
   rules: {
     "react/jsx-curly-newline": "off",
-    "react/jsx-wrap-multilines": [
-      "error",
-      {
-        declaration: "parens",
-        assignment: "parens",
-        return: "parens",
-        arrow: "parens",
-        condition: "ignore",
-        logical: "ignore",
-        prop: "ignore",
-      },
-    ],
     "import/extensions": [
       "error",
       "ignorePackages",
