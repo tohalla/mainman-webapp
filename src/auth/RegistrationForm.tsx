@@ -10,6 +10,8 @@ import { registrationMessages } from "./messages";
 
 import { register } from ".";
 
+import { inputLabels } from "src/general/messages";
+
 const RegistrationForm = () => (
   <Formik
     initialValues={{
@@ -36,7 +38,7 @@ const RegistrationForm = () => (
     >
       <Field
         as={Input}
-        label={<FormattedMessage {...registrationMessages.emailLabel} />}
+        label={<FormattedMessage {...inputLabels.email} />}
         name="email"
         required
         type="email"

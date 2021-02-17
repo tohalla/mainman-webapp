@@ -10,3 +10,8 @@ export default defineMessages({
   // default text when no entries available
   noEntries: "No entries available",
 });
+
+export const inputLabels = defineMessages({
+  // text for email input label
+  email: "Email address",
+});

@@ -9,6 +9,7 @@ import { authenticate } from ".";
 
 import Form from "src/general/Form";
 import Input from "src/general/Input";
+import { inputLabels } from "src/general/messages";
 
 const AuthForm = () => (
   <Formik
@@ -31,7 +32,7 @@ const AuthForm = () => (
     >
       <Field
         as={Input}
-        label={<FormattedMessage {...authenticationMessages.emailLabel} />}
+        label={<FormattedMessage {...inputLabels.email} />}
         name="email"
         required
         type="email"
