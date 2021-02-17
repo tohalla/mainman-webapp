@@ -1,5 +1,7 @@
+import { useQuery } from "react-query";
+
 import { Account } from "src/auth";
-import callApi, { getApiCall } from "src/util/api";
+import callApi, { getApiCall, SetHeader } from "src/util/api";
 
 export interface PublicAccount
   extends Pick<Account, "id" | "email" | "firstName" | "lastName"> {}
@@ -16,7 +18,12 @@ export const fetchOrganisationAccounts = (organisation: number) =>
     `/organisations/${organisation}/accounts`
   )({ key: "id", responseType: "json" });
 
-export const fetchPendingInvites = (organisation: number) =>
+export const fetchInvites = (account: PublicAccount) =>
+  getApiCall<PendingInvite, Record<string, PendingInvite>>(
+    `/accounts/${account.id}/invites`
+  )({ key: "uuid", responseType: "json" });
+
+export const fetchPendingOrganisationInvites = (organisation: number) =>
   getApiCall<PendingInvite, Record<string, PendingInvite>>(
     `/organisations/${organisation}/accounts/invites`
   )({ key: "uuid", responseType: "json" });
@@ -27,11 +34,37 @@ export const inviteAccount = (invite: Creatable<PendingInvite>) =>
     { body: invite, method: "POST" }
   )({ key: "uuid", responseType: "json" });
 
+export const acceptInvite = (invite: PendingInvite) =>
+  callApi(
+    `/organisations/${invite.organisation}/accounts/invites/${invite.uuid}`,
+    { method: "POST" }
+  );
+
 export const deleteInvite = (invite: PendingInvite) =>
   callApi(
     `/organisations/${invite.organisation}/accounts/invites/${invite.uuid}`,
     { method: "DELETE" }
   );
+
+export const fetchAccountWithHeaders = (
+  headers: RequestInit["headers"],
+  setHeader: SetHeader
+) =>
+  getApiCall<Account, Account>("/auth", { headers })({
+    key: "id",
+    responseType: "json",
+    setHeader,
+  });
+
+export const fetchAccount = () =>
+  getApiCall<Account, Account>("/auth")({ key: "id", responseType: "json" });
+
+export const useAccount = () =>
+  useQuery(accountKey, fetchAccount, {
+    staleTime: 60000,
+  });
+
+export const invitesKey = "invites";
 
 export const organisationAccountsKey = (organisation?: number) => [
   "organisation",
@@ -39,8 +72,10 @@ export const organisationAccountsKey = (organisation?: number) => [
   "accounts",
 ];
 
-export const pendingInvitesKey = (organisation?: number) => [
+export const organisationInvitesKey = (organisation?: number) => [
   "organisation",
   organisation,
   "pending-invites",
 ];
+
+export const accountKey = "account";

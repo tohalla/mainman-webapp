@@ -11,7 +11,7 @@ import {
 } from "src/accounts";
 import AccountList from "src/accounts/AccountList";
 import InviteAccount from "src/accounts/InviteAccount";
-import PendingInvites from "src/accounts/PendingInvites";
+import OrganisationInvites from "src/accounts/OrganisationInvites";
 import CollapsibleSection from "src/general/CollapsibleSection";
 import { layoutProps } from "src/organisation/layout";
 import OrganisationContext from "src/organisation/OrganisationContext";
@@ -43,7 +43,7 @@ const OrganisationAccountsPage: Page = () => {
       <CollapsibleSection
         title={<FormattedMessage {...messages.pendingInvities} tagName="h2" />}
       >
-        <PendingInvites organisation={activeOrganisation} />
+        <OrganisationInvites organisation={activeOrganisation} />
       </CollapsibleSection>
     </>
   );

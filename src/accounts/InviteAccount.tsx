@@ -3,7 +3,7 @@ import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useMutation, useQueryClient } from "react-query";
 
-import { inviteAccount, PendingInvite, pendingInvitesKey } from ".";
+import { inviteAccount, PendingInvite, organisationInvitesKey } from ".";
 
 import Form, { FormProps } from "src/general/Form";
 import Input from "src/general/Input";
@@ -24,7 +24,7 @@ const InviteAccount = ({ organisation, sx, ...props }: Props) => {
   const { mutate } = useMutation(inviteAccount, {
     onSuccess: (invite) => {
       queryClient.setQueryData<Record<string, PendingInvite>>(
-        pendingInvitesKey(organisation.id),
+        organisationInvitesKey(organisation.id),
         (prev) => ({ ...prev, [invite.uuid]: invite })
       );
     },

@@ -6,9 +6,9 @@ import { Box } from "theme-ui";
 
 import {
   deleteInvite,
-  fetchPendingInvites,
+  fetchPendingOrganisationInvites,
   PendingInvite,
-  pendingInvitesKey,
+  organisationInvitesKey,
 } from ".";
 
 import Button from "src/general/Button";
@@ -24,7 +24,7 @@ const Invite = ({ invite }: { invite: PendingInvite }) => {
   const { mutate } = useMutation(deleteInvite, {
     onSuccess: () => {
       queryClient.setQueryData<Record<string, PendingInvite>>(
-        pendingInvitesKey(invite.organisation),
+        organisationInvitesKey(invite.organisation),
         dissoc(invite.uuid)
       );
     },
@@ -40,9 +40,9 @@ const Invite = ({ invite }: { invite: PendingInvite }) => {
   );
 };
 
-const PendingInvites = ({ organisation }: Props) => {
-  const { data } = useQuery(pendingInvitesKey(organisation.id), () =>
-    fetchPendingInvites(organisation.id)
+const OrganisationInvites = ({ organisation }: Props) => {
+  const { data } = useQuery(organisationInvitesKey(organisation.id), () =>
+    fetchPendingOrganisationInvites(organisation.id)
   );
 
   return (
@@ -59,4 +59,4 @@ const PendingInvites = ({ organisation }: Props) => {
   );
 };
 
-export default PendingInvites;
+export default OrganisationInvites;

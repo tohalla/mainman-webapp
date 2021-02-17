@@ -18,7 +18,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "theme-ui";
 
 import { ServerContext } from "server";
-import { fetchAccountWithHeaders } from "src/auth";
+import { fetchAccountWithHeaders } from "src/accounts";
 import { queryClient } from "src/config/react-query";
 import Loadable from "src/general/Loadadble";
 import ToastContainer from "src/general/ToastContainer";

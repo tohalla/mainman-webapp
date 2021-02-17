@@ -48,18 +48,3 @@ export const signOut = async () => {
     window.location.href = "/";
   }
 };
-
-export const fetchAccountWithHeaders = (
-  headers: RequestInit["headers"],
-  setHeader: SetHeader
-) =>
-  getApiCall<Account, Account>("/auth", { headers })({
-    key: "id",
-    responseType: "json",
-    setHeader,
-  });
-
-export const fetchAccount = () =>
-  getApiCall<Account, Account>("/auth")({ key: "id", responseType: "json" });
-
-export const accountKey = "account";
