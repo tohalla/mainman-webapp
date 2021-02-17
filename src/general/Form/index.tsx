@@ -6,45 +6,68 @@ import { FlexProps, Flex } from "theme-ui";
 import Button from "../Button";
 import messages from "../messages";
 
-export interface FormProps extends Omit<FlexProps, "ref"> {
+export interface FormProps extends FlexProps {
   action?: string;
   submitLabel?: ReactNode;
   secondaryAction?: ReactNode;
+  inline?: boolean;
 }
 
 const Form = forwardRef<HTMLDivElement, FormProps>(
   (
-    { action, children, secondaryAction, submitLabel, sx, ...rest }: FormProps,
+    {
+      action,
+      children,
+      secondaryAction,
+      submitLabel,
+      inline,
+      sx,
+      ...rest
+    }: FormProps,
     ref: Ref<HTMLDivElement>
   ) => {
     const { isSubmitting, handleReset, handleSubmit } = useFormikContext();
 
     return (
       <Flex
-        ref={ref}
         as="form"
         onReset={handleReset}
         onSubmit={(handleSubmit as unknown) as FormEventHandler<HTMLDivElement>}
-        sx={{
-          flex: 1,
-          flexDirection: "column",
-          "> div,label + div,label": { marginTop: 5 },
-          width: ["auto", 8],
-          ...sx,
-        }}
+        sx={
+          inline
+            ? {
+                alignItems: "center",
+                alignSelf: ["stretch", "flex-start"],
+                ...sx,
+              }
+            : {
+                alignSelf: "stretch",
+                flexDirection: "column",
+                "> div,label + div,label": { marginTop: 5 },
+                width: ["auto", 8],
+                ...sx,
+              }
+        }
         {...rest}
+        ref={ref}
       >
         {children}
         <Flex
+          ml={inline ? 4 : 0}
           sx={{
-            alignSelf: "flex-end",
-            justifyContent: "center",
-            alignItems: ["flex-end", "center"],
+            flexShrink: 0,
+            justifyContent: ["center", "flex-end"],
+            alignItems: "center",
             flexDirection: ["column-reverse", "row"],
           }}
         >
           {secondaryAction}
-          <Button loading={isSubmitting} mb={[4, 0]} ml={[0, 5]} type="submit">
+          <Button
+            loading={isSubmitting}
+            mb={inline ? 0 : [4, 0]}
+            ml={inline ? 0 : [0, 5]}
+            type="submit"
+          >
             {submitLabel}
           </Button>
         </Flex>
@@ -55,6 +78,7 @@ const Form = forwardRef<HTMLDivElement, FormProps>(
 
 Form.defaultProps = {
   submitLabel: <FormattedMessage {...messages.submit} />,
+  inline: false,
 };
 
 Form.displayName = "Form";
