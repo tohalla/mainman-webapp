@@ -10,12 +10,16 @@ import {
   fetchOrganisationAccounts,
 } from "src/accounts";
 import AccountList from "src/accounts/AccountList";
+import PendingInvites from "src/accounts/PendingInvites";
+import CollapsibleSection from "src/general/CollapsibleSection";
 import { layoutProps } from "src/organisation/layout";
 import OrganisationContext from "src/organisation/OrganisationContext";
 
 const messages = defineMessages({
   // title text for organisation accounts
   title: "Accounts",
+  // title text for pending invites
+  pendingInvities: "Pending Invites",
 });
 
 const OrganisationAccountsPage: Page = () => {
@@ -31,7 +35,16 @@ const OrganisationAccountsPage: Page = () => {
     return null;
   }
 
-  return <AccountList accounts={data} />;
+  return (
+    <>
+      <AccountList accounts={data} />
+      <CollapsibleSection
+        title={<FormattedMessage {...messages.pendingInvities} tagName="h2" />}
+      >
+        <PendingInvites organisation={activeOrganisation} />
+      </CollapsibleSection>
+    </>
+  );
 };
 
 OrganisationAccountsPage.displayName = "OrganisationAccountsPage";
