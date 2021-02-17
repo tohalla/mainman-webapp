@@ -1,5 +1,5 @@
 import { Account } from "src/auth";
-import { getApiCall } from "src/util/api";
+import callApi, { getApiCall } from "src/util/api";
 
 export interface PublicAccount
   extends Pick<Account, "id" | "email" | "firstName" | "lastName"> {}
@@ -21,11 +21,17 @@ export const fetchPendingInvites = (organisation: number) =>
     `/organisations/${organisation}/accounts/invites`
   )({ key: "uuid", responseType: "json" });
 
-export const inviteAccount = ({ ...invite }: Creatable<PendingInvite>) =>
+export const inviteAccount = (invite: Creatable<PendingInvite>) =>
   getApiCall<PendingInvite>(
     `/organisations/${invite.organisation}/accounts/invites`,
     { body: invite, method: "POST" }
   )({ key: "uuid", responseType: "json" });
+
+export const deleteInvite = (invite: PendingInvite) =>
+  callApi(
+    `/organisations/${invite.organisation}/accounts/invites/${invite.uuid}`,
+    { method: "DELETE" }
+  );
 
 export const organisationAccountsKey = (organisation?: number) => [
   "organisation",
