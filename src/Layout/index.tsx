@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Flex, Box } from "theme-ui";
 
 import MainNavigation from "../general/Navigation/MainNavigation";
@@ -7,6 +7,7 @@ import MainNavigation from "../general/Navigation/MainNavigation";
 import LayoutContext from "./LayoutContext";
 
 import Loadable from "src/general/Loadadble";
+import Loader from "src/general/Loadadble/Loader";
 import { Page } from "src/general/Navigation/MainNavigation/Items";
 import useIsomorphicLayoutEffect from "src/hooks/useIsomorphicLayoutEffect";
 
@@ -41,7 +42,23 @@ export const DefaultContentWrapper: Props["ContentWrapper"] = ({
 
 const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
   const [layoutContextProps, setLayoutContextProps] = useState(layoutProps);
+  const router = useRouter();
   const { asPath } = useRouter();
+  const [isTransitioning, setIsTransitining] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setIsTransitining(true);
+    const handleDone = () => setIsTransitining(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleDone);
+    router.events.on("routeChangeError", handleDone);
+    return () => {
+      router.events.off("routeChangeStart", handleStart);
+      router.events.off("routeChangeComplete", handleDone);
+      router.events.off("routeChangeError", handleDone);
+    };
+  }, []);
 
   // reset to default
   useIsomorphicLayoutEffect(() => {
@@ -70,10 +87,16 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
               flex: 1,
               flexDirection: "column",
               alignItems: "flex-start",
-              h1: { color: "greyscale.2", m: 0 },
+              h1: { m: 0 },
             }}
           >
-            <ContentWrapper {...layoutContextProps}>{children}</ContentWrapper>
+            {isTransitioning ? (
+              <Loader />
+            ) : (
+              <ContentWrapper {...layoutContextProps}>
+                {children}
+              </ContentWrapper>
+            )}
           </Flex>
         </Flex>
       </Loadable>

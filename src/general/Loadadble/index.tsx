@@ -19,7 +19,6 @@ const Loadable = (props: Props) => {
           sx={{
             flex: 1,
             alignSelf: "stretch",
-            alignItems: "center",
             justifyContent: "center",
           }}
         >

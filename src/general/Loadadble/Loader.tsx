@@ -1,18 +1,20 @@
 import React from "react";
-import { Box } from "theme-ui";
+import { Box, BoxProps } from "theme-ui";
 
-interface Props {
-  fill: string;
-  opacity: number;
-  height: number;
-}
-
-const Loader = ({ fill, opacity, height }: Props) => (
-  <Box sx={{ height, width: height }}>
+const Loader = ({ sx, ...props }: BoxProps) => (
+  <Box
+    sx={{
+      alignSelf: "center",
+      my: "auto",
+      fill: "greyscale.0",
+      opacity: 0.4,
+      height: 32,
+      ...sx,
+    }}
+    {...props}
+  >
     <svg
-      fill={fill}
       height="32"
-      opacity={opacity}
       viewBox="0 0 32 32"
       width="32"
       xmlns="http://www.w3.org/2000/svg"
@@ -34,11 +36,5 @@ const Loader = ({ fill, opacity, height }: Props) => (
     </svg>
   </Box>
 );
-
-Loader.defaultProps = {
-  fill: "#000000",
-  opacity: 0.4,
-  height: 32,
-};
 
 export default Loader;
