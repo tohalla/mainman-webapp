@@ -43,6 +43,7 @@ const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
         borderBottomStyle: "solid",
         borderBottomWidth: "3px",
         borderBottomColor: "greyscale.6",
+        alignItems: "center",
         ...(hasFocus ? { borderBottomColor: "greyscale.4" } : undefined),
       }}
     >
