@@ -41,6 +41,7 @@ const WithHeading = ({ children, title, description }: Props) => {
             mb={5}
             sx={{
               alignItems: "center",
+              alignSelf: "stretch",
               flex: 0,
               flexDirection: "row",
               justifyContent: "space-between",
