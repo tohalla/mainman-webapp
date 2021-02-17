@@ -3,7 +3,7 @@ import { defineMessages, FormattedMessage } from "react-intl";
 
 import { LayoutProps } from "src/Layout";
 
-export const messages = defineMessages({
+const messages = defineMessages({
   // link text for navigating to maintainers root page
   maintainers: "All maintainers",
   // link text for navigating to creating a new maintainer
