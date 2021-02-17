@@ -63,8 +63,8 @@ const MaintainerForm = ({ maintainer, onSubmit, organisation }: Props) => {
                 organisation: organisation.id,
               } as Maintainer),
           {
+            onSettled: () => setSubmitting(false),
             onSuccess: (response) => {
-              setSubmitting(false);
               if (onSubmit) {
                 onSubmit(response);
               }

@@ -60,8 +60,8 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
             plan: plan.id,
           }) as Organisation,
           {
+            onSettled: () => setSubmitting(false),
             onSuccess: (response) => {
-              setSubmitting(false);
               if (onSubmit) {
                 onSubmit(response);
               }

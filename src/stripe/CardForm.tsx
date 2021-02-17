@@ -43,7 +43,7 @@ const CardForm = (props: FormProps) => {
           return;
         }
         if (paymentMethod) {
-          mutate(paymentMethod, { onSuccess: () => setSubmitting(false) });
+          mutate(paymentMethod, { onSettled: () => setSubmitting(false) });
         }
       }}
     >

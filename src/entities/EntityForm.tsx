@@ -60,8 +60,8 @@ const EntityForm = ({ entity, onSubmit, organisation }: Props) => {
                 organisation: organisation.id,
               } as Entity),
           {
+            onSettled: () => setSubmitting(false),
             onSuccess: (response) => {
-              setSubmitting(false);
               if (onSubmit) {
                 onSubmit(response);
               }
