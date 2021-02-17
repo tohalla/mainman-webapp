@@ -36,7 +36,7 @@ const Form = forwardRef<HTMLDivElement, FormProps>(
         sx={
           inline
             ? {
-                alignItems: "center",
+                alignItems: "flex-end",
                 alignSelf: ["stretch", "flex-start"],
                 ...sx,
               }

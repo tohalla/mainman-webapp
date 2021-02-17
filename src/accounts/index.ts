@@ -21,6 +21,12 @@ export const fetchPendingInvites = (organisation: number) =>
     `/organisations/${organisation}/accounts/invites`
   )({ key: "uuid", responseType: "json" });
 
+export const inviteAccount = ({ ...invite }: Creatable<PendingInvite>) =>
+  getApiCall<PendingInvite>(
+    `/organisations/${invite.organisation}/accounts/invites`,
+    { body: invite, method: "POST" }
+  )({ key: "uuid", responseType: "json" });
+
 export const organisationAccountsKey = (organisation?: number) => [
   "organisation",
   organisation,
