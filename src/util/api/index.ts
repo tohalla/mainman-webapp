@@ -18,6 +18,15 @@ interface ApiCallOptions<K, R> {
   setHeader?: SetHeader;
 }
 
+export interface APIError {
+  errors: {
+    staus: number;
+    details?: string;
+    source?: string;
+    title?: string;
+  }[];
+}
+
 const host = process.env.NODE_ENV === "development" ? "localhost" : "backend";
 export const apiVer = "v1";
 
