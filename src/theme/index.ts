@@ -85,6 +85,18 @@ const theme: Theme = {
     },
   },
 
+  forms: {
+    input: {
+      flex: 1,
+      background: "none",
+      border: "none",
+      outline: "none",
+      "&:invalid": {
+        boxShadow: "none",
+      },
+    },
+  },
+
   buttons: {
     primary: {
       color: "greyscale.9",

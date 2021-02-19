@@ -1,61 +1,65 @@
-import { FieldProps, FieldMetaProps } from "formik";
+import { FieldProps } from "formik";
 import React, { FocusEvent, HTMLProps, ReactNode, useState } from "react";
 import { Box, Input as ThemeUIInput, Label } from "theme-ui";
 
 interface Props<T>
   extends Pick<HTMLProps<HTMLInputElement>, "type" | "required">,
-    Required<Pick<HTMLProps<HTMLInputElement>, "onChange" | "name">> {
+    Required<Pick<HTMLProps<HTMLInputElement>, "onChange" | "name">>,
+    Partial<FieldProps<T>> {
   disabled: boolean;
-  formik?: Pick<FieldProps<T>, "field" | "meta">;
   label: ReactNode;
   value?: T;
-  meta?: FieldMetaProps<T>;
   onBlur?(e: FocusEvent): void;
   onFocus?(e: FocusEvent): void;
 }
 
 const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
   disabled,
-  formik,
   label,
   name,
-  onBlur,
   onChange,
-  onFocus,
   required,
   type,
   value,
+  field: formikField,
+  form,
+  onFocus,
+  ...props
 }: Props<T>) => {
   const [hasFocus, setHasFocus] = useState(false);
-  const inputProps = formik ?? { field: { value } };
+  const { onBlur, ...field } = formikField ?? { value, ...props };
 
-  const labelAbove =
-    inputProps.field.value === 0 || hasFocus || Boolean(inputProps.field.value);
+  const labelAbove = field.value === 0 || hasFocus || Boolean(field.value);
+  const error = form && "name" in field && form.errors[field.name];
 
   return (
     <Label
       htmlFor={name}
       mt={3}
+      opacity={error ? 0.7 : 1}
       p={2}
       sx={{
         display: "flex",
         position: "relative",
         borderBottomStyle: "solid",
         borderBottomWidth: "3px",
-        borderBottomColor: "greyscale.6",
+        borderBottomColor: hasFocus
+          ? "greyscale.4"
+          : error
+          ? "indicator.error"
+          : "greyscale.6",
         alignItems: "center",
-        ...(hasFocus ? { borderBottomColor: "greyscale.4" } : undefined),
       }}
     >
       <Box
-        opacity={0.5}
         sx={{
+          color: !hasFocus && error ? "indicator.error" : "greyscale.3",
           position: "absolute",
           userSelect: "none",
           ...(labelAbove
             ? {
-                transform: "scale(0.7) translateY(-1.5rem)",
-                transformOrigin: "top left",
+                transform: "scale(0.7) translateY(-160%)",
+                transformOrigin: "left",
                 transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
               }
             : undefined),
@@ -81,18 +85,24 @@ const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
           }
         }}
         required={required}
-        sx={{
-          flex: 1,
-          background: "none",
-          border: "none",
-          outline: "none",
-          "&:invalid": {
-            boxShadow: "none",
-          },
-        }}
         type={type}
-        {...inputProps.field}
+        {...field}
       />
+      {error && (
+        <Box
+          sx={{
+            pt: 2,
+            bottom: 0,
+            right: 0,
+            transform: "translateY(100%)",
+            fontSize: 1,
+            position: "absolute",
+            color: "indicator.error",
+          }}
+        >
+          {error}
+        </Box>
+      )}
     </Label>
   );
 };
