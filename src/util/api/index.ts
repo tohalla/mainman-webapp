@@ -21,7 +21,7 @@ interface ApiCallOptions<K, R> {
 export interface APIError {
   errors: {
     staus: number;
-    details?: string;
+    detail?: string;
     source?: string;
     title?: string;
   }[];
@@ -74,7 +74,10 @@ export const getApiCall = <
   }
 
   if (!res.ok) {
-    throw res;
+    if (responseType === null) {
+      throw res;
+    }
+    throw await res[responseType]();
   }
 
   if (responseType === null) {

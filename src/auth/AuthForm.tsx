@@ -14,8 +14,14 @@ import { inputLabels } from "src/general/messages";
 const AuthForm = () => (
   <Formik
     initialValues={{ email: "", password: "" }}
-    onSubmit={(values, { setSubmitting }) =>
-      authenticate(values).finally(() => setSubmitting(false))
+    onSubmit={(values, { setErrors, setSubmitting }) =>
+      authenticate(values)
+        .catch((res: Response) => {
+          if (res.status === 401) {
+            setErrors({ password: "Invalid credentials" });
+          }
+        })
+        .finally(() => setSubmitting(false))
     }
   >
     <Form
@@ -38,7 +44,7 @@ const AuthForm = () => (
         type="email"
       />
       <Field
-        as={Input}
+        component={Input}
         label={<FormattedMessage {...authenticationMessages.passwordLabel} />}
         name="password"
         required

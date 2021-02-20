@@ -1,4 +1,4 @@
-import callApi, { getApiCall, SetHeader } from "../util/api";
+import callApi from "../util/api";
 
 export interface Account {
   id: number;
@@ -16,11 +16,11 @@ export const authenticate = async (credentials: {
   callApi("/auth", {
     body: credentials,
     method: "POST",
-  }).then(() => {
+  }).then((res) => {
     if (typeof window !== "undefined") {
       window.location.href = "/";
     }
-    return credentials;
+    return res;
   });
 
 export const register = async (
@@ -33,12 +33,11 @@ export const register = async (
   callApi("/accounts", {
     body: account,
     method: "POST",
-  }).then(() => {
-    if (authenticateAfter) {
-      return authenticate({ email: account.email, password: account.password });
-    }
-    return account;
-  });
+  }).then((res) =>
+    authenticateAfter
+      ? authenticate({ email: account.email, password: account.password })
+      : res
+  );
 
 export const signOut = async () => {
   await callApi("/auth", {

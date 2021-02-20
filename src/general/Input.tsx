@@ -1,6 +1,9 @@
 import { FieldProps } from "formik";
 import React, { FocusEvent, HTMLProps, ReactNode, useState } from "react";
+import { FormattedMessage } from "react-intl";
 import { Box, Input as ThemeUIInput, Label } from "theme-ui";
+
+import { errorMessages } from "./messages";
 
 interface Props<T>
   extends Pick<HTMLProps<HTMLInputElement>, "type" | "required">,
@@ -100,7 +103,11 @@ const Input = <T extends HTMLProps<HTMLInputElement>["value"]>({
             color: "indicator.error",
           }}
         >
-          {error}
+          {typeof error === "string" && error in errorMessages ? (
+            <FormattedMessage {...errorMessages[error]} />
+          ) : (
+            error
+          )}
         </Box>
       )}
     </Label>
