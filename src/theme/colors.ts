@@ -30,6 +30,7 @@ const colors: ColorModesScale = {
     success: "#208844",
   },
 
+  neutral: greyscale[4],
   border: {
     neutral: greyscale[5],
   },

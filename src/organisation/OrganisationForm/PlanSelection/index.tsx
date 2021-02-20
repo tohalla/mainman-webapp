@@ -3,6 +3,8 @@ import React from "react";
 import { defineMessages, FormattedMessage, FormattedNumber } from "react-intl";
 import { Card, Flex, Grid } from "theme-ui";
 
+import Disclaimer from "./Disclaimer";
+
 import CardOptions, { CardProps } from "src/general/CardOptions";
 import { Plan } from "src/organisation";
 
@@ -80,16 +82,20 @@ const PlanCard = ({
 );
 
 const PlanSelection = ({ plans }: Props) => (
-  <CardOptions
-    Card={PlanCard}
-    getOptionIdentifier={prop("name")}
-    name="plan"
-    options={plans}
-    sx={{
-      alignSelf: "stretch",
-      gridTemplateColumns: "repeat(auto-fill, minmax(auto, 176px))",
-    }}
-  />
+  <div>
+    <CardOptions
+      Card={PlanCard}
+      getOptionIdentifier={prop("name")}
+      mb="default"
+      name="plan"
+      options={plans}
+      sx={{
+        alignSelf: "stretch",
+        gridTemplateColumns: "repeat(auto-fill, minmax(auto, 176px))",
+      }}
+    />
+    <Disclaimer />
+  </div>
 );
 
 export default PlanSelection;
