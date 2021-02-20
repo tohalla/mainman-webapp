@@ -84,6 +84,7 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
             mx={[3, 5]}
             my={[4, 5]}
             sx={{
+              overflowX: "scroll",
               flex: 1,
               flexDirection: "column",
               alignItems: "flex-start",
