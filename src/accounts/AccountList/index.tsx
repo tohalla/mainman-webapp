@@ -11,6 +11,8 @@ const messages = defineMessages({
   nameColumnHeader: "Name",
   // text for header of email column in account list
   emailColumnHeader: "Email",
+  // text for header of rolee column in account list
+  roleColumnHeader: "Role",
 });
 
 interface Props {
@@ -26,6 +28,12 @@ const columns: Column<PublicAccount>[] = [
   {
     Header: <FormattedMessage {...messages.emailColumnHeader} />,
     accessor: "email",
+    width: 250,
+  },
+  {
+    Header: <FormattedMessage {...messages.roleColumnHeader} />,
+    accessor: ({ role }) => role?.name,
+    id: "role",
   },
 ];
 

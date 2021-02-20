@@ -4,7 +4,13 @@ import { Account } from "src/auth";
 import callApi, { getApiCall, SetHeader } from "src/util/api";
 
 export interface PublicAccount
-  extends Pick<Account, "id" | "email" | "firstName" | "lastName"> {}
+  extends Pick<Account, "id" | "email" | "firstName" | "lastName"> {
+  role?: {
+    name: string;
+    id: number;
+    rights: Record<string, boolean>;
+  };
+}
 
 export interface PendingInvite {
   uuid: string;
