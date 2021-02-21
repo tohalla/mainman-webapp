@@ -3,15 +3,11 @@ import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useMutation, useQueryClient } from "react-query";
 
-import {
-  deleteMaintenanceTrigger,
-  Entity,
-  MaintenanceTrigger as Trigger,
-  maintenanceTriggersKey,
-} from "..";
+import { deleteMaintenanceTrigger, Entity, maintenanceTriggersKey } from "..";
 
 import Button from "src/general/Button";
 import SelectOnClick from "src/general/SelectOnClick";
+import { MaintenanceTrigger as Trigger } from "src/maintenance";
 
 interface Props {
   maintenanceTrigger: Trigger;

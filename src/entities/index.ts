@@ -4,6 +4,7 @@ import callApi, { getApiCall } from "../util/api";
 
 import type { Timestamps } from "src/general";
 import type { Maintainer } from "src/maintainers";
+import { MaintenanceRequest, MaintenanceTrigger } from "src/maintenance";
 import { Organisation } from "src/organisation";
 
 export interface Entity extends Timestamps {
@@ -11,19 +12,6 @@ export interface Entity extends Timestamps {
   name: string;
   description?: string;
   organisation: number;
-}
-
-export interface MaintenanceTrigger {
-  uuid: string;
-  entity: string;
-}
-
-export interface MaintenanceRequest {
-  createdAt: string;
-  createdBy?: number;
-  description?: number;
-  id: number;
-  maintenanceTrigger?: string;
 }
 
 const queryOpts = { key: "uuid" as const, responseType: "json" as const };

@@ -28,7 +28,7 @@ export const redirect = ({
 };
 
 export const isProtectedRoute = (route: string) =>
-  !/^\/(?:auth)\/.*/g.test(route);
+  !/^\/(?:auth|m)\/.*/g.test(route);
 
 export const getParam = curry((key: string, query: BaseRouter["query"]):
   | string

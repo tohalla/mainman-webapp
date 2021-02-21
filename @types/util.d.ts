@@ -1,4 +1,4 @@
 declare type Creatable<T, OmitAdditional extends keyof T = undefined> = Omit<
   T,
-  "createdAt" | "updatedAt" | "id" | "uuid" | OmitAdditional
+  "createdAt" | "updatedAt" | "createdBy" | "id" | "uuid" | OmitAdditional
 >;

@@ -2,14 +2,10 @@ import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useMutation, useQueryClient } from "react-query";
 
-import {
-  createMaintenanceTrigger,
-  Entity,
-  MaintenanceTrigger,
-  maintenanceTriggersKey,
-} from "..";
+import { createMaintenanceTrigger, Entity, maintenanceTriggersKey } from "..";
 
 import Button from "src/general/Button";
+import { MaintenanceTrigger } from "src/maintenance";
 
 interface Props {
   entity: Entity;
