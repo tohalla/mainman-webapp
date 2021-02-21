@@ -1,4 +1,3 @@
-import "isomorphic-unfetch";
 import "normalize.css";
 import "react-toastify/dist/ReactToastify.css";
 

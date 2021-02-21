@@ -9,7 +9,7 @@
     "lint": "eslint './{pages,src}/**/*.ts{,x}'",
     "build": "next build && tsc --project server/tsconfig.json",
     "start": "NODE_ENV=production node dist/index.js",
-    "dev": "nodemon --exec 'ts-node --project server/tsconfig.json server/index.ts' --watch server"
+    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next dev"
   },
   "engineStrict": true,
   "engines": {
@@ -40,7 +40,6 @@
     "downshift": "^6.1.0",
     "formik": "^2.1.7",
     "glob": "^7.1.6",
-    "isomorphic-unfetch": "^3.1.0",
     "next": "^10.0.5",
     "normalize.css": "^8.0.1",
     "ramda": "^0.27.1",
@@ -87,10 +86,8 @@
     "fetch-mock": "^9.10.7",
     "jest": "^26.5.2",
     "next-transpile-modules": "^6.1.0",
-    "nodemon": "^2.0.7",
     "prettier": "^2.1.2",
     "ts-jest": "^26.5.0",
-    "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
   }
 }
