@@ -30,10 +30,7 @@ export interface APIError {
 const host = process.env.NODE_ENV === "development" ? "localhost" : "backend";
 export const apiVer = "v1";
 
-export const apiURL =
-  process.env.NODE_ENV === "development"
-    ? `${process.env.API_PROTOCOL ?? "http"}://${host}:8080`
-    : `https://${host}`;
+export const apiURL = `https://${host}`;
 
 export const getApiCall = <
   T,
