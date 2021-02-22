@@ -73,6 +73,8 @@ const theme: Theme = {
     },
   },
 
+  borderWidths: ["1px"],
+
   links: {},
 
   cards: {
@@ -114,7 +116,7 @@ const theme: Theme = {
     },
     plain: {
       borderRadius: 0,
-      color: "text",
+      color: "inherit",
       p: 0,
       bg: "transparent",
       display: "inline-flex",
