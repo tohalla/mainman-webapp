@@ -88,7 +88,7 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
               flex: 1,
               flexDirection: "column",
               alignItems: "flex-start",
-              h1: { m: 0 },
+              "> h1": { m: 0 },
             }}
           >
             {isTransitioning ? (

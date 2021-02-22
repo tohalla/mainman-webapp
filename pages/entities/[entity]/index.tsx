@@ -9,6 +9,7 @@ import { entityKey, fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";
 import MaintenanceRequests from "src/entities/MaintenanceRequests";
+import MaintenanceSettings from "src/entities/MaintenanceSettings";
 import MaintenanceTriggers from "src/entities/MaintenanceTriggers";
 import CollapsibleSection from "src/general/CollapsibleSection";
 import Loadadble from "src/general/Loadadble";
@@ -22,6 +23,8 @@ const messages = defineMessages({
   editEntity: "Edit",
   // title for maintenance section
   maintenanceTitle: "Maintenance",
+  // title text for maintenance settings section
+  maintenanceSettingsTilte: "Maintenance settings",
   // title text for maintenance triggers section
   triggersTitle: "Triggers",
   // title text for maintainers section
@@ -55,6 +58,16 @@ const EntityPage: Page = () => {
       </Flex>
       <FormattedMessage {...messages.maintenanceTitle} tagName="h2" />
       <MaintenanceRequests entity={entity} />
+      <CollapsibleSection
+        title={
+          <FormattedMessage
+            {...messages.maintenanceSettingsTilte}
+            tagName="h3"
+          />
+        }
+      >
+        <MaintenanceSettings entity={entity} />
+      </CollapsibleSection>
       <CollapsibleSection
         title={<FormattedMessage {...messages.triggersTitle} tagName="h3" />}
       >
