@@ -105,7 +105,7 @@ const theme: Theme = {
       bg: "primary",
       borderRadius: 0,
       "&:hover": {
-        bg: "primaryDark",
+        bg: "primary.dark",
       },
       ":disabled": {
         bg: "greyscale.4",

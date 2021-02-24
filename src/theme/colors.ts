@@ -17,9 +17,16 @@ const greyscale = [
 const colors: ColorModesScale = {
   greyscale,
 
-  accent: "#ff7400",
-  primary: "#415C76",
-  primaryDark: "#34495e",
+  accent: {
+    dark: "#d05e00",
+    light: "#ff831d",
+    __default: "#ff7400",
+  },
+  primary: {
+    __default: "#415C76",
+    dark: "#34495e",
+    light: "#577C9E",
+  },
   text: greyscale[0],
   textInvert: greyscale[greyscale.length - 2],
 
