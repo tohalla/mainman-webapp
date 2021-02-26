@@ -1,6 +1,6 @@
 import React, { useMemo, ReactNode } from "react";
 import { useQuery } from "react-query";
-import { Flex, Text } from "theme-ui";
+import { Flex, Heading, Text } from "theme-ui";
 
 import { LayoutProps } from "..";
 
@@ -47,7 +47,13 @@ const WithHeading = ({ children, title, description }: Props) => {
               justifyContent: "space-between",
             }}
           >
-            {title ? <h1>{title}</h1> : <span />}
+            {title ? (
+              <Heading as="h1" p={0}>
+                {title}
+              </Heading>
+            ) : (
+              <span />
+            )}
             {view === "multiple" && (
               <Text variant="subdued">
                 <OrganisationSelect />

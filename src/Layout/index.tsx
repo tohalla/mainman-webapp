@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { ReactNode, useEffect, useState } from "react";
-import { Flex, Box } from "theme-ui";
+import { Flex, Box, Heading } from "theme-ui";
 
 import MainNavigation from "../general/Navigation/MainNavigation";
 
@@ -33,7 +33,11 @@ export const DefaultContentWrapper: Props["ContentWrapper"] = ({
 }) => (
   <>
     <Box mb={5}>
-      {title && <h1>{title}</h1>}
+      {title && (
+        <Heading as="h1" m={0}>
+          {title}
+        </Heading>
+      )}
       {description && <p>{description}</p>}
     </Box>
     {renderContent?.(children) ?? children}
@@ -88,7 +92,6 @@ const DefaultLayout = ({ children, layoutProps, ContentWrapper }: Props) => {
               flex: 1,
               flexDirection: "column",
               alignItems: "flex-start",
-              "> h1": { m: 0 },
             }}
           >
             {isTransitioning ? (

@@ -55,6 +55,9 @@ const theme: Theme = {
     subdued: {
       color: "greyscale.3",
     },
+    heading: {
+      fontFamily: "inherit",
+    },
   },
 
   shadows: {
