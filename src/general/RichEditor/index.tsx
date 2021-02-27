@@ -1,27 +1,45 @@
-import { Editor, EditorState } from "draft-js";
 import React, { useRef, useState } from "react";
-import { Box, Flex } from "theme-ui";
+import { createEditor, Node } from "slate";
+import { withHistory } from "slate-history";
+import { Editable, Slate, withReact } from "slate-react";
+import { Flex, Box } from "theme-ui";
 
+import Element from "./Element";
+import Leaf from "./Leaf";
 import Toolbar from "./Toolbar";
 
 const RichEditor = () => {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const editorEl = useRef<Editor>(null);
+  const editor = useRef(withHistory(withReact(createEditor())));
+  const [value, setValue] = useState<Node[]>([
+    {
+      type: "paragraph",
+      children: [
+        { text: "This is editable " },
+        { text: "rich", bold: true },
+        { text: " text, " },
+        { text: "much", italic: true },
+        { text: " better than a " },
+        { text: "<textarea>", code: true },
+        { text: "!" },
+      ],
+    },
+  ]);
 
   return (
-    <Flex sx={{ flexDirection: "column", alignSelf: "stretch" }}>
-      <Toolbar editorState={editorState} onChange={setEditorState} />
-      <Box
-        onClick={() => editorEl.current?.focus()}
-        sx={{ backgroundColor: "greyscale.9", p: 3 }}
-      >
-        <Editor
-          ref={editorEl}
-          editorState={editorState}
-          onChange={setEditorState}
-        />
-      </Box>
-    </Flex>
+    <Slate editor={editor.current} onChange={setValue} value={value}>
+      <Flex sx={{ flexDirection: "column", alignSelf: "stretch" }}>
+        <Toolbar />
+        <Box
+          sx={{
+            backgroundColor: "greyscale.9",
+            p: 3,
+            "p:last-of-type": { mb: 0 },
+          }}
+        >
+          <Editable renderElement={Element} renderLeaf={Leaf} spellCheck />
+        </Box>
+      </Flex>
+    </Slate>
   );
 };
 
