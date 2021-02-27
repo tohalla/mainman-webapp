@@ -18,31 +18,43 @@ const messages = defineMessages({
 });
 
 const Group = ({ children, sx, ...props }: FlexProps) => (
-  <Flex sx={{ alignItems: "center", "& + &": { ml: 5 }, ...sx }} {...props}>
+  <Flex
+    sx={{ alignItems: "center", "&:not(:first-child)": { ml: [0, 5] }, ...sx }}
+    {...props}
+  >
     {children}
   </Flex>
 );
 
 const Toolbar = () => (
-  <Flex sx={{ backgroundColor: "greyscale.0", p: 2, alignItems: "center" }}>
-    <Group>
-      <InlineStyleButton format="bold">
-        <FaBold />
-      </InlineStyleButton>
-      <InlineStyleButton format="italic">
-        <FaItalic />
-      </InlineStyleButton>
-      <InlineStyleButton format="underline">
-        <FaUnderline />
-      </InlineStyleButton>
-    </Group>
-    <Group>
-      <BlockStyleButton format="ordered-list">
-        <FaListOl />
-      </BlockStyleButton>
-      <BlockStyleButton format="unordered-list">
-        <FaListUl />
-      </BlockStyleButton>
+  <Flex
+    sx={{
+      backgroundColor: "greyscale.0",
+      p: 2,
+      alignItems: ["stretch", "center"],
+      flexDirection: ["column", "row"],
+    }}
+  >
+    <Group sx={{ justifyContent: ["space-between", "inherit"] }}>
+      <Group>
+        <InlineStyleButton format="bold">
+          <FaBold />
+        </InlineStyleButton>
+        <InlineStyleButton format="italic">
+          <FaItalic />
+        </InlineStyleButton>
+        <InlineStyleButton format="underline">
+          <FaUnderline />
+        </InlineStyleButton>
+      </Group>
+      <Group>
+        <BlockStyleButton format="ordered-list">
+          <FaListOl />
+        </BlockStyleButton>
+        <BlockStyleButton format="unordered-list">
+          <FaListUl />
+        </BlockStyleButton>
+      </Group>
     </Group>
     <Group>
       <BlockStyleButton format="blockquote">

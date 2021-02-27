@@ -22,12 +22,12 @@ export const ToolbarButton = ({
       onMouseDown?.(event);
     }}
     sx={{
+      flexShrink: 0,
       p: 2,
       px: 3,
       color: isActive ? "greyscale.9" : "greyscale.6",
       textDecoration: "none",
       "&:hover": "accent",
-      lineHeight: "1px",
       ...sx,
     }}
     variant="plain"
