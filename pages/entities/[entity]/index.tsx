@@ -33,10 +33,10 @@ const messages = defineMessages({
 
 const EntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
+  const uuid = useParam("entity");
   const { data: entity } = useQuery(
-    entityKey(useParam("entity")),
-    ({ queryKey: [_, uuid] }) =>
-      activeOrganisation && fetchEntity(activeOrganisation.id, uuid),
+    entityKey(activeOrganisation?.id, uuid),
+    () => fetchEntity(activeOrganisation?.id, uuid),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 

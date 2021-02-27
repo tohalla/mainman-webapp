@@ -20,10 +20,10 @@ const messages = defineMessages({
 const EditEntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { push, query } = useRouter();
+  const uuid = getParam("entity", query);
   const { data: entity } = useQuery(
-    entityKey(getParam("entity", query)),
-    ({ queryKey: [_, uuid] }) =>
-      activeOrganisation && fetchEntity(activeOrganisation.id, uuid),
+    entityKey(activeOrganisation?.id, uuid),
+    () => fetchEntity(activeOrganisation?.id, uuid),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 

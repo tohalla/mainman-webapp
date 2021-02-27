@@ -30,7 +30,7 @@ const EntityForm = ({ entity, onSubmit, organisation }: Props) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(entity ? updateEntity : createEntity, {
     onSuccess: (data) => {
-      queryClient.setQueryData(entityKey(data.uuid), data);
+      queryClient.setQueryData(entityKey(organisation.id, data.uuid), data);
       queryClient.setQueryData<Record<string, Entity>>(
         organisationEntitiesKey(organisation.id),
         (prev) => ({

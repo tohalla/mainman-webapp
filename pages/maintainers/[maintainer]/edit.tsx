@@ -14,10 +14,10 @@ import { getParam } from "src/util/routing";
 const EditMaintainerPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const { push, query } = useRouter();
+  const id = Number(getParam("maintainer", query));
   const { data: maintainer } = useQuery(
-    maintainerKey(getParam("maintainer", query)),
-    ({ queryKey: [_, uuid] }) =>
-      activeOrganisation && fetchMaintainer(activeOrganisation.id, uuid),
+    maintainerKey(id),
+    () => fetchMaintainer(activeOrganisation?.id, id),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 

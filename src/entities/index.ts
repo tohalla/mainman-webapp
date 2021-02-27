@@ -5,7 +5,7 @@ import callApi, { getApiCall } from "../util/api";
 import type { Timestamps } from "src/general";
 import type { Maintainer } from "src/maintainers";
 import { MaintenanceRequest, MaintenanceTrigger } from "src/maintenance";
-import { Organisation } from "src/organisation";
+import { Organisation, organisationKey } from "src/organisation";
 
 export interface Entity extends Timestamps {
   uuid: string;
@@ -16,10 +16,12 @@ export interface Entity extends Timestamps {
 
 const queryOpts = { key: "uuid" as const, responseType: "json" as const };
 
-export const fetchEntity = (organisation: number, uuid: string) =>
-  getApiCall<Entity>(`/organisations/${organisation}/entities/${uuid}`)(
-    queryOpts
-  );
+export const fetchEntity = (organisation?: number, uuid?: string) =>
+  typeof organisation === "undefined" || typeof uuid === "undefined"
+    ? Promise.reject()
+    : getApiCall<Entity>(`/organisations/${organisation}/entities/${uuid}`)(
+        queryOpts
+      );
 
 export const fetchEntities = (organisation: number) =>
   getApiCall<Entity, Record<string, Entity>>(
@@ -66,7 +68,11 @@ export const organisationEntitiesKey = (organisation?: number) => [
   "entities",
 ];
 
-export const entityKey = (entity?: string) => ["entities", entity];
+export const entityKey = (organisation?: number, entity?: string) => [
+  ...organisationKey(organisation),
+  "entities",
+  entity,
+];
 
 // maintenance
 

@@ -27,10 +27,10 @@ const messages = defineMessages({
 
 const MaintainerPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
+  const id = Number(useParam("maintainer"));
   const { data: maintainer } = useQuery(
-    maintainerKey(Number(useParam("maintainer"))),
-    ({ queryKey: [_, id] }) =>
-      activeOrganisation && fetchMaintainer(activeOrganisation.id, id),
+    maintainerKey(id),
+    () => fetchMaintainer(activeOrganisation?.id, id),
     { enabled: typeof activeOrganisation !== "undefined" }
   );
 

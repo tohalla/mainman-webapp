@@ -18,11 +18,15 @@ export type Maintainer = Timestamps & {
   organisation: number;
 };
 
-export const fetchMaintainer = (organisation: number, id: number) =>
-  getApiCall<Maintainer>(`/organisations/${organisation}/maintainers/${id}`)({
-    responseType: "json",
-    key: "id",
-  });
+export const fetchMaintainer = (organisation?: number, id?: number) =>
+  typeof organisation === "undefined" || typeof id === "undefined"
+    ? Promise.reject()
+    : getApiCall<Maintainer>(
+        `/organisations/${organisation}/maintainers/${id}`
+      )({
+        responseType: "json",
+        key: "id",
+      });
 
 export const fetchMaintainers = (organisation: number) =>
   getApiCall<Maintainer, Record<string, Maintainer>>(
