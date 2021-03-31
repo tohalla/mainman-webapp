@@ -19,7 +19,11 @@ const messages = defineMessages({
 
 const Group = ({ children, sx, ...props }: FlexProps) => (
   <Flex
-    sx={{ alignItems: "center", "&:not(:first-child)": { ml: [0, 5] }, ...sx }}
+    sx={{
+      alignItems: "center",
+      "&:not(:first-of-type)": { ml: [0, 5] },
+      ...sx,
+    }}
     {...props}
   >
     {children}
