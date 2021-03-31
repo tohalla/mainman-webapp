@@ -27,7 +27,7 @@ import DefaultLayout, {
 } from "src/Layout";
 import theme from "src/theme";
 import { onError } from "src/util/intl";
-import { redirect, isProtectedRoute } from "src/util/routing";
+import { redirect, isPublicRoute } from "src/util/routing";
 
 type Context = AppContext & {
   ctx: ServerContext;
@@ -104,7 +104,7 @@ App.getInitialProps = async ({ Component, ctx }) => {
       redirect({
         ctx,
         location: "/auth",
-        condition: isProtectedRoute,
+        condition: isPublicRoute,
       })
     );
 

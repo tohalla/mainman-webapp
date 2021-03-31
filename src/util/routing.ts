@@ -27,8 +27,8 @@ export const redirect = ({
   void Router.replace(location).catch();
 };
 
-export const isProtectedRoute = (route: string) =>
-  !/^\/(?:auth|m)\/.*/g.test(route);
+export const isPublicRoute = (route: string) =>
+  /^\/(?:auth|m)(?:\/.*)?/g.test(route);
 
 export const getParam = curry((key: string, query: BaseRouter["query"]):
   | string
