@@ -104,7 +104,7 @@ App.getInitialProps = async ({ Component, ctx }) => {
       redirect({
         ctx,
         location: "/auth",
-        condition: isPublicRoute,
+        condition: (route) => !isPublicRoute(route),
       })
     );
 

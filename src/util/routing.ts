@@ -13,7 +13,7 @@ export const redirect = ({
   condition?(route: string): boolean;
 }): void => {
   const route = ctx?.req?.url ?? Router.route;
-  if (typeof condition === "function" && !condition(route)) {
+  if (!condition?.(route)) {
     return;
   }
   if (ctx?.res) {
