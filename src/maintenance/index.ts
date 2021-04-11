@@ -32,3 +32,14 @@ export const maintenanceTriggerKey = (uuid: string) => [
   "maintenance-triggers",
   uuid,
 ];
+
+export const fetchMaintenanceRequestTemplate = (uuid: string) =>
+  getApiCall(`/maintenance/${uuid}/template`)({
+    responseType: "text",
+  });
+
+export const maintenanceRequestTemplateKey = (uuid: string) => [
+  "maintenance-triggers",
+  uuid,
+  "template",
+];
