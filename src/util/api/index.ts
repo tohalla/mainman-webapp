@@ -12,8 +12,8 @@ export type SetHeader = (
   value: number | string | string[]
 ) => void;
 
-interface ApiCallOptions<K, R> {
-  key: K | null;
+interface ApiCallOptions<K, R extends "json" | "text" | null> {
+  key?: K | null;
   responseType?: R;
   setHeader?: SetHeader;
 }
@@ -47,7 +47,9 @@ export const getApiCall = <
   responseType = "json",
   key,
   setHeader,
-}: ApiCallOptions<K, R>): Promise<R extends string ? U : Response> => {
+}: ApiCallOptions<K, R>): Promise<
+  R extends "json" ? U : R extends "text" ? string : Response
+> => {
   const res = await fetch(
     `${apiURL}/api/${apiVer}${path.endsWith("/") ? path.slice(0, -1) : path}`,
     {
@@ -77,11 +79,14 @@ export const getApiCall = <
     throw await res[responseType]();
   }
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   if (responseType === null) {
-    return res as R extends string ? U : Response;
+    return res as any;
   }
-
-  const { data: payload } = await res[responseType]();
+  if (responseType === "text") {
+    return res.text() as any;
+  }
+  const { data: payload } = await res.json();
   return transformKeys<U>(
     (input) =>
       // need for custom opts as e.g. uuids are used as keys
@@ -90,7 +95,8 @@ export const getApiCall = <
         stripRegexp: /[^A-Z0-9-]/gi,
       }),
     key && Array.isArray(payload) ? indexByProp<T>(key)(payload) : payload
-  ) as R extends string ? U : Response;
+  ) as any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 };
 
 const callApi = (...args: Parameters<typeof getApiCall>) =>
