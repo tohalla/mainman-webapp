@@ -1,3 +1,4 @@
+import { snakeCase } from "change-case";
 import { useEffect } from "react";
 
 import { apiURL, apiVer } from "src/util/api";
@@ -35,7 +36,7 @@ const useEvents = ({
     }
     Object.entries(listeners).forEach(([name, listener]) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      source.addEventListener(name as any, listener.onMessage);
+      source.addEventListener(snakeCase(name) as any, listener.onMessage);
     });
 
     return () => {
@@ -44,7 +45,7 @@ const useEvents = ({
       }
       Object.entries(listeners).forEach(([name, listener]) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        source.removeEventListener(name as any, listener.onMessage);
+        source.removeEventListener(snakeCase(name) as any, listener.onMessage);
       });
     };
   }, [onMessage, listeners]);

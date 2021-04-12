@@ -2,14 +2,10 @@ import React from "react";
 import { useQuery, useQueryClient } from "react-query";
 import { Box, Flex } from "theme-ui";
 
-import {
-  Entity,
-  fetchMaintenanceRequests,
-  MaintenanceRequest,
-  maintenanceRequestsKey,
-} from "..";
+import { Entity, fetchMaintenanceRequests, maintenanceRequestsKey } from "..";
 
 import useEvents from "src/hooks/useEvents";
+import { MaintenanceRequest } from "src/maintenance";
 
 interface Props {
   entity: Entity;
