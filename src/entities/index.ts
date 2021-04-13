@@ -78,19 +78,19 @@ export const entityKey = (organisation?: number, entity?: string) => [
 
 export const fetchMaintenanceTriggers = (entity: Entity) =>
   getApiCall<MaintenanceTrigger, Record<string, MaintenanceTrigger>>(
-    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers`,
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/triggers`,
     { method: "GET" }
   )(queryOpts);
 
 export const fetchMaintenanceRequests = (entity: Entity) =>
   getApiCall<MaintenanceRequest, Record<string, MaintenanceRequest>>(
-    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-requests`,
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/requests`,
     { method: "GET" }
   )({ responseType: "json", key: "id" });
 
 export const createMaintenanceTrigger = (entity: Entity) =>
   getApiCall<MaintenanceTrigger>(
-    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers`,
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/triggers`,
     { method: "POST" }
   )(queryOpts);
 
@@ -102,20 +102,20 @@ export const deleteMaintenanceTrigger = ({
   maintenanceTrigger: MaintenanceTrigger;
 }) =>
   callApi(
-    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance-triggers/${uuid}`,
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/triggers/${uuid}`,
     { method: "DELETE" }
   );
 
 export const maintenanceRequestsKey = (entity: string) => [
   "entities",
   entity,
-  "maintenance-requests",
+  "maintenance/requests",
 ];
 
 export const maintenanceTriggersKey = (entity: string) => [
   "entities",
   entity,
-  "maintenance-triggers",
+  "maintenance/triggers",
 ];
 
 export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
