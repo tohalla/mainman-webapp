@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { Editor, Element } from "slate";
-import { useEditor } from "slate-react";
+import { useSlateStatic } from "slate-react";
 
 import { BlockStyleButton, ToolbarButton } from "./buttons";
 
@@ -14,9 +14,9 @@ const messages = defineMessages({
 
 const Headings = () => {
   const [isExpanded, toggleIsExpanded] = useToggle(false);
-  const editor = useEditor();
+  const slate = useSlateStatic();
   const isActive = Boolean(
-    Editor.nodes(editor, {
+    Editor.nodes(slate, {
       match: (n) =>
         !Editor.isEditor(n) &&
         Element.isElement(n) &&

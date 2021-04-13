@@ -1,12 +1,9 @@
-import { Editor, Element, Transforms } from "slate";
-import { ReactEditor } from "slate-react";
-
-import { ElementFormat } from "../Element";
+import { Editor, Element, ElementFormat, Transforms } from "slate";
 
 const LIST_TYPES = ["ordered-list", "unordered-list"];
 
 export const toggleBlockStyle = (
-  editor: ReactEditor,
+  editor: Editor,
   { format, isActive }: { format: ElementFormat; isActive: boolean }
 ) => {
   // need to unwrap all active list items before doing anything

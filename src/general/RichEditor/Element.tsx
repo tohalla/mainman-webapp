@@ -1,19 +1,6 @@
 import React from "react";
 import { RenderElementProps } from "slate-react";
 
-export type ElementFormat =
-  | "blockquote"
-  | "heading-one"
-  | "heading-two"
-  | "heading-three"
-  | "heading-four"
-  | "heading-five"
-  | "heading-six"
-  | "unordered-list"
-  | "ordered-list"
-  | "list-item"
-  | "paragraph";
-
 const Element = ({ attributes, children, element }: RenderElementProps) => {
   switch (element.type) {
     case "blockquote":

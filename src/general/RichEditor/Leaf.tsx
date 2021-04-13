@@ -1,8 +1,6 @@
 import React from "react";
 import { RenderLeafProps } from "slate-react";
 
-export type LeafFormat = "italic" | "bold" | "underline";
-
 const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   let content = children;
   if (leaf.bold) {

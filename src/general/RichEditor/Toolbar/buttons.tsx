@@ -1,10 +1,7 @@
 import React from "react";
-import { Editor, Element } from "slate";
+import { Editor, Element, ElementFormat, LeafFormat } from "slate";
 import { useSlate } from "slate-react";
 import { ButtonProps } from "theme-ui";
-
-import { ElementFormat } from "../Element";
-import { LeafFormat } from "../Leaf";
 
 import { toggleBlockStyle } from "./util";
 
