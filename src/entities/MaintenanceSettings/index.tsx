@@ -8,7 +8,7 @@ interface Props {
   entity: Entity;
 }
 
-const MaintenanceSettings = ({ entity }: Props) => {
+const MaintenanceSettings = (_: Props) => {
   return <RichEditor />;
 };
 

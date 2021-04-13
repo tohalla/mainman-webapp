@@ -1,4 +1,3 @@
-import { dissoc } from "ramda";
 import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useMutation, useQueryClient } from "react-query";
@@ -25,7 +24,7 @@ const MaintenanceTrigger = ({ entity, maintenanceTrigger }: Props) => {
     onSuccess: () => {
       queryClient.setQueryData<Record<string, Trigger>>(
         maintenanceTriggersKey(entity.uuid),
-        dissoc(maintenanceTrigger.uuid)
+        ({ [maintenanceTrigger.uuid]: _, ...triggers } = {}) => triggers
       );
     },
   });

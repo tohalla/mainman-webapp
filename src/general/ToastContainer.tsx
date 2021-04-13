@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from "react";
+import React, { MouseEventHandler } from "react";
 import { FaTimes } from "react-icons/fa";
 import {
   ToastContainer as ToastifyToastContainer,
@@ -10,7 +10,7 @@ interface CloseButtonProps {
   closeToast: MouseEventHandler;
 }
 
-const CloseButton: FC<CloseButtonProps> = ({ closeToast }) => (
+const CloseButton = ({ closeToast }: CloseButtonProps) => (
   <FaTimes onClick={closeToast} />
 );
 

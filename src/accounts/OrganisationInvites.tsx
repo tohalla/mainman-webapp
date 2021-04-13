@@ -1,4 +1,4 @@
-import { dissoc, isEmpty } from "ramda";
+import { isEmpty } from "ramda";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { useMutation, useQuery, useQueryClient } from "react-query";
@@ -25,7 +25,7 @@ const Invite = ({ invite }: { invite: PendingInvite }) => {
     onSuccess: () => {
       queryClient.setQueryData<Record<string, PendingInvite>>(
         organisationInvitesKey(invite.organisation),
-        dissoc(invite.uuid)
+        ({ [invite.uuid]: _, ...invites } = {}) => invites
       );
     },
   });

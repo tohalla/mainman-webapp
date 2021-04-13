@@ -1,4 +1,3 @@
-import { dissoc } from "ramda";
 import React, { useRef } from "react";
 import { FaBell } from "react-icons/fa";
 import { defineMessages, FormattedMessage } from "react-intl";
@@ -36,7 +35,7 @@ const Invite = ({
     onSuccess: () => {
       queryClient.setQueryData<Record<string, PendingInvite>>(
         invitesKey,
-        dissoc(invite.uuid)
+        ({ [invite.uuid]: _, ...invites } = {}) => invites
       );
     },
   });
@@ -44,7 +43,7 @@ const Invite = ({
     onSuccess: () => {
       queryClient.setQueryData<Record<string, PendingInvite>>(
         invitesKey,
-        dissoc(invite.uuid)
+        ({ [invite.uuid]: _, ...invites } = {}) => invites
       );
     },
   });
