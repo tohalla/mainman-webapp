@@ -6,7 +6,7 @@ import { Props } from ".";
 import Loadable from "src/general/Loadadble";
 
 const PlainLayout = ({ children }: Pick<Props, "children">) => (
-  <Flex sx={{ flexDirection: "column", m: 5 }}>
+  <Flex sx={{ flex: 1, flexDirection: "column", m: 5 }}>
     <Loadable>{children}</Loadable>
   </Flex>
 );

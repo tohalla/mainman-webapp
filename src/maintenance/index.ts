@@ -15,7 +15,7 @@ export interface MaintenanceRequest {
 }
 
 export const fetchMaintenanceTrigger = (uuid: string) =>
-  getApiCall<MaintenanceTrigger>(`/maintenance/${uuid}`)({
+  getApiCall<MaintenanceTrigger>(`/maintenance/triggers/${uuid}`)({
     key: "uuid",
     responseType: "json",
   });
@@ -24,7 +24,7 @@ export const createMaintenanceRequest = (
   maintenanceRequest: Required<Creatable<MaintenanceRequest>>
 ) =>
   getApiCall<MaintenanceRequest>(
-    `/maintenance/${maintenanceRequest.maintenanceTrigger}`,
+    `/maintenance/triggers/${maintenanceRequest.maintenanceTrigger}`,
     { method: "POST", body: maintenanceRequest }
   )({ key: "id", responseType: "json" });
 
@@ -34,7 +34,7 @@ export const maintenanceTriggerKey = (uuid: string) => [
 ];
 
 export const fetchMaintenanceRequestTemplate = (uuid: string) =>
-  getApiCall(`/maintenance/${uuid}/template`)({
+  getApiCall(`/maintenance/triggers/${uuid}/template`)({
     responseType: "text",
   });
 
