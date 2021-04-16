@@ -66,7 +66,7 @@ const Header = <T extends object>({
         width: "15px",
       }}
       title=""
-      {...column.getResizerProps()}
+      {...column.getResizerProps?.()}
     />
   </Flex>
 );
