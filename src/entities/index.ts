@@ -112,13 +112,15 @@ export const deleteMaintenanceTrigger = ({
 export const maintenanceRequestsKey = (entity: string) => [
   "entities",
   entity,
-  "maintenance/requests",
+  "maintenance",
+  "requests",
 ];
 
 export const maintenanceTriggersKey = (entity: string) => [
   "entities",
   entity,
-  "maintenance/triggers",
+  "maintenance",
+  "triggers",
 ];
 
 export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>

@@ -29,7 +29,7 @@ const MaintenanceRequestRow = ({ maintenanceRequest, entity }: Props) => {
   >((event) => createMaintenanceEvent(entity, event), {
     onSuccess: (event) => {
       queryClient.setQueryData<Record<string, MaintenanceEvent>>(
-        maintenanceEventsKey(event.id),
+        maintenanceEventsKey,
         (prev) => ({ ...prev, [event.id]: event })
       );
       if (event.maintenanceRequest) {

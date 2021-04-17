@@ -43,7 +43,8 @@ export const createMaintenanceRequest = (
   )({ key: "id", responseType: "json" });
 
 export const maintenanceTriggerKey = (uuid: string) => [
-  "maintenance/triggers",
+  "maintenance",
+  "triggers",
   uuid,
 ];
 
@@ -53,7 +54,8 @@ export const fetchMaintenanceRequestTemplate = (uuid: string) =>
   });
 
 export const maintenanceRequestTemplateKey = (uuid: string) => [
-  "maintenance/triggers",
+  "maintenance",
+  "triggers",
   uuid,
   "template",
 ];
@@ -67,4 +69,4 @@ export const createMaintenanceEvent = (
     { method: "POST", body: payload }
   )({ key: "id", responseType: "json" });
 
-export const maintenanceEventsKey = (id: number) => ["maintenance/events", id];
+export const maintenanceEventsKey = ["maintenance", "events"];
