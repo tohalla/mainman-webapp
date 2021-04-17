@@ -42,6 +42,7 @@ export const getApiCall = <
     body?: V;
     headers?: RequestInit["headers"];
     method?: ApiMethods;
+    query?: Record<string, QueryParamType[] | QueryParamType>;
   } = {}
 ) => async <K extends keyof T, R extends "json" | "text" | null>({
   responseType = "json",
@@ -51,7 +52,9 @@ export const getApiCall = <
   R extends "json" ? U : R extends "text" ? string : Response
 > => {
   const res = await fetch(
-    `${apiURL}/api/${apiVer}${path.endsWith("/") ? path.slice(0, -1) : path}`,
+    `${apiURL}/api/${apiVer}${
+      path.endsWith("/") ? path.slice(0, -1) : path
+    }${formatQuery(query)}`,
     {
       method: config.method ?? "GET",
       body: config.body
