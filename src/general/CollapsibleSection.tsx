@@ -1,26 +1,34 @@
 import React, { ReactFragment, ReactNode } from "react";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
-import { Flex } from "theme-ui";
+import { Flex, FlexProps } from "theme-ui";
 
 import Button from "./Button";
 import Loadable from "./Loadadble";
 
 import useToggle from "src/hooks/useToggle";
 
-interface Props {
+interface Props extends Omit<FlexProps, "title"> {
   children: ReactFragment;
-  title: ReactNode;
   initialExpand: boolean;
+  title: ReactNode;
 }
 
-const CollapsibleSection = ({ children, title, initialExpand }: Props) => {
+const CollapsibleSection = ({
+  children,
+  title,
+  initialExpand,
+  sx,
+  ...props
+}: Props) => {
   const [expand, toggleExpand] = useToggle(initialExpand);
   return (
     <Flex
+      {...props}
       sx={{
         flexDirection: "column",
         alignItems: "flex-start",
         alignSelf: "stretch",
+        ...sx,
       }}
     >
       <Button
