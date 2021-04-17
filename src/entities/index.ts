@@ -12,6 +12,9 @@ export interface Entity extends Timestamps {
   name: string;
   description?: string;
   organisation: number;
+  pendingRequests?: number;
+  unfinishedEvents?: number;
+  finishedEvents?: number;
 }
 
 const queryOpts = { key: "uuid" as const, responseType: "json" as const };
