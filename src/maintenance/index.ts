@@ -33,7 +33,9 @@ export const fetchMaintenanceTrigger = (uuid: string) =>
   });
 
 export const createMaintenanceRequest = (
-  maintenanceRequest: Required<Creatable<MaintenanceRequest>>
+  maintenanceRequest: Required<
+    Creatable<Omit<MaintenanceRequest, "processedAt">>
+  >
 ) =>
   getApiCall<MaintenanceRequest>(
     `/maintenance/triggers/${maintenanceRequest.maintenanceTrigger}`,
