@@ -1,3 +1,4 @@
+import type { Entity } from "src/entities";
 import { getApiCall } from "src/util/api";
 
 export interface MaintenanceTrigger {
@@ -12,6 +13,17 @@ export interface MaintenanceRequest {
   description?: string;
   id: number;
   maintenanceTrigger?: string;
+  processedAt?: string;
+}
+
+export interface MaintenanceEvent {
+  id: number;
+  createdAt: string;
+  updatedAt?: string;
+  resolvedAt?: string;
+  description?: string;
+  maintenanceRequest?: number;
+  entity: string;
 }
 
 export const fetchMaintenanceTrigger = (uuid: string) =>
@@ -43,3 +55,14 @@ export const maintenanceRequestTemplateKey = (uuid: string) => [
   uuid,
   "template",
 ];
+
+export const createMaintenanceEvent = (
+  entity: Entity,
+  payload: Creatable<MaintenanceEvent>
+) =>
+  getApiCall<MaintenanceEvent>(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/events`,
+    { method: "POST", body: payload }
+  )({ key: "id", responseType: "json" });
+
+export const maintenanceEventsKey = (id: number) => ["maintenance/events", id];

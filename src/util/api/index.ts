@@ -54,7 +54,7 @@ export const getApiCall = <
   const res = await fetch(
     `${apiURL}/api/${apiVer}${
       path.endsWith("/") ? path.slice(0, -1) : path
-    }${formatQuery(query)}`,
+    }${formatQuery(config.query)}`,
     {
       method: config.method ?? "GET",
       body: config.body

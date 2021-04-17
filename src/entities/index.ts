@@ -88,7 +88,7 @@ export const fetchMaintenanceTriggers = (entity: Entity) =>
 export const fetchMaintenanceRequests = (entity: Entity) =>
   getApiCall<MaintenanceRequest, Record<string, MaintenanceRequest>>(
     `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/requests`,
-    { method: "GET" }
+    { method: "GET", query: { processed: false } }
   )({ responseType: "json", key: "id" });
 
 export const createMaintenanceTrigger = (entity: Entity) =>

@@ -23,6 +23,8 @@ const messages = defineMessages({
   editEntity: "Edit",
   // title for maintenance section
   maintenanceTitle: "Maintenance",
+  // title for pending maintenance requests section
+  pendingMaintenanceRequestsTitle: "Pending requests",
   // title text for maintenance settings section
   maintenanceSettingsTilte: "Maintenance settings",
   // title text for maintenance triggers section
@@ -57,7 +59,17 @@ const EntityPage: Page = () => {
         </Link>
       </Flex>
       <FormattedMessage {...messages.maintenanceTitle} tagName="h2" />
-      <MaintenanceRequests entity={entity} />
+      <CollapsibleSection
+        initialExpand
+        title={
+          <FormattedMessage
+            {...messages.pendingMaintenanceRequestsTitle}
+            tagName="h3"
+          />
+        }
+      >
+        <MaintenanceRequests entity={entity} />
+      </CollapsibleSection>
       <CollapsibleSection
         title={
           <FormattedMessage

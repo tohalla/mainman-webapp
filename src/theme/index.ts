@@ -60,7 +60,6 @@ const theme: Theme = {
     },
     heading: {
       fontFamily: "inherit",
-      mt: "default",
     },
   },
 
