@@ -14,6 +14,7 @@ export interface MaintenanceRequest {
   id: number;
   maintenanceTrigger?: string;
   processedAt?: string;
+  entity: string;
 }
 
 export interface MaintenanceEvent {

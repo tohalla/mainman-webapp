@@ -51,7 +51,11 @@ const MaintenanceRequestForm = ({
       }}
       onSubmit={(values, { setSubmitting }) =>
         mutate(
-          { maintenanceTrigger: maintenanceTrigger.uuid, ...values },
+          {
+            maintenanceTrigger: maintenanceTrigger.uuid,
+            entity: maintenanceTrigger.entity,
+            ...values,
+          },
           {
             onSettled: () => setSubmitting(false),
             onSuccess: (maintenanceRequest) => onSubmit?.(maintenanceRequest),
