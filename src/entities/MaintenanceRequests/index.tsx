@@ -1,15 +1,12 @@
 import { isEmpty } from "ramda";
 import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { Grid } from "theme-ui";
 
 import { Entity, fetchMaintenanceRequests, maintenanceRequestsKey } from "..";
 
 import MaintenanceRequestRow from "./MaintenanceRequestRow";
-
-import useEvents from "src/hooks/useEvents";
-import { MaintenanceRequest } from "src/maintenance";
 
 interface Props {
   entity: Entity;
@@ -21,25 +18,9 @@ const messages = defineMessages({
 });
 
 const MaintenanceRequests = ({ entity }: Props) => {
-  const queryClient = useQueryClient();
   const { data } = useQuery(maintenanceRequestsKey(entity.uuid), () =>
     fetchMaintenanceRequests(entity)
   );
-
-  useEvents({
-    maintenanceRequest: {
-      onMessage(event: MessageEvent) {
-        const payload: MaintenanceRequest = JSON.parse(event.data);
-        queryClient.setQueryData<Record<string, MaintenanceRequest>>(
-          maintenanceRequestsKey(entity.uuid),
-          (prev) => ({
-            ...prev,
-            [payload.id]: payload,
-          })
-        );
-      },
-    },
-  });
 
   return typeof data === "undefined" || isEmpty(data) ? (
     <FormattedMessage {...messages.noPrendingRequests} />

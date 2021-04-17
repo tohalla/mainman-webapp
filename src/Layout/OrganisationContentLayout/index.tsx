@@ -7,6 +7,7 @@ import DefaultLayout, { Props, DefaultContentWrapper } from "..";
 
 import WithHeading from "./WithHeading";
 
+import MaintenanceUpdates from "src/maintenance/MaintenanceUpdates";
 import {
   Organisation,
   fetchOrganisations,
@@ -88,6 +89,7 @@ const OrganisationContentLayout = ({
     <OrganisationContext.Provider
       value={{ activeOrganisation, setActiveOrganisation }}
     >
+      <MaintenanceUpdates />
       <DefaultLayout
         ContentWrapper={Content}
         layoutProps={{ renderContent: identity, ...layoutProps }}
