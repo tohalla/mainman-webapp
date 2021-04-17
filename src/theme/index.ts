@@ -38,6 +38,9 @@ const theme: Theme = {
       p: {
         mt: 0,
       },
+      "h1, h2, h3, h4, h5, h6": {
+        variant: "text.heading",
+      },
     },
   },
 
@@ -57,6 +60,7 @@ const theme: Theme = {
     },
     heading: {
       fontFamily: "inherit",
+      mt: "default",
     },
   },
 
