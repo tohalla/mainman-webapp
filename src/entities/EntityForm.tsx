@@ -8,13 +8,7 @@ import Input from "../general/Input";
 
 import { formMessages } from "./messages";
 
-import {
-  Entity,
-  createEntity,
-  updateEntity,
-  organisationEntitiesKey,
-  entityKey,
-} from ".";
+import { Entity, createEntity, updateEntity, entitiesKey, entityKey } from ".";
 
 import ReturnButton from "src/general/Button/ReturnButton";
 import messages from "src/general/messages";
@@ -30,14 +24,11 @@ const EntityForm = ({ entity, onSubmit, organisation }: Props) => {
   const queryClient = useQueryClient();
   const { mutate } = useMutation(entity ? updateEntity : createEntity, {
     onSuccess: (data) => {
-      queryClient.setQueryData(entityKey(organisation.id, data.uuid), data);
-      queryClient.setQueryData<Record<string, Entity>>(
-        organisationEntitiesKey(organisation.id),
-        (prev) => ({
-          ...prev,
-          [data.uuid]: { ...prev?.[data.uuid], ...data },
-        })
-      );
+      queryClient.setQueryData(entityKey(data.uuid), data);
+      queryClient.setQueryData<Record<string, Entity>>(entitiesKey, (prev) => ({
+        ...prev,
+        [data.uuid]: { ...prev?.[data.uuid], ...data },
+      }));
     },
   });
 

@@ -13,7 +13,7 @@ import {
   createMaintainer,
   updateMaintainer,
   maintainerKey,
-  organisationMaintainersKey,
+  maintainersKey,
 } from ".";
 
 import ReturnButton from "src/general/Button/ReturnButton";
@@ -34,7 +34,7 @@ const MaintainerForm = ({ maintainer, onSubmit, organisation }: Props) => {
       onSuccess: (data) => {
         queryClient.setQueryData(maintainerKey(data.id), data);
         queryClient.setQueryData<Record<string, Maintainer>>(
-          organisationMaintainersKey(organisation.id),
+          maintainersKey,
           (prev) => ({
             ...prev,
             [data.id]: { ...prev?.[data.id], ...data },
