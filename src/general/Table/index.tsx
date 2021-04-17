@@ -44,6 +44,7 @@ const Table = <T extends object>({
     prepareRow,
   } = useTable<T>(
     {
+      defaultCanSort: true,
       columns,
       data,
       initialState,
