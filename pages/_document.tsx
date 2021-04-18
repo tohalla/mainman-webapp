@@ -51,7 +51,7 @@ export default class Document extends NextDocument<LocaleProps> {
               process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'"
             } ${sha256(
               NextScript.getInlineScriptSource(this.props)
-            ).toString()} 'unsafe-inline' 'self' https://js.stripe.com; font-src 'self' data:; frame-src https://js.stripe.com https://hooks.stripe.com; img-src 'self' data:; default-src 'self' ${apiURL};`}
+            ).toString()} 'unsafe-inline' 'self' https://js.stripe.com; connect-src 'self' ${apiURL} https://api.stripe.com; font-src 'self' data:; frame-src https://js.stripe.com https://hooks.stripe.com; img-src 'self' data:; default-src 'self' ${apiURL};`}
             httpEquiv="Content-Security-Policy"
           />
         </Head>
