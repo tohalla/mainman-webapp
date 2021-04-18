@@ -8,6 +8,7 @@ import { Page } from "pages/_app";
 import { entityKey, fetchEntity } from "src/entities";
 import { layoutProps } from "src/entities/layout";
 import Maintainers from "src/entities/maintainers";
+import MaintenanceEvents from "src/entities/MaintenanceEvents";
 import MaintenanceRequests from "src/entities/MaintenanceRequests";
 import MaintenanceSettings from "src/entities/MaintenanceSettings";
 import MaintenanceTriggers from "src/entities/MaintenanceTriggers";
@@ -25,6 +26,8 @@ const messages = defineMessages({
   maintenanceTitle: "Maintenance",
   // title for pending maintenance requests section
   pendingMaintenanceRequestsTitle: "Pending requests",
+  // title for ongoing maintenance events section
+  ongoingEventsTitle: "Ongoing events",
   // title text for maintenance settings section
   maintenanceSettingsTilte: "Maintenance settings",
   // title text for maintenance triggers section
@@ -69,6 +72,14 @@ const EntityPage: Page = () => {
         }
       >
         <MaintenanceRequests entity={entity} />
+      </CollapsibleSection>
+      <CollapsibleSection
+        initialExpand
+        title={
+          <FormattedMessage {...messages.ongoingEventsTitle} tagName="h3" />
+        }
+      >
+        <MaintenanceEvents entity={entity} />
       </CollapsibleSection>
       <CollapsibleSection
         title={

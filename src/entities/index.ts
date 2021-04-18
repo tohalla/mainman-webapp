@@ -4,8 +4,12 @@ import callApi, { getApiCall } from "../util/api";
 
 import type { Timestamps } from "src/general";
 import type { Maintainer } from "src/maintainers";
-import { MaintenanceRequest, MaintenanceTrigger } from "src/maintenance";
-import { Organisation, organisationKey } from "src/organisation";
+import {
+  MaintenanceEvent,
+  MaintenanceRequest,
+  MaintenanceTrigger,
+} from "src/maintenance";
+import { Organisation } from "src/organisation";
 
 export interface Entity extends Timestamps {
   uuid: string;
@@ -90,6 +94,12 @@ export const fetchMaintenanceRequests = (entity: Entity) =>
     { method: "GET", query: { processed: false } }
   )({ responseType: "json", key: "id" });
 
+export const fetchMaintenanceEvents = (entity: Entity) =>
+  getApiCall<MaintenanceEvent, Record<string, MaintenanceEvent>>(
+    `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/events`,
+    { method: "GET", query: { resolved: false } }
+  )({ responseType: "json", key: "id" });
+
 export const createMaintenanceTrigger = (entity: Entity) =>
   getApiCall<MaintenanceTrigger>(
     `/organisations/${entity.organisation}/entities/${entity.uuid}/maintenance/triggers`,
@@ -120,6 +130,13 @@ export const maintenanceTriggersKey = (entity: string) => [
   entity,
   "maintenance",
   "triggers",
+];
+
+export const maintenanceEventsKey = (entity: string) => [
+  "entities",
+  entity,
+  "maintenance",
+  "events",
 ];
 
 export const addMaintainer = (entity: Entity, maintainer: Maintainer) =>
