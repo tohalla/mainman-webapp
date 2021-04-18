@@ -37,7 +37,7 @@ const EntityPage: Page = () => {
   const { activeOrganisation } = useContext(OrganisationContext);
   const uuid = useParam("entity");
   const { data: entity } = useQuery(
-    entityKey(uuid),
+    entityKey(activeOrganisation?.id, uuid),
     () => fetchEntity(activeOrganisation?.id, uuid),
     { enabled: typeof activeOrganisation !== "undefined" }
   );

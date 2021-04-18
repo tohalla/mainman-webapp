@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 
 import { getApiCall } from "../util/api";
@@ -64,25 +63,24 @@ export const updateMaintainer = ({
     }
   )({ key: "id", responseType: "json" });
 
-export const useMaintainers = (organisation?: Organisation) => {
-  const q = useQuery(
-    maintainersKey,
-    () => organisation && fetchMaintainers(organisation?.id),
+export const useMaintainers = (organisation?: Organisation) =>
+  useQuery(
+    organisationMaintainersKey(organisation?.id),
+    ({ queryKey: [_, organisationId] }) => fetchMaintainers(organisationId),
     { enabled: typeof organisation !== "undefined" }
   );
-  useEffect(() => {
-    void q.refetch();
-  }, [organisation]);
-  return q;
-};
 
 export const maintainerAsString = ({ details, id }: Maintainer) =>
   details?.name ?? details?.email ?? String(id);
 
-export const maintainersKey = "maintainers";
+export const organisationMaintainersKey = (organisation?: number) => [
+  "organisation",
+  organisation,
+  "maintainers",
+];
 
 export const maintainerKey = (maintainer?: number) => [
-  maintainerKey,
+  "maintainers",
   maintainer,
 ];
 

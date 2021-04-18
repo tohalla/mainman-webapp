@@ -22,7 +22,7 @@ const EditEntityPage: Page = () => {
   const { push, query } = useRouter();
   const uuid = getParam("entity", query);
   const { data: entity } = useQuery(
-    entityKey(uuid),
+    entityKey(activeOrganisation?.id, uuid),
     () => fetchEntity(activeOrganisation?.id, uuid),
     { enabled: typeof activeOrganisation !== "undefined" }
   );

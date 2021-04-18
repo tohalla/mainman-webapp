@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { identity } from "ramda";
 import React, { useState, useEffect } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 
 import DefaultLayout, { Props, DefaultContentWrapper } from "..";
 
@@ -46,7 +46,6 @@ const OrganisationContentLayout = ({
   ...props
 }: Partial<Props>) => {
   const { query, asPath, replace, pathname } = useRouter();
-  const queryClient = useQueryClient();
 
   const { data } = useQuery(organisationsKey, fetchOrganisations);
   const [activeOrganisation, setActiveOrganisation] = useState<
@@ -73,8 +72,6 @@ const OrganisationContentLayout = ({
     }
     const organisation = getParam("organisation", query);
     if (activeOrganisation && Number(organisation) !== activeOrganisation.id) {
-      void queryClient.invalidateQueries("entities");
-      void queryClient.invalidateQueries("maintainers");
       void replace(
         { pathname },
         `${asPath.split("?")[0]}${formatQuery({
@@ -89,7 +86,9 @@ const OrganisationContentLayout = ({
     <OrganisationContext.Provider
       value={{ activeOrganisation, setActiveOrganisation }}
     >
-      <MaintenanceUpdates />
+      {activeOrganisation && (
+        <MaintenanceUpdates activeOrganisation={activeOrganisation} />
+      )}
       <DefaultLayout
         ContentWrapper={Content}
         layoutProps={{ renderContent: identity, ...layoutProps }}

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 
 import callApi, { getApiCall } from "../util/api";
@@ -6,7 +5,7 @@ import callApi, { getApiCall } from "../util/api";
 import type { Timestamps } from "src/general";
 import type { Maintainer } from "src/maintainers";
 import { MaintenanceRequest, MaintenanceTrigger } from "src/maintenance";
-import { Organisation } from "src/organisation";
+import { Organisation, organisationKey } from "src/organisation";
 
 export interface Entity extends Timestamps {
   uuid: string;
@@ -59,21 +58,24 @@ export const updateEntity = ({
     }
   )(queryOpts);
 
-export const useEntities = (organisation?: Organisation) => {
-  const q = useQuery(
-    entitiesKey,
-    () => organisation && fetchEntities(organisation?.id),
+export const useEntities = (organisation?: Organisation) =>
+  useQuery(
+    organisationEntitiesKey(organisation?.id),
+    ({ queryKey: [_, organisationId] }) => fetchEntities(organisationId),
     { enabled: typeof organisation !== "undefined" }
   );
-  useEffect(() => {
-    void q.refetch();
-  }, [organisation]);
-  return q;
-};
 
-export const entitiesKey = "entities";
+export const organisationEntitiesKey = (organisation?: number) => [
+  "organisation",
+  organisation,
+  "entities",
+];
 
-export const entityKey = (entity?: string) => [entitiesKey, entity];
+export const entityKey = (organisation?: number, entity?: string) => [
+  ...organisationKey(organisation),
+  "entities",
+  entity,
+];
 
 // maintenance
 
