@@ -72,8 +72,7 @@ export const organisationEntitiesKey = (organisation?: number) => [
 ];
 
 export const entityKey = (organisation?: number, entity?: string) => [
-  ...organisationKey(organisation),
-  "entities",
+  ...organisationEntitiesKey(organisation),
   entity,
 ];
 
