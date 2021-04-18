@@ -87,15 +87,15 @@ const OrganisationContentLayout = ({
       value={{ activeOrganisation, setActiveOrganisation }}
     >
       {activeOrganisation && (
-        <MaintenanceUpdates activeOrganisation={activeOrganisation} />
+        <DefaultLayout
+          ContentWrapper={Content}
+          layoutProps={{ renderContent: identity, ...layoutProps }}
+          {...props}
+        >
+          <MaintenanceUpdates activeOrganisation={activeOrganisation} />
+          {children}
+        </DefaultLayout>
       )}
-      <DefaultLayout
-        ContentWrapper={Content}
-        layoutProps={{ renderContent: identity, ...layoutProps }}
-        {...props}
-      >
-        {children}
-      </DefaultLayout>
     </OrganisationContext.Provider>
   );
 };
