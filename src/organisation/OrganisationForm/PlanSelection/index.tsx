@@ -27,9 +27,16 @@ const PlanCard = ({
   isSelected,
   onClick,
   value: { name, entities, accounts, maintainers, stripePrice },
+  sx,
   ...props
 }: CardProps<Plan>) => (
-  <Card backgroundColor="greyscale.9" onClick={onClick} p={0} {...props}>
+  <Card
+    backgroundColor="greyscale.9"
+    onClick={onClick}
+    p={0}
+    sx={{ "&:hover": { boxShadow: "2", transform: "scale(1.1)" }, ...sx }}
+    {...props}
+  >
     <Flex
       color="textInvert"
       py={3}

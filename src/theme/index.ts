@@ -64,7 +64,11 @@ const theme: Theme = {
   },
 
   shadows: {
-    ...["0 2px 4px rgba(0, 0, 0, .1)", "0 3px 6px rgba(0, 0, 0, .1)"],
+    ...[
+      "0 2px 4px rgba(0, 0, 0, .1)",
+      "0 3px 6px rgba(0, 0, 0, .1)",
+      "0 5px 10px rgba(0, 0, 0, .2)",
+    ],
     outline: [
       "inset 0 0 1px rgba(0, 0, 0, 1)",
       "inset 0 0 1px rgba(0, 0, 0, .7)",
