@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 
 import callApi, { getApiCall } from "../util/api";
@@ -62,23 +63,21 @@ export const updateEntity = ({
     }
   )(queryOpts);
 
-export const useEntities = (organisation?: Organisation) =>
-  useQuery(
-    organisationEntitiesKey(organisation?.id),
-    ({ queryKey: [_, organisationId] }) => fetchEntities(organisationId),
+export const useEntities = (organisation?: Organisation) => {
+  const q = useQuery(
+    entitiesKey,
+    () => organisation && fetchEntities(organisation?.id),
     { enabled: typeof organisation !== "undefined" }
   );
+  useEffect(() => {
+    void q.refetch();
+  }, [organisation]);
+  return q;
+};
 
-export const organisationEntitiesKey = (organisation?: number) => [
-  "organisation",
-  organisation,
-  "entities",
-];
+export const entitiesKey = "entities";
 
-export const entityKey = (organisation?: number, entity?: string) => [
-  ...organisationEntitiesKey(organisation),
-  entity,
-];
+export const entityKey = (entity?: string) => [entitiesKey, entity];
 
 // maintenance
 
@@ -119,22 +118,19 @@ export const deleteMaintenanceTrigger = ({
   );
 
 export const maintenanceRequestsKey = (entity: string) => [
-  "entities",
-  entity,
+  ...entityKey(entity),
   "maintenance",
   "requests",
 ];
 
 export const maintenanceTriggersKey = (entity: string) => [
-  "entities",
-  entity,
+  ...entityKey(entity),
   "maintenance",
   "triggers",
 ];
 
 export const maintenanceEventsKey = (entity: string) => [
-  "entities",
-  entity,
+  ...entityKey(entity),
   "maintenance",
   "events",
 ];

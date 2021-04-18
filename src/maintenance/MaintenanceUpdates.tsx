@@ -1,28 +1,21 @@
 import { useQueryClient } from "react-query";
 
-import { maintenanceRequestsKey, organisationEntitiesKey } from "src/entities";
+import { entitiesKey, maintenanceRequestsKey } from "src/entities";
 import useEvents from "src/hooks/useEvents";
 import {
   MaintenanceEvent,
   maintenanceEventsKey,
   MaintenanceRequest,
 } from "src/maintenance";
-import { Organisation } from "src/organisation";
 
-interface Props {
-  activeOrganisation: Organisation;
-}
-
-const MaintenanceUpdates = ({ activeOrganisation }: Props) => {
+const MaintenanceUpdates = () => {
   const queryClient = useQueryClient();
 
   useEvents({
     maintenanceRequest: {
       onMessage(event: MessageEvent) {
         const payload: MaintenanceRequest = JSON.parse(event.data);
-        void queryClient.invalidateQueries(
-          organisationEntitiesKey(activeOrganisation.id)
-        );
+        void queryClient.invalidateQueries(entitiesKey);
         queryClient.setQueryData<Record<string, MaintenanceRequest>>(
           maintenanceRequestsKey(payload.entity),
           (prev) => ({
@@ -35,9 +28,7 @@ const MaintenanceUpdates = ({ activeOrganisation }: Props) => {
     maintenanceEvent: {
       onMessage(event: MessageEvent) {
         const payload: MaintenanceEvent = JSON.parse(event.data);
-        void queryClient.invalidateQueries(
-          organisationEntitiesKey(activeOrganisation.id)
-        );
+        void queryClient.invalidateQueries(entitiesKey);
         queryClient.setQueryData<Record<string, MaintenanceEvent>>(
           maintenanceEventsKey,
           (prev) => ({
