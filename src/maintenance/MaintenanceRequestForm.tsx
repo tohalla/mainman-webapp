@@ -77,6 +77,4 @@ const MaintenanceRequestForm = ({
   );
 };
 
-MaintenanceRequestForm.displayName = "EntityForm";
-
 export default MaintenanceRequestForm;
