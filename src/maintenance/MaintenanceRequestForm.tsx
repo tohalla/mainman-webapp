@@ -41,6 +41,7 @@ const MaintenanceRequestForm = ({
           [data.id]: data,
         })
       );
+      onSubmit?.(data);
     },
   });
 
@@ -58,7 +59,6 @@ const MaintenanceRequestForm = ({
           },
           {
             onSettled: () => setSubmitting(false),
-            onSuccess: (maintenanceRequest) => onSubmit?.(maintenanceRequest),
           }
         )
       }

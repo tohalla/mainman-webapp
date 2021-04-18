@@ -27,6 +27,16 @@ export interface MaintenanceEvent {
   entity: string;
 }
 
+export interface MaintenanceTask {
+  uuid: string;
+  createdAt: string;
+  acceptedAt?: string;
+  resolvedAt?: string;
+  description?: string;
+  maintenanceRequest?: number;
+  entity: string;
+}
+
 export const fetchMaintenanceTrigger = (uuid: string) =>
   getApiCall<MaintenanceTrigger>(`/maintenance/triggers/${uuid}`)({
     key: "uuid",
@@ -61,6 +71,17 @@ export const maintenanceRequestTemplateKey = (uuid: string) => [
   "template",
 ];
 
+export const fetchMaintenanceTaskTemplate = (uuid: string) =>
+  getApiCall(`/maintenance/tasks/${uuid}/template`)({
+    responseType: "text",
+  });
+
+export const maintenanceTaskTemplateKey = (uuid: string) => [
+  ...maintenancTasksKey,
+  uuid,
+  "template",
+];
+
 export const createMaintenanceEvent = (
   entity: Entity,
   payload: Creatable<MaintenanceEvent>
@@ -71,3 +92,21 @@ export const createMaintenanceEvent = (
   )({ key: "id", responseType: "json" });
 
 export const maintenanceEventsKey = ["maintenance", "events"];
+
+export const submitMaintenanceReport = (task: MaintenanceTask) =>
+  getApiCall<MaintenanceTask>(`/maintenance/tasks/${task.uuid}/resolve`, {
+    method: "POST",
+  })({ key: "uuid", responseType: "json" });
+
+export const fetchMaintenanceTask = (uuid: string) =>
+  getApiCall<MaintenanceTask>(`/maintenance/tasks/${uuid}`)({
+    key: "uuid",
+    responseType: "json",
+  });
+
+export const maintenancTasksKey = ["maintenance", "tasks"];
+export const maintenancTaskKey = (uuid: string) => [
+  "maintenance",
+  "tasks",
+  uuid,
+];
