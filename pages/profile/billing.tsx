@@ -1,16 +1,8 @@
-import { Elements } from "@stripe/react-stripe-js";
-import { isEmpty } from "ramda";
-import React, { useState } from "react";
+import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
-import { useQuery } from "react-query";
 
-import { fetchPaymentMethods } from "src/billing";
 import PaymentMethods from "src/billing/PaymentMethods";
-import Button from "src/general/Button";
-import generalMessages from "src/general/messages";
 import { layoutProps } from "src/profile/layout";
-import stripe from "src/stripe";
-import CardForm from "src/stripe/CardForm";
 
 const messages = defineMessages({
   // title text for Billing
@@ -20,32 +12,7 @@ const messages = defineMessages({
 });
 
 const BillingPage = () => {
-  const [showCardForm, setShowCardForm] = useState(false);
-  const { data: paymentMethods } = useQuery(
-    "paymentMethods",
-    fetchPaymentMethods
-  );
-
-  return (
-    <Elements stripe={stripe}>
-      {paymentMethods && !isEmpty(paymentMethods) && (
-        <PaymentMethods mb="default" paymentMethods={paymentMethods} />
-      )}
-      {showCardForm ? (
-        <CardForm
-          secondaryAction={
-            <Button onClick={() => setShowCardForm(false)} variant="plain">
-              <FormattedMessage {...generalMessages.cancel} />
-            </Button>
-          }
-        />
-      ) : (
-        <Button onClick={() => setShowCardForm(true)}>
-          <FormattedMessage {...messages.addCard} />
-        </Button>
-      )}
-    </Elements>
-  );
+  return <PaymentMethods />;
 };
 
 BillingPage.displayName = "BillingPage";

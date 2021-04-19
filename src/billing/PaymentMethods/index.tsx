@@ -1,28 +1,62 @@
-import { PaymentMethod } from "@stripe/stripe-js";
-import React from "react";
-import { Grid, GridProps } from "theme-ui";
+import { Elements } from "@stripe/react-stripe-js";
+import { isEmpty } from "ramda";
+import React, { useState } from "react";
+import { defineMessages, FormattedMessage } from "react-intl";
+import { useQuery } from "react-query";
+import { FlexProps, Grid, Flex } from "theme-ui";
 
+import { fetchPaymentMethods } from "src/billing";
 import Card from "src/billing/PaymentMethods/Card";
+import Button from "src/general/Button";
+import generalMessages from "src/general/messages";
+import stripe from "src/stripe";
+import CardForm from "src/stripe/CardForm";
 
-interface Props extends Omit<GridProps, "ref"> {
-  paymentMethods: Record<string, PaymentMethod>;
-}
+interface Props extends FlexProps {}
 
-const PaymentMethods = ({ paymentMethods, sx, ...props }: Props) => {
+const messages = defineMessages({
+  // text for toggling the card form
+  addCard: "Add a new card",
+});
+
+const PaymentMethods = (props: Props) => {
+  const [showCardForm, setShowCardForm] = useState(false);
+  const { data: paymentMethods } = useQuery(
+    "paymentMethods",
+    fetchPaymentMethods
+  );
   return (
-    <Grid
-      sx={{
-        gridTemplateColumns: "repeat(auto-fill, minmax(auto, 192px))",
-        columnGap: 4,
-        alignSelf: "stretch",
-        ...sx,
-      }}
-      {...props}
-    >
-      {Object.values(paymentMethods).map(
-        ({ id, card }) => card && <Card key={id} card={card} />
-      )}
-    </Grid>
+    <Flex {...props}>
+      <Elements stripe={stripe}>
+        {paymentMethods && !isEmpty(paymentMethods) && (
+          <Grid
+            sx={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(auto, 192px))",
+              columnGap: 4,
+              alignSelf: "stretch",
+              mb: "default",
+            }}
+          >
+            {Object.values(paymentMethods).map(
+              ({ id, card }) => card && <Card key={id} card={card} />
+            )}
+          </Grid>
+        )}
+        {showCardForm ? (
+          <CardForm
+            secondaryAction={
+              <Button onClick={() => setShowCardForm(false)} variant="plain">
+                <FormattedMessage {...generalMessages.cancel} />
+              </Button>
+            }
+          />
+        ) : (
+          <Button onClick={() => setShowCardForm(true)}>
+            <FormattedMessage {...messages.addCard} />
+          </Button>
+        )}
+      </Elements>
+    </Flex>
   );
 };
 
