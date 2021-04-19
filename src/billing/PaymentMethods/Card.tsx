@@ -10,7 +10,7 @@ import {
 import { Box, Flex, Card as ThemeUICard } from "theme-ui";
 
 interface Props {
-  card: PaymentMethod.Card;
+  card: Camelize<PaymentMethod.Card>;
 }
 
 const cardIcons: Record<string, JSX.Element> = {
@@ -27,7 +27,7 @@ const Card = ({ card }: Props) => {
         **** **** **** {card.last4}
       </Box>
       <Flex sx={{ justifyContent: "space-between" }}>
-        {`${card.exp_month}/${card.exp_year}`}
+        {`${card.expMonth}/${card.expYear}`}
         <Box color="greyscale.3">
           {cardIcons[card.brand] ?? <FaCreditCard />}
         </Box>

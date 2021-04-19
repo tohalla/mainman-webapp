@@ -3,7 +3,7 @@ import { PaymentMethod } from "@stripe/stripe-js";
 import { getApiCall } from "src/util/api";
 
 export const fetchPaymentMethods = () =>
-  getApiCall<PaymentMethod, Record<string, PaymentMethod>>(
+  getApiCall<Camelize<PaymentMethod>, Record<string, Camelize<PaymentMethod>>>(
     `/billing/stripe/payment-methods`
   )({
     responseType: "json",
@@ -11,7 +11,7 @@ export const fetchPaymentMethods = () =>
   });
 
 export const createPaymentMethod = (payload: PaymentMethod) =>
-  getApiCall<PaymentMethod>("/billing/stripe/payment-methods", {
+  getApiCall<Camelize<PaymentMethod>>("/billing/stripe/payment-methods", {
     method: "POST",
     body: payload,
   })({ key: "id", responseType: "json" });
