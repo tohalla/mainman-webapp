@@ -3,7 +3,7 @@ import { isEmpty } from "ramda";
 import React, { useState } from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useQuery } from "react-query";
-import { FlexProps, Grid, Flex } from "theme-ui";
+import { BoxProps, Grid, Box } from "theme-ui";
 
 import { fetchPaymentMethods } from "src/billing";
 import Card from "src/billing/PaymentMethods/Card";
@@ -12,7 +12,7 @@ import generalMessages from "src/general/messages";
 import stripe from "src/stripe";
 import CardForm from "src/stripe/CardForm";
 
-interface Props extends FlexProps {}
+interface Props extends BoxProps {}
 
 const messages = defineMessages({
   // text for toggling the card form
@@ -26,7 +26,7 @@ const PaymentMethods = (props: Props) => {
     fetchPaymentMethods
   );
   return (
-    <Flex {...props}>
+    <Box {...props}>
       <Elements stripe={stripe}>
         {paymentMethods && !isEmpty(paymentMethods) && (
           <Grid
@@ -56,7 +56,7 @@ const PaymentMethods = (props: Props) => {
           </Button>
         )}
       </Elements>
-    </Flex>
+    </Box>
   );
 };
 
