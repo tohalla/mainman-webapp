@@ -34,7 +34,7 @@ const PaymentMethods = (props: Props) => {
               gridTemplateColumns: "repeat(auto-fill, minmax(auto, 192px))",
               columnGap: 4,
               alignSelf: "stretch",
-              mb: "default",
+              mb: 5,
             }}
           >
             {Object.values(paymentMethods).map(
@@ -49,9 +49,10 @@ const PaymentMethods = (props: Props) => {
                 <FormattedMessage {...generalMessages.cancel} />
               </Button>
             }
+            submitLabel={<FormattedMessage {...messages.addCard} />}
           />
         ) : (
-          <Button onClick={() => setShowCardForm(true)}>
+          <Button onClick={() => setShowCardForm(true)} variant="plain">
             <FormattedMessage {...messages.addCard} />
           </Button>
         )}
