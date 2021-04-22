@@ -11,6 +11,7 @@ export interface FormProps extends FlexProps {
   submitLabel?: ReactNode;
   secondaryAction?: ReactNode;
   inline?: boolean;
+  displayActions?: boolean;
 }
 
 const Form = forwardRef<HTMLDivElement, FormProps>(
@@ -22,6 +23,7 @@ const Form = forwardRef<HTMLDivElement, FormProps>(
       submitLabel,
       inline,
       sx,
+      displayActions,
       ...rest
     }: FormProps,
     ref: Ref<HTMLDivElement>
@@ -52,25 +54,27 @@ const Form = forwardRef<HTMLDivElement, FormProps>(
         ref={ref}
       >
         {children}
-        <Flex
-          ml={inline ? 4 : 0}
-          sx={{
-            flexShrink: 0,
-            justifyContent: ["center", "flex-end"],
-            alignItems: "center",
-            flexDirection: ["column-reverse", "row"],
-          }}
-        >
-          {secondaryAction}
-          <Button
-            loading={isSubmitting}
-            mb={inline ? 0 : [4, 0]}
-            ml={inline ? 0 : [0, 5]}
-            type="submit"
+        {displayActions && (
+          <Flex
+            ml={inline ? 4 : 0}
+            sx={{
+              flexShrink: 0,
+              justifyContent: ["center", "flex-end"],
+              alignItems: "center",
+              flexDirection: ["column-reverse", "row"],
+            }}
           >
-            {submitLabel}
-          </Button>
-        </Flex>
+            {secondaryAction}
+            <Button
+              loading={isSubmitting}
+              mb={inline ? 0 : [4, 0]}
+              ml={inline ? 0 : [0, 5]}
+              type="submit"
+            >
+              {submitLabel}
+            </Button>
+          </Flex>
+        )}
       </Flex>
     );
   }
