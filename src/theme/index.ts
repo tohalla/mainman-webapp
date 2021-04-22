@@ -50,6 +50,7 @@ const theme: Theme = {
   sizes,
   radii: {
     default: 0,
+    ...["0px", "2px", "4px", "8px"],
   },
 
   colors,
@@ -86,6 +87,16 @@ const theme: Theme = {
   borderWidths: ["1px"],
 
   links: {},
+
+  badges: {
+    tag: {
+      backgroundColor: "indicator.success",
+      color: "textInvert",
+      px: 2,
+      py: 1,
+      fontSize: 1,
+    },
+  },
 
   cards: {
     primary: {
