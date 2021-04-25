@@ -8,18 +8,20 @@ export interface CardProps<T> extends ThemeUICardPRops {
   value: T;
 }
 
-interface Props<T> extends GridProps {
+interface Props<T> extends Omit<GridProps, "onChange"> {
   Card: FC<CardProps<T>>;
   name: string;
   options?: T[];
   getOptionIdentifier(option: T): string;
+  onChange?(option: T): void;
 }
 
-const CardOptions = <T extends { name: string }>({
+const CardOptions = <T extends unknown>({
   Card,
   name,
   options,
   getOptionIdentifier,
+  onChange,
   sx,
   ...props
 }: Props<T>) => {
@@ -38,7 +40,10 @@ const CardOptions = <T extends { name: string }>({
         <Card
           key={getOptionIdentifier(option)}
           isSelected={option === meta.value}
-          onClick={() => setValue(option)}
+          onClick={() => {
+            setValue(option);
+            onChange?.(option);
+          }}
           onKeyPress={({ key }) => {
             if (key === "Enter") {
               setValue(option);
