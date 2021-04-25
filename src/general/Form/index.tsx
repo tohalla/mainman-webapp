@@ -11,7 +11,7 @@ export interface FormProps extends FlexProps {
   submitLabel?: ReactNode;
   secondaryAction?: ReactNode;
   inline?: boolean;
-  displayActions?: boolean;
+  displayActions: boolean;
 }
 
 const Form = forwardRef<HTMLDivElement, FormProps>(
@@ -23,7 +23,7 @@ const Form = forwardRef<HTMLDivElement, FormProps>(
       submitLabel,
       inline,
       sx,
-      displayActions,
+      displayActions = true,
       ...rest
     }: FormProps,
     ref: Ref<HTMLDivElement>
