@@ -4,7 +4,7 @@ import React from "react";
 import { defineMessages, FormattedMessage } from "react-intl";
 import { useMutation, useQueryClient } from "react-query";
 
-import { createPaymentMethod } from "src/billing";
+import { createPaymentMethod, PaymentMethod, stripeKey } from "src/billing";
 import Form, { FormProps } from "src/general/Form";
 import Input from "src/general/Input";
 
@@ -13,12 +13,19 @@ const messages = defineMessages({
   name: "Name in the card",
 });
 
-const CardForm = (props: FormProps) => {
+interface Props extends FormProps {
+  onPaymentMethodCreated?(paymentMethod: PaymentMethod): void;
+}
+
+const CardForm = ({ onPaymentMethodCreated, ...props }: Props) => {
   const queryClient = useQueryClient();
   const elements = useElements();
   const stripe = useStripe();
   const { mutate } = useMutation(createPaymentMethod, {
-    onSuccess: () => queryClient.invalidateQueries("paymentMethods"),
+    onSuccess: (paymentMethod) => {
+      onPaymentMethodCreated?.(paymentMethod);
+      return queryClient.invalidateQueries(stripeKey);
+    },
   });
 
   return (

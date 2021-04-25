@@ -1,4 +1,5 @@
 import { Formik, Field } from "formik";
+import { isEmpty } from "ramda";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { useMutation, useQuery, useQueryClient } from "react-query";
@@ -14,8 +15,10 @@ import {
 } from "..";
 import { formMessages } from "../messages";
 
+import NoPaymentMethod from "./NoPaymentMethod";
 import PlanSelection from "./PlanSelection";
 
+import { fetchPaymentMethods, paymentMethodsKey } from "src/billing";
 import ReturnButton from "src/general/Button/ReturnButton";
 import Form from "src/general/Form";
 import Input from "src/general/Input";
@@ -28,6 +31,10 @@ interface Props {
 
 const OrganisationForm = ({ organisation, onSubmit }: Props) => {
   const queryClient = useQueryClient();
+  const { data: paymentMethods } = useQuery(
+    paymentMethodsKey,
+    fetchPaymentMethods
+  );
   const { mutate } = useMutation(
     organisation ? updateOrganisation : createOrganisation,
     {
@@ -44,6 +51,11 @@ const OrganisationForm = ({ organisation, onSubmit }: Props) => {
     }
   );
   const { data: plansData } = useQuery(plansKey, fetchPlans);
+
+  if (isEmpty(paymentMethods)) {
+    return <NoPaymentMethod />;
+  }
+
   const plans = Object.values(plansData ?? {});
 
   return (
