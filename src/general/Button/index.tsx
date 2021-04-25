@@ -6,7 +6,7 @@ interface Props extends ButtonProps {
   loading?: boolean;
 }
 
-const Button = ({ loading, children, ...props }: Props) => (
+const Button = ({ loading, children, onClick, ...props }: Props) => (
   <ThemeUIButton
     {...props}
     // NOTE: need to cast due to lacking type support
@@ -14,6 +14,10 @@ const Button = ({ loading, children, ...props }: Props) => (
       typeof loading === "boolean" ? ((styles as unknown) as string) : undefined
     }
     disabled={loading}
+    onClick={(event) => {
+      event.stopPropagation();
+      onClick?.(event);
+    }}
   >
     {loading && <div className="indicator" />}
     {children}
